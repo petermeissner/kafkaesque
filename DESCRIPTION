@@ -42,7 +42,7 @@ Maintainer: Peter Meissner <retep.meissner@gmail.com>
 SystemRequirements: Java
 Description: Contents of 'Kafka-clients' & supporting Java archives (<https://github.com/apache/kafka>).
     Version number reflects the version number of the included 'JAR' file.
-License: Apache License (>= 2.0)
+License: Apache License (>= 2.0) | file LICENSE
 Encoding: UTF-8
 Suggests:
     covr
