@@ -1,3 +1,3 @@
 library(kafkaesquejars)
 
-kafkaesquejars::.test_method_call()
+kafkaesquejars::test_method_call()
