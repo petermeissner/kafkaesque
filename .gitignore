@@ -16,7 +16,6 @@ src/*.dll
 ##############################
 .mtj.tmp/
 *.class
-*.jar
 *.war
 *.ear
 *.nar
