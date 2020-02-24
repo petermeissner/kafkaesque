@@ -12,6 +12,7 @@
 #'
 test_method_call <-
   function(){
+    message("JAVA_HOME: ", Sys.getenv("JAVA_HOME"))
     tmp <- rJava::.jnew("kafkaesquejars.App")
     tmp$test_method()
   }
