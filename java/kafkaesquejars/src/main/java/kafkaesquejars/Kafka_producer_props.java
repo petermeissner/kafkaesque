@@ -19,7 +19,9 @@ public class Kafka_producer_props extends Kafka_props {
   //  * 
   //  */
   public void set_defaults() {
-    // this.set_prop("", "");
+    this.set_prop("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    this.set_prop("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+    this.set_prop("bootstrap.servers", "localhost:9092");
     // this.set_prop("", "");
     // this.set_prop("", "");
     // this.set_prop("", "");
