@@ -159,11 +159,66 @@ cat("\n```\n")
 ```
 
 
-<!-- Latest development version from Github: -->
+Latest development version from Github:
 
-<!-- ```{r, eval=FALSE} -->
-<!-- devtools::install_github("user_name/repo_name") -->
-<!-- ``` -->
+
+```{r, results='asis', echo=FALSE}
+cat("```r\n")
+cat("devtools::install_github(\"petermeissner/",package_name,"\")", sep = "")
+cat("\n```\n")
+```
+
+
+# Content 
+
+## Not much R to see
+
+```{r}
+library(kafkaesquejars)
+ls("package:kafkaesquejars")
+```
+
+
+## Its all about the Java
+
+
+### Kafka properties objects
+```{r}
+
+props <- rJava::.jnew("kafkaesquejars.Kafka_props")
+
+props$set_prop("my_key", "my_value")
+props$set_prop("my_keynote", "my_valuables")
+
+props$to_json() %>% 
+  cat()
+
+props$from_json("{'a':'b', 'c':'d'}")
+
+props$to_json() %>% 
+  cat()
+
+props$to_json_pretty() %>% 
+  cat()
+```
+
+
+### Kafka properties objects specific to producers
+
+```{r}
+prod_props <- rJava::.jnew("kafkaesquejars.Kafka_producer_props")
+
+prod_props$to_json_pretty() %>% 
+  cat()
+```
+
+
+
+### Kafka producer object
+```{r}
+prod <- rJava::.jnew("kafkaesquejars.Kafka_producer")
+cat(names(prod), sep="\n")
+```
 
 
 

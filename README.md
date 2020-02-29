@@ -24,11 +24,11 @@ status](https://ci.appveyor.com/api/projects/status/github/petermeissner/kafkaes
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesquejars">
 <img src="http://cranlogs.r-pkg.org/badges/kafkaesquejars">
 
-*lines of R code:* 13, *lines of test code:* 4
+*lines of R code:* 16, *lines of test code:* 5
 
 **Version**
 
-2.3.1 ( 2020-01-26 22:13:40 )
+2.3.1 ( 2020-02-29 12:09:48 )
 
 **Description**
 
@@ -38,10 +38,11 @@ number of the included ‘JAR’ file.
 
 **License**
 
-Apache License (\>= 2.0) <br>Peter Meissner \[aut, cre\], Marius Pirv
-\[aut\], virtual7 \[cph\], Apache Software Foundation \[cph\] (Kafka),
-Facebook \[cph\] (For Zstandard software, BSD License), Luben Karavelov
-\[cph\] (Zstd-jni: JNI bindings to Zstd Library, BSD 2-Clause License)
+Apache License (\>= 2.0) | file LICENSE <br>Peter Meissner \[aut, cre\],
+Marius Pirv \[aut\], virtual7 \[cph\], Apache Software Foundation
+\[cph\] (Kafka), Facebook \[cph\] (For Zstandard software, BSD License),
+Luben Karavelov \[cph\] (Zstd-jni: JNI bindings to Zstd Library, BSD
+2-Clause License)
 
 **Citation**
 
@@ -74,10 +75,99 @@ Stable version from CRAN:
 install.packages("kafkaesquejars")
 ```
 
-<!-- Latest development version from Github: -->
+Latest development version from Github:
 
-<!-- ```{r, eval=FALSE} -->
+``` r
+devtools::install_github("petermeissner/kafkaesquejars")
+```
 
-<!-- devtools::install_github("user_name/repo_name") -->
+# Content
 
-<!-- ``` -->
+## Not much to see
+
+``` r
+library(kafkaesquejars)
+```
+
+    ## Loading required package: rJava
+
+``` r
+ls("package:kafkaesquejars")
+```
+
+    ## [1] "%>%"              "test_method_call"
+
+## Its all about the Java
+
+### Kafka properties objects
+
+``` r
+props <- rJava::.jnew("kafkaesquejars.Kafka_props")
+
+props$set_prop("my_key", "my_value")
+props$set_prop("my_keynote", "my_valuables")
+
+props$to_json() %>% 
+  cat()
+```
+
+    ## {"my_keynote":"my_valuables","my_key":"my_value"}
+
+``` r
+props$from_json("{'a':'b', 'c':'d'}")
+
+props$to_json() %>% 
+  cat()
+```
+
+    ## {"my_keynote":"my_valuables","a":"b","c":"d","my_key":"my_value"}
+
+``` r
+props$to_json_pretty() %>% 
+  cat()
+```
+
+    ## {
+    ##   "my_keynote": "my_valuables",
+    ##   "a": "b",
+    ##   "c": "d",
+    ##   "my_key": "my_value"
+    ## }
+
+### Kafka properties objects specific to producers
+
+``` r
+prod_props <- rJava::.jnew("kafkaesquejars.Kafka_producer_props")
+
+prod_props$to_json_pretty() %>% 
+  cat()
+```
+
+    ## {
+    ##   "value.serializer": "org.apache.kafka.common.serialization.StringSerializer",
+    ##   "bootstrap.servers": "localhost:9092",
+    ##   "key.serializer": "org.apache.kafka.common.serialization.StringSerializer"
+    ## }
+
+### Kafka producer object
+
+``` r
+prod <- rJava::.jnew("kafkaesquejars.Kafka_producer")
+cat(names(prod), sep="\n")
+```
+
+    ## props
+    ## prod
+    ## main(
+    ## send_message(
+    ## producer_close()
+    ## producer_start()
+    ## wait(
+    ## wait(
+    ## wait()
+    ## equals(
+    ## toString()
+    ## hashCode()
+    ## getClass()
+    ## notify()
+    ## notifyAll()
