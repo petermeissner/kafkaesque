@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 options("width"=110)
 
 # get package info
-tmp <- packageDescription( "kafkaesquejars" )
+tmp <- packageDescription( "kafkaesque" )
 
 package_name <- tmp$Package
 
@@ -171,53 +171,9 @@ cat("\n```\n")
 
 # Content 
 
-## Not much R to see
-
 ```{r}
-library(kafkaesquejars)
-ls("package:kafkaesquejars")
-```
-
-
-## Its all about the Java
-
-
-### Kafka properties objects
-```{r}
-
-props <- rJava::.jnew("kafkaesquejars.Kafka_props")
-
-props$set_prop("my_key", "my_value")
-props$set_prop("my_keynote", "my_valuables")
-
-props$to_json() %>% 
-  cat()
-
-props$from_json("{'a':'b', 'c':'d'}")
-
-props$to_json() %>% 
-  cat()
-
-props$to_json_pretty() %>% 
-  cat()
-```
-
-
-### Kafka properties objects specific to producers
-
-```{r}
-prod_props <- rJava::.jnew("kafkaesquejars.Kafka_producer_props")
-
-prod_props$to_json_pretty() %>% 
-  cat()
-```
-
-
-
-### Kafka producer object
-```{r}
-prod <- rJava::.jnew("kafkaesquejars.Kafka_producer")
-cat(names(prod), sep="\n")
+library(kafkaesque)
+ls("package:kafkaesque")
 ```
 
 

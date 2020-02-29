@@ -1,8 +1,8 @@
-Package: kafkaesquejars
+Package: kafkaesque
 Type: Package
-Title: Java Jars for the Package 'kafkaesque'
-Version: 2.3.1
-Date: 2020-02-22
+Title: Kafka R Bindings
+Version: 0.1.0
+Date: 2020-02-29
 Authors@R: c(
     person( 
       given  = "Peter",  
@@ -20,33 +20,21 @@ Authors@R: c(
       family = "virtual7",                   
       role   = c("cph"),        
       email  = "info@virtual7.de"
-    ),
-    person(                   
-      family  = "Apache Software Foundation", 
-      role    = "cph", 
-      comment = "Kafka"
-    ),
-    person(                   
-      family  = "Facebook",                   
-      role    = "cph", 
-      comment = "For Zstandard software, BSD License"
-    ),
-    person( 
-      given   = "Luben",  
-      family  = "Karavelov",                  
-      role    = "cph", 
-      comment = "Zstd-jni: JNI bindings to Zstd Library,  BSD 2-Clause License"
     )
   )
 Maintainer: Peter Meissner <retep.meissner@gmail.com>
 SystemRequirements: Java
-Description: Contents of 'Kafka-clients' & supporting Java archives (<https://github.com/apache/kafka>).
-    Version number reflects the version number of the included 'JAR' file.
-License: Apache License (>= 2.0) | file LICENSE
+Description: Provides R bindings via 'rJava' for Kafka a big data technology. 
+  Kafka is a event log data base to which messages can be published or read 
+  from topics. It is distributed, highly scalable, provides persistent event storage 
+  and is designed for high throughput.
 Encoding: UTF-8
 Suggests:
     covr
+Imports:
+    kafkaesquejars (>= 2.3.1-0)
 Depends:
     R (>= 3.2.0),
     rJava
 RoxygenNote: 7.0.2
+License: GPL-3
