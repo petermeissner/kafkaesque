@@ -1,5 +1,7 @@
 package kafkaesque;
 
+import org.apache.kafka.clients.producer.*;
+
 
 /**
  * Class for managing Kafka  Properties
@@ -22,6 +24,7 @@ public class Kafka_producer_props extends Kafka_props {
     this.set_prop("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     this.set_prop("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     this.set_prop("bootstrap.servers", "localhost:9092");
+    this.set_prop("client.id", "kafkaesque_producer");
     // this.set_prop("", "");
     // this.set_prop("", "");
     // this.set_prop("", "");
@@ -47,15 +50,13 @@ public class Kafka_producer_props extends Kafka_props {
    * 
    * @param use_defaults [Boolean] Set default values or not?
    */
-  Kafka_producer_props(Boolean use_defaults) {
-    if ( use_defaults ){
+  Kafka_producer_props(final Boolean use_defaults) {
+    if (use_defaults) {
       this.set_defaults();
     } else {
       // do nothing
     }
   }
-
-
 
   /**
    * Example usage
