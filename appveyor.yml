@@ -34,9 +34,11 @@ environment:
 
 # Adapt as necessary starting from here
 
+r_github_packages: petermeissner/kafkaesquejars
+
 build_script:
-  - travis-tool.sh install_deps
   - travis-tool.sh install_github petermeissner/kafkaesquejars
+  - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests

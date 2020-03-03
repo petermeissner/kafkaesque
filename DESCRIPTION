@@ -30,7 +30,8 @@ Description: Provides R bindings via 'rJava' for Kafka a big data technology.
   and is designed for high throughput.
 Encoding: UTF-8
 Suggests:
-    covr
+    covr,
+    testthat
 Imports:
     kafkaesquejars (>= 2.3.1-0)
 Depends:
