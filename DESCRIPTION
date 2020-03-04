@@ -36,6 +36,7 @@ Imports:
     kafkaesquejars (>= 2.3.1-0)
 Depends:
     R (>= 3.2.0),
-    rJava
+    rJava,
+    kafkaesquejars
 RoxygenNote: 7.0.2
 License: GPL-3

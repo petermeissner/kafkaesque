@@ -2,7 +2,7 @@ Version: 1.0
 
 RestoreWorkspace: Default
 SaveWorkspace: Default
-AlwaysSaveHistory: Default
+AlwaysSaveHistory: Yes
 
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
@@ -20,3 +20,5 @@ PackageInstallArgs: --no-multiarch --with-keep.source
 PackageBuildArgs: --resave-data
 PackageCheckArgs: --no-multiarch
 PackageRoxygenize: rd,collate,namespace
+
+QuitChildProcessesOnExit: Yes
