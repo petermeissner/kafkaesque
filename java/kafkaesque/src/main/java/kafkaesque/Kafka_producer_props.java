@@ -1,7 +1,5 @@
 package kafkaesque;
 
-import org.apache.kafka.clients.producer.*;
-
 
 /**
  * Class for managing Kafka  Properties

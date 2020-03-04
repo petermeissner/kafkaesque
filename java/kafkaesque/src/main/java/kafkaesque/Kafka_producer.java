@@ -29,15 +29,15 @@ public class Kafka_producer {
      * 
      * @return Kafka Producer Object
      */
-    public void producer_start() {
-      this.producer_close();
+    public void start() {
+      this.end();
       this.prod = new KafkaProducer<String, String>(this.props.props());
     }
 
     /**
      * Close kafka producer
      */
-    public void producer_close(){
+    public void end(){
       if ( this.prod != null ){
         this.prod.close();
       }
@@ -52,12 +52,12 @@ public class Kafka_producer {
     public static void main(final String... args) throws Exception {
       System.out.println("-----------------------------------------------------");
       final Kafka_producer prod = new Kafka_producer();
-      prod.producer_start();
+      prod.start();
       prod.send_message("test", "a");
       prod.send_message("test", "b");
       prod.send_message("test", "c");
       prod.send_message("test", "d");
-      prod.producer_close();
+      prod.end();
       System.out.println("-----------------------------------------------------");
     }
 

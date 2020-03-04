@@ -2,7 +2,8 @@ package kafkaesque;
 
 import java.util.Properties;
 import java.util.*;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * Class for managing Kafka  Properties
@@ -31,20 +32,19 @@ public class Kafka_props {
    * @param value [String] value to store under specified key
    * 
    */
-  public void set_prop(String key, String value) {
+  public void set_prop(final String key, final String value) {
     this.props.setProperty(key, value);
   }
 
   /**
    * 
-   * Return Property values from Kafka_props object and specifying
-   * default value.
+   * Return Property values from Kafka_props object and specifying default value.
    * 
    * @param key   key to look for
    * @param value value to return if no value is found
    * 
    */
-  public void get_prop(String key, String value) {
+  public void get_prop(final String key, final String value) {
     this.props.getProperty(key, value);
   }
 
@@ -55,7 +55,7 @@ public class Kafka_props {
    * @param key key to look for
    * 
    */
-  public void get_prop(String key) {
+  public void get_prop(final String key) {
     this.props.getProperty(key);
   }
 
@@ -67,69 +67,67 @@ public class Kafka_props {
     return props;
   };
 
-  private void merge_props(Properties... new_props) {
-    for (Properties np : new_props) {
-      Set<String> names = np.stringPropertyNames();
-      for (String name : names) {
-        String value = np.getProperty(name);
+  private void merge_props(final Properties... new_props) {
+    for (final Properties np : new_props) {
+      final Set<String> names = np.stringPropertyNames();
+      for (final String name : names) {
+        final String value = np.getProperty(name);
         this.set_prop(name, value);
       }
     }
   }
 
-
   /**
    * Transforming properties to JSON string.
+   * 
    * @return JSON string
    */
   public String to_json() {
-    Gson gson = new Gson();
-    String props_json = gson.toJson(this.props);
+    final Gson gson = new Gson();
+    final String props_json = gson.toJson(this.props);
     return props_json;
   };
 
-
   /**
-   *  Transforming properties to JSON string
+   * Transforming properties to JSON string
+   * 
    * @return pretty JSON string
    */
   public String to_json_pretty() {
-    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    String props_json = gson.toJson(this.props);
+    final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    final String props_json = gson.toJson(this.props);
     return props_json;
   };
-
 
   /**
    * Method to set properties from JSON strings
    * 
    * @param json [String] JSON string with properties in format key:value
    */
-  public void from_json(String json) {
-    Gson gson = new Gson();
+  public void from_json(final String json) {
+    final Gson gson = new Gson();
     final Properties new_props = gson.fromJson(json, Properties.class);
     this.merge_props(new_props);
   };
 
-
   /**
    * Set properties from JSON strings.
    * 
-   * Allowing to decide whether or not properties stored already 
-   * should be overwritten. 
+   * Allowing to decide whether or not properties stored already should be
+   * overwritten.
    * 
    * @param json [String] JSON string with properties in format key:value
    */
-  public void from_json(String json, Boolean replace) {
-    
+  public void from_json(final String json, final Boolean replace) {
+
     // handle replace option
-    if ( replace ){
-      Properties new_props = new Properties();
+    if (replace) {
+      final Properties new_props = new Properties();
       this.props = new_props;
     }
 
     // parse JSON and add to this.props
-    Gson gson = new Gson();
+    final Gson gson = new Gson();
     final Properties new_props = gson.fromJson(json, Properties.class);
     this.merge_props(new_props);
   };
