@@ -44,8 +44,8 @@ public class Kafka_props {
    * @param value value to return if no value is found
    * 
    */
-  public void get_prop(final String key, final String value) {
-    this.props.getProperty(key, value);
+  public String get_prop(final String key, final String value) {
+    return this.props.getProperty(key, value);
   }
 
   /**
@@ -55,8 +55,8 @@ public class Kafka_props {
    * @param key key to look for
    * 
    */
-  public void get_prop(final String key) {
-    this.props.getProperty(key);
+  public String get_prop(final String key) {
+    return this.props.getProperty(key);
   }
 
   /**

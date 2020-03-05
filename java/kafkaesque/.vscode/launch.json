@@ -4,6 +4,14 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+      {
+      "type": "java",
+      "name": "CodeLens (Launch) - Kafka_consumer",
+      "request": "launch",
+      "mainClass": "kafkaesque.Kafka_consumer",
+      "projectName": "kafkaesquejars",
+      "stopOnEntry": true
+    },
     {
       "type": "java",
       "name": "Debug (Launch) - Current File",

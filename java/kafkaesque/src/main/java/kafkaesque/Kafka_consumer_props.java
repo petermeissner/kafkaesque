@@ -23,6 +23,7 @@ public class Kafka_consumer_props extends Kafka_props {
     this.set_prop("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
     this.set_prop("bootstrap.servers",  "localhost:9092");
     this.set_prop("client.id",          "kafkaesque_consumer");
+    this.set_prop("auto.offset.reset",  "earliest");
     // this.set_prop("", "");
     // this.set_prop("", "");
     // this.set_prop("", "");

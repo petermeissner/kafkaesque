@@ -9,7 +9,8 @@
     "propsc",
     "propsp",
     "timec",
-    "timep"
+    "timep",
+    "tpcs"
   ],
   "java.configuration.updateBuildConfiguration": "automatic",
   "maven.view": "hierarchical",
