@@ -52,6 +52,7 @@ ADD ./docker/server.properties ./kafka/config/server.properties
 # Tools 
 ADD ./docker/.bashrc ./.bashrc
 ADD ./docker/kafka_messages.txt ./
+ADD ./docker/test_500_000.txt ./
 
 # startup script
 ADD ./docker/start.sh ./

@@ -1,18 +1,21 @@
 
 #' R6 Class for Kafka Consumer
 #'
+#' @import data.table
+#' @import jsonlite
+#' @import rJava
+#'
 #' @export
 #'
 kafka_class_consumer <-
   R6::R6Class(
 
     #### options ###############################################################
+    classname = "kafka_class_consumer",
 
-    classname  = "kafka_class_consumer",
+    portable = TRUE,
 
-    portable   = TRUE,
-
-    parent_env = asNamespace('kafkaesque'),
+    parent_env = asNamespace("kafkaesque"),
 
 
 
@@ -24,8 +27,8 @@ kafka_class_consumer <-
 
         ## data ################################################################
 
-        #' @field cons reference to the underlying Java object
-        cons = list(),
+        #' @field java_consumer reference to the underlying Java object
+        java_consumer = list(),
 
 
 
@@ -36,8 +39,8 @@ kafka_class_consumer <-
         #' Create a new consumer object
         #'
         initialize =
-          function(){
-            self$cons <- rJava::.jnew("kafkaesque/Kafka_consumer")
+          function() {
+            self$java_consumer <- rJava::.jnew("kafkaesque/Kafka_consumer")
           },
 
 
@@ -46,8 +49,8 @@ kafka_class_consumer <-
         #' Code run when object is removed from session
         #'
         finalize =
-          function ( ) {
-              self$cons$end()
+          function() {
+            self$java_consumer$end()
           },
 
 
@@ -56,8 +59,8 @@ kafka_class_consumer <-
         #' Spin up consumer and connect it to Kafka cluster
         #'
         start =
-          function ( ) {
-            self$cons$start()
+          function() {
+            self$java_consumer$start()
           },
 
 
@@ -66,8 +69,8 @@ kafka_class_consumer <-
         #' Disconnect consumer from Kafka cluster
         #'
         end =
-          function ( ) {
-            browser()
+          function() {
+            self$java_consumer$end()
           },
 
 
@@ -75,10 +78,177 @@ kafka_class_consumer <-
         #' @description
         #' Polling for messages
         #'
+        #' @return returns the number of new messages fetched
+        #'
         poll =
-          function(
-          ){
-              browser()
+          function() {
+            self$java_consumer$poll()
+          },
+
+
+        #'
+        #' @description
+        #'
+        #' If poll() did fetch any messages, they are stored here until the next call to poll()
+        #'
+        records =
+          function() {
+            data.table::rbindlist(
+              lapply(
+                X =
+                  jsonlite::fromJSON(
+                  iconv(
+                    x = self$java_consumer$records_json(),
+                    to = "UTF-8"
+                  )
+                )$records,
+                FUN =
+                  function(x){
+                    # get rid of nested headers data.frame
+                    x <- x[, -c(which(names(x) %in% "headers"))]
+
+                    # unnest leader epoch
+                    x$leaderEpoch <- x$leaderEpoch$value
+
+                    # return
+                    x
+                  }
+              )
+            )
+          },
+
+        #' @description
+        #'
+        offset =
+          function (
+            offset = NULL
+          ) {
+            #### TODO
+            message("TBD")
+          },
+
+        #' @description
+        #'
+        consume_next =
+          function (
+          ) {
+            #### TODO
+            message("TBD")
+          },
+
+        #' @param expr expression (e.g. via \code{expression(...)}) that will
+        #'   process a single message
+        #' @param check expression (e.g. via \code{expression(...)}) that will
+        #'   evaluate to TRUE or FALSE to either further process messages or
+        #'   stop processing and ask function to return
+        #'
+        #' @description
+        #' If poll() did fetch any messages, they are stored here until the next
+        #' call to poll()
+        #'
+        consume_loop_one_by_one =
+          function (
+            expr = expression(print(msg)),
+            check = expression(TRUE)
+          ) {
+
+            start_time <- Sys.time()
+            counter    <- 0
+
+
+            # loop while check evaluates to TRUE
+            while ( eval(check) ){
+
+              # poll for new messages
+              n <- self$poll()
+
+              # check if new messages were received
+              if ( n > 0 ){
+
+                # retrieve bulk of messages and loop over them one by one
+                records <- self$records()
+                for ( i in seq_len(nrow(records)) ){
+
+                  # extract single message and process it
+                  msg <- records[i, ]
+                  eval(expr)
+                }
+
+                # update counter
+                counter <- counter + n
+              }
+            }
+
+            # return
+            list(
+              start_time = start_time,
+              end_time   = Sys.time(),
+              n          = counter
+            )
+          },
+
+        #' @param expr expression (e.g. via \code{expression(...)}) that will
+        #'   process a single message
+        #' @param check expression (e.g. via \code{expression(...)}) that will
+        #'   evaluate to TRUE or FALSE to either further process messages or
+        #'   stop processing and ask function to return
+        #'
+        #' @description
+        #' If poll() did fetch any messages, they are stored here until the next
+        #' call to poll()
+        #'
+        consume_loop_batch =
+          function (
+            expr = expression(print(msgs)),
+            check = expression(TRUE)
+          ) {
+
+            start_time <- Sys.time()
+            counter    <- 0
+
+
+            # loop while check evaluates to TRUE
+            while ( eval(check) ){
+
+              # poll for new messages
+              n <- self$poll()
+
+              # check if new messages were received
+              if ( n > 0 ){
+
+                # retrieve bulk of messages and loop over them one by one
+                records <- self$records()
+
+                # extract single message and process it
+                msgs <- records
+                eval(expr)
+
+                # update counter
+                counter <- counter + n
+              }
+            }
+
+            # return
+            list(
+              start_time = start_time,
+              end_time   = Sys.time(),
+              n          = counter
+            )
+          },
+
+
+        #'
+        #' @description
+        #' Polling for messages
+        #'
+        props =
+          function() {
+            jsonlite::fromJSON(
+              iconv(
+                x  = self$java_consumer$props$to_json(),
+                to = "UTF-8"
+              )
+            )
           },
 
 
@@ -89,9 +259,9 @@ kafka_class_consumer <-
         #' @param topics character vector defining topics or topic regex to subscribe to
         #'
         subscribe =
-          function(topics){
+          function(topics) {
             topics_string_array <- .jarray(topics)
-            self$cons$subscribe(topics_string_array)
+            self$java_consumer$subscribe(topics_string_array)
           },
 
 
@@ -101,26 +271,12 @@ kafka_class_consumer <-
         #' List current subscription
         #'
         subscription =
-          function(){
-            self$cons$subscription()
+          function() {
+            self$java_consumer$subscription()
           }
-
       ),
 
     #### private ###############################################################
 
     private = NULL
   )
-
-
-
-
-
-
-
-
-
-
-
-
-

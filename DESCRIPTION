@@ -1,8 +1,8 @@
 Package: kafkaesque
 Type: Package
-Title: Kafka R Bindings
+Title: Kafka R Bindings via 'rJava'
 Version: 0.1.0
-Date: 2020-02-29
+Date: 2020-09-26
 Authors@R: c(
     person( 
       given  = "Peter",  
@@ -24,19 +24,21 @@ Authors@R: c(
   )
 Maintainer: Peter Meissner <retep.meissner@gmail.com>
 SystemRequirements: Java
-Description: Provides R bindings via 'rJava' for Kafka a big data technology. 
+Description: Provides R bindings via 'rJava' for Kafka. 
   Kafka is a event log data base to which messages can be published or read 
-  from topics. It is distributed, highly scalable, provides persistent event storage 
-  and is designed for high throughput.
+  from topics subscribed to. Kafka is distributed, highly scalable, provides 
+  persistent event storage and is designed for high throughput.
 Encoding: UTF-8
 Suggests:
     covr,
     testthat
 Imports:
-    kafkaesquejars (>= 2.3.1-0)
+    kafkaesquejars (>= 2.3.1-0),
+    jsonlite,
+    data.table
 Depends:
     R (>= 3.2.0),
     rJava,
     kafkaesquejars
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
 License: GPL-3

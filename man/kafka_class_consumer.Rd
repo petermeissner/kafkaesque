@@ -11,7 +11,7 @@ R6 Class for Kafka Consumer
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{cons}}{reference to the underlying Java object}
+\item{\code{java_consumer}}{reference to the underlying Java object}
 }
 \if{html}{\out{</div>}}
 }
@@ -23,6 +23,9 @@ R6 Class for Kafka Consumer
 \item \href{#method-start}{\code{kafka_class_consumer$start()}}
 \item \href{#method-end}{\code{kafka_class_consumer$end()}}
 \item \href{#method-poll}{\code{kafka_class_consumer$poll()}}
+\item \href{#method-records}{\code{kafka_class_consumer$records()}}
+\item \href{#method-consume_one_by_one}{\code{kafka_class_consumer$consume_one_by_one()}}
+\item \href{#method-props}{\code{kafka_class_consumer$props()}}
 \item \href{#method-subscribe}{\code{kafka_class_consumer$subscribe()}}
 \item \href{#method-subscription}{\code{kafka_class_consumer$subscription()}}
 \item \href{#method-clone}{\code{kafka_class_consumer$clone()}}
@@ -30,6 +33,7 @@ R6 Class for Kafka Consumer
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
+\if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
 Create a new consumer object
 \subsection{Usage}{
@@ -39,6 +43,7 @@ Create a new consumer object
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-finalize"></a>}}
+\if{latex}{\out{\hypertarget{method-finalize}{}}}
 \subsection{Method \code{finalize()}}{
 Code run when object is removed from session
 \subsection{Usage}{
@@ -48,6 +53,7 @@ Code run when object is removed from session
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-start"></a>}}
+\if{latex}{\out{\hypertarget{method-start}{}}}
 \subsection{Method \code{start()}}{
 Spin up consumer and connect it to Kafka cluster
 \subsection{Usage}{
@@ -57,6 +63,7 @@ Spin up consumer and connect it to Kafka cluster
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-end"></a>}}
+\if{latex}{\out{\hypertarget{method-end}{}}}
 \subsection{Method \code{end()}}{
 Disconnect consumer from Kafka cluster
 \subsection{Usage}{
@@ -66,15 +73,66 @@ Disconnect consumer from Kafka cluster
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-poll"></a>}}
+\if{latex}{\out{\hypertarget{method-poll}{}}}
 \subsection{Method \code{poll()}}{
 Polling for messages
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$poll()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+returns the number of new messages fetched
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-records"></a>}}
+\if{latex}{\out{\hypertarget{method-records}{}}}
+\subsection{Method \code{records()}}{
+If poll() did fetch any messages, they are stored here until the next call to poll()
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$records()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-consume_one_by_one"></a>}}
+\if{latex}{\out{\hypertarget{method-consume_one_by_one}{}}}
+\subsection{Method \code{consume_one_by_one()}}{
+If poll() did fetch any messages, they are stored here until the next
+call to poll()
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_one_by_one(
+  expr = expression(print(msg)),
+  check = expression(TRUE)
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
+process a single message}
+
+\item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
+evaluate to TRUE or FALSE to either further process messages or
+stop processing and ask function to return}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-props"></a>}}
+\if{latex}{\out{\hypertarget{method-props}{}}}
+\subsection{Method \code{props()}}{
+Polling for messages
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$props()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-subscribe"></a>}}
+\if{latex}{\out{\hypertarget{method-subscribe}{}}}
 \subsection{Method \code{subscribe()}}{
 Subscribe to one or more topics
 \subsection{Usage}{
@@ -91,6 +149,7 @@ Subscribe to one or more topics
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-subscription"></a>}}
+\if{latex}{\out{\hypertarget{method-subscription}{}}}
 \subsection{Method \code{subscription()}}{
 List current subscription
 \subsection{Usage}{
@@ -100,6 +159,7 @@ List current subscription
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

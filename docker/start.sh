@@ -23,6 +23,7 @@ do
 done
 
 echo "\n... adding messages ..."
+kafkacat -P -b localhost -t test500000 -l test_500_000.txt
 cat kafka_messages.txt | kafkacat -P -b localhost -t test && \
 cat kafka_messages.txt | kafkacat -P -b localhost -t test2 && \
 cat kafka_messages.txt | kafkacat -P -b localhost -t test2 && \

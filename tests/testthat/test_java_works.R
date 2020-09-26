@@ -4,7 +4,6 @@ context("2 Java")
 test_that(
   "Classes are acessible",
   {
-    library()
         tmp <- rJava::.jnew("kafkaesque.App")
         tmp$test_method()
         rm(tmp)

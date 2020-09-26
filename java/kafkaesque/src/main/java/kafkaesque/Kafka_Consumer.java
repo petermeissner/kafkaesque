@@ -77,22 +77,25 @@ public class Kafka_consumer {
   /**
    * Subscribe to topics
    */
-  public void subscribe(String topic) {
+  public String subscribe(String topic) {
     List<String> tpcs = Arrays.asList(topic);
     this.cons.subscribe(tpcs);
+    return this.subscription();
   }
+
 
   /**
    * Subscribe to topics
    */
-  public void subscribe(String[] topics) {
+  public String subscribe(String[] topics) {
     List<String> tpcs = Arrays.asList(topics);
     this.cons.subscribe(tpcs);
+    return this.subscription();
   }
 
 
   /**
-   * 
+   * Return topics subscribed to
    */
   public String subscription() {
     return Json.to_json(cons.subscription());
@@ -103,7 +106,7 @@ public class Kafka_consumer {
   /**
    * Storage for messages returned from polling 
    */
-  ConsumerRecords<String, String> records;
+  public ConsumerRecords<String, String> records;
 
 
   /**
@@ -111,17 +114,40 @@ public class Kafka_consumer {
    * Poll Kafka for new messages
    * 
    */
-  public void poll() {
+  public int poll() {
     this.records = this.cons.poll(Duration.ofMillis(100));
+    return records.count();
   }
-  
 
   /**
-   * Poll Kafka for new messages for i milliseconds
+   * 
+   * Return current set of records as JSON string
+   * 
+   * @return JSON string of record data
+   * 
    */
-  public void poll(Integer i) {
-    this.records = this.cons.poll(Duration.ofMillis(i));
+  public String records_json() {
+    return Json.to_json(this.records);
   }
+  
+/**
+   * 
+   * Poll Kafka for new messages and print them 
+   * 
+   */
+  public void poll_print() {
+    this.records = this.cons.poll(Duration.ofMillis(100));
+    this.records.forEach(
+    record -> {
+      System.out.println(
+        "1 Got Record: (" + 
+        record.key() + 
+        ", " + record.value() + 
+        ") at offset " + 
+        record.offset());
+    });
+  }
+  
 
 
   public static void main(final String... args) throws Exception {
