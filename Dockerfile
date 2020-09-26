@@ -50,10 +50,12 @@ RUN rm kafka*.tgz
 ADD ./docker/server.properties ./kafka/config/server.properties
 
 # Tools 
-ADD docker/.bashrc ./.bashrc
+ADD ./docker/.bashrc ./.bashrc
+ADD ./docker/kafka_messages.txt ./
+
+# startup script
+ADD ./docker/start.sh ./
 
 # starting up services
 EXPOSE 9092 2181
-CMD nohup ./kafka/bin/zookeeper-server-start.sh ./kafka/config/zookeeper.properties & \
-nohup ./kafka/bin/kafka-server-start.sh ./kafka/config/server.properties & \
-bash 
+CMD ./start.sh && bash 
