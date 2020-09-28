@@ -41,6 +41,7 @@ kafka_class_consumer <-
         initialize =
           function() {
             self$java_consumer <- rJava::.jnew("kafkaesque/Kafka_consumer")
+            self$records       <- kafka_records_class$new(self)
           },
 
 
@@ -83,7 +84,7 @@ kafka_class_consumer <-
         poll =
           function() {
             self$java_consumer$poll()
-          },
+        },
 
 
         #'
@@ -91,31 +92,7 @@ kafka_class_consumer <-
         #'
         #' If poll() did fetch any messages, they are stored here until the next call to poll()
         #'
-        records =
-          function() {
-            data.table::rbindlist(
-              lapply(
-                X =
-                  jsonlite::fromJSON(
-                  iconv(
-                    x = self$java_consumer$records_json(),
-                    to = "UTF-8"
-                  )
-                )$records,
-                FUN =
-                  function(x){
-                    # get rid of nested headers data.frame
-                    x <- x[, -c(which(names(x) %in% "headers"))]
-
-                    # unnest leader epoch
-                    x$leaderEpoch <- x$leaderEpoch$value
-
-                    # return
-                    x
-                  }
-              )
-            )
-          },
+        records = list(),
 
         #' @description
         #'
@@ -132,8 +109,7 @@ kafka_class_consumer <-
         consume_next =
           function (
           ) {
-            #### TODO
-            message("TBD")
+            records$next_record()
           },
 
         #' @param expr expression (e.g. via \code{expression(...)}) that will

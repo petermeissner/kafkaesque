@@ -23,8 +23,10 @@ R6 Class for Kafka Consumer
 \item \href{#method-start}{\code{kafka_class_consumer$start()}}
 \item \href{#method-end}{\code{kafka_class_consumer$end()}}
 \item \href{#method-poll}{\code{kafka_class_consumer$poll()}}
-\item \href{#method-records}{\code{kafka_class_consumer$records()}}
-\item \href{#method-consume_one_by_one}{\code{kafka_class_consumer$consume_one_by_one()}}
+\item \href{#method-offset}{\code{kafka_class_consumer$offset()}}
+\item \href{#method-consume_next}{\code{kafka_class_consumer$consume_next()}}
+\item \href{#method-consume_loop_one_by_one}{\code{kafka_class_consumer$consume_loop_one_by_one()}}
+\item \href{#method-consume_loop_batch}{\code{kafka_class_consumer$consume_loop_batch()}}
 \item \href{#method-props}{\code{kafka_class_consumer$props()}}
 \item \href{#method-subscribe}{\code{kafka_class_consumer$subscribe()}}
 \item \href{#method-subscription}{\code{kafka_class_consumer$subscription()}}
@@ -85,24 +87,63 @@ returns the number of new messages fetched
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-records"></a>}}
-\if{latex}{\out{\hypertarget{method-records}{}}}
-\subsection{Method \code{records()}}{
+\if{html}{\out{<a id="method-offset"></a>}}
+\if{latex}{\out{\hypertarget{method-offset}{}}}
+\subsection{Method \code{offset()}}{
 If poll() did fetch any messages, they are stored here until the next call to poll()
+
+
+
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$records()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$offset(offset = NULL)}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-consume_one_by_one"></a>}}
-\if{latex}{\out{\hypertarget{method-consume_one_by_one}{}}}
-\subsection{Method \code{consume_one_by_one()}}{
+\if{html}{\out{<a id="method-consume_next"></a>}}
+\if{latex}{\out{\hypertarget{method-consume_next}{}}}
+\subsection{Method \code{consume_next()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_next()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-consume_loop_one_by_one"></a>}}
+\if{latex}{\out{\hypertarget{method-consume_loop_one_by_one}{}}}
+\subsection{Method \code{consume_loop_one_by_one()}}{
 If poll() did fetch any messages, they are stored here until the next
 call to poll()
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_one_by_one(
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop_one_by_one(
   expr = expression(print(msg)),
+  check = expression(TRUE)
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
+process a single message}
+
+\item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
+evaluate to TRUE or FALSE to either further process messages or
+stop processing and ask function to return}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-consume_loop_batch"></a>}}
+\if{latex}{\out{\hypertarget{method-consume_loop_batch}{}}}
+\subsection{Method \code{consume_loop_batch()}}{
+If poll() did fetch any messages, they are stored here until the next
+call to poll()
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop_batch(
+  expr = expression(print(msgs)),
   check = expression(TRUE)
 )}\if{html}{\out{</div>}}
 }

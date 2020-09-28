@@ -85,6 +85,15 @@ public class Kafka_consumer {
 
 
   /**
+   * 
+   */
+
+   public List<String> testreturn(){
+      List<String> list2 = Arrays.asList( "Tina", "Wilhelmine" );
+      return list2; 
+   }
+
+  /**
    * Subscribe to topics
    */
   public String subscribe(String[] topics) {
