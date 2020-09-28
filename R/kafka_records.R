@@ -54,7 +54,7 @@ kafka_records_class <-
           }
 
           # increase records pointer and return next batch of items
-          private$records_pointer <- private$records_pointer + 1L
+          private$records_pointer <- as.integer(nrow(private$records))
           private$records[seq(from = private$records_pointer, to = nrow(private$records)), ]
         }
 
