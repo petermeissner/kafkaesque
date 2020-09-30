@@ -1,5 +1,13 @@
 #' R6 Class for Kafka Records
 #'
+#' This class will handle kafka records.
+#' It allows to manage polling for new messages, retrieval of messages from JVM,
+#' local storage of message batches and iteration and forwarding messages or
+#' message batches for consumption.
+#'
+#' It abstracts storage, polling, forwarding into an iteratable interface where
+#' messages can be accessed via \code{next_record()} and \code{next_record_batch()}.
+#'
 #' @import data.table
 #' @import jsonlite
 #' @import rJava
@@ -18,16 +26,33 @@ kafka_records_class <-
 
     public = list(
 
+      #'
+      #' @description
+      #'
+      #'
+      #'
       initialize =
         function ( parent ) {
           private$parent <- parent
         },
 
+
+      #'
+      #' @description
+      #'
+      #'
+      #'
       records_df =
         function(){
           private$records
         },
 
+
+      #'
+      #' @description
+      #'
+      #'
+      #'
       next_record =
         function(){
 
@@ -43,6 +68,13 @@ kafka_records_class <-
           private$records[private$records_pointer, ]
         },
 
+
+      #'
+      #' @description
+      #'
+      #'
+      #'
+      #'
       next_record_batch =
         function(){
 
@@ -66,14 +98,29 @@ kafka_records_class <-
 
     private =
       list(
+
+        #' Reference to consumer object that serves as parent.
+        #'
         parent          = list(),
 
+        #' Holds a batch of messages received from kafka consumer as data.frame
+        #' or data.table.
+        #'
         records         = data.frame(),
+
+        #' Records which message from local storage records is to be consumed next
+        #'
         records_pointer = 0L,
 
+        #' Use poll method on kafka consumer to get new messages.
+        #'
         new_records =
           function(){
+
+            # kafka poll for new messages
             private$parent$poll()
+
+            # transform records from Java to R
             private$records <-
               data.table::rbindlist(
                 lapply(

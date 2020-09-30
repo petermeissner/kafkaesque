@@ -25,11 +25,11 @@ R6 Class for Kafka Consumer
 \item \href{#method-poll}{\code{kafka_class_consumer$poll()}}
 \item \href{#method-offset}{\code{kafka_class_consumer$offset()}}
 \item \href{#method-consume_next}{\code{kafka_class_consumer$consume_next()}}
-\item \href{#method-consume_loop_one_by_one}{\code{kafka_class_consumer$consume_loop_one_by_one()}}
-\item \href{#method-consume_loop_batch}{\code{kafka_class_consumer$consume_loop_batch()}}
+\item \href{#method-consume_loop}{\code{kafka_class_consumer$consume_loop()}}
 \item \href{#method-props}{\code{kafka_class_consumer$props()}}
-\item \href{#method-subscribe}{\code{kafka_class_consumer$subscribe()}}
-\item \href{#method-subscription}{\code{kafka_class_consumer$subscription()}}
+\item \href{#method-topics_subscribe}{\code{kafka_class_consumer$topics_subscribe()}}
+\item \href{#method-topics_subscription}{\code{kafka_class_consumer$topics_subscription()}}
+\item \href{#method-topics_list}{\code{kafka_class_consumer$topics_list()}}
 \item \href{#method-clone}{\code{kafka_class_consumer$clone()}}
 }
 }
@@ -37,11 +37,15 @@ R6 Class for Kafka Consumer
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Create a new consumer object
+Create a new consumer object.
+Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$new()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+returns object reference for method chaining
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-finalize"></a>}}
@@ -62,6 +66,9 @@ Spin up consumer and connect it to Kafka cluster
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$start()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+returns object reference for method chaining
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-end"></a>}}
@@ -72,6 +79,9 @@ Disconnect consumer from Kafka cluster
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$end()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+returns object reference for method chaining
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-poll"></a>}}
@@ -79,72 +89,58 @@ Disconnect consumer from Kafka cluster
 \subsection{Method \code{poll()}}{
 Polling for messages
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$poll()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$poll(timeout_ms = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-returns the number of new messages fetched
+returns object reference for method chaining
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-offset"></a>}}
 \if{latex}{\out{\hypertarget{method-offset}{}}}
 \subsection{Method \code{offset()}}{
-If poll() did fetch any messages, they are stored here until the next call to poll()
+If poll() did fetch any messages, they are stored here until the
+next call to poll().
+
+Note: Consider using consume methods instead of managing records on your own.
 
 
-
+Set/return offsets.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$offset(offset = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{offset}}{defaults to NULL, if set to NULL now new offset will
+be set, if set to a number this number will be used as new offset}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-consume_next"></a>}}
 \if{latex}{\out{\hypertarget{method-consume_next}{}}}
 \subsection{Method \code{consume_next()}}{
-
+Consume one message either from the records already fetched from last poll or via initiating a new poll.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_next()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-consume_loop_one_by_one"></a>}}
-\if{latex}{\out{\hypertarget{method-consume_loop_one_by_one}{}}}
-\subsection{Method \code{consume_loop_one_by_one()}}{
+\if{html}{\out{<a id="method-consume_loop"></a>}}
+\if{latex}{\out{\hypertarget{method-consume_loop}{}}}
+\subsection{Method \code{consume_loop()}}{
 If poll() did fetch any messages, they are stored here until the next
 call to poll()
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop_one_by_one(
-  expr = expression(print(msg)),
-  check = expression(TRUE)
-)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
-process a single message}
-
-\item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
-evaluate to TRUE or FALSE to either further process messages or
-stop processing and ask function to return}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-consume_loop_batch"></a>}}
-\if{latex}{\out{\hypertarget{method-consume_loop_batch}{}}}
-\subsection{Method \code{consume_loop_batch()}}{
-If poll() did fetch any messages, they are stored here until the next
-call to poll()
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop_batch(
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop(
   expr = expression(print(msgs)),
-  check = expression(TRUE)
+  check = expression(counter < 1),
+  batch = FALSE
 )}\if{html}{\out{</div>}}
 }
 
@@ -172,12 +168,12 @@ Polling for messages
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-subscribe"></a>}}
-\if{latex}{\out{\hypertarget{method-subscribe}{}}}
-\subsection{Method \code{subscribe()}}{
+\if{html}{\out{<a id="method-topics_subscribe"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_subscribe}{}}}
+\subsection{Method \code{topics_subscribe()}}{
 Subscribe to one or more topics
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$subscribe(topics)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$topics_subscribe(topics)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -187,14 +183,27 @@ Subscribe to one or more topics
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+returns object reference for method chaining
+}
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-subscription"></a>}}
-\if{latex}{\out{\hypertarget{method-subscription}{}}}
-\subsection{Method \code{subscription()}}{
+\if{html}{\out{<a id="method-topics_subscription"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_subscription}{}}}
+\subsection{Method \code{topics_subscription()}}{
 List current subscription
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$subscription()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$topics_subscription()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_list"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_list}{}}}
+\subsection{Method \code{topics_list()}}{
+List topics available to consumer
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$topics_list(full = FALSE)}\if{html}{\out{</div>}}
 }
 
 }

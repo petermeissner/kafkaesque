@@ -8,6 +8,15 @@ R6 Class for Kafka Records
 
 R6 Class for Kafka Records
 }
+\details{
+This class will handle kafka records.
+It allows to manage polling for new messages, retrieval of messages from JVM,
+local storage of message batches and iteration and forwarding messages or
+message batches for consumption.
+
+It abstracts storage, polling, forwarding into an iteratable interface where
+messages can be accessed via \code{next_record()} and \code{next_record_batch()}.
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
@@ -22,6 +31,7 @@ R6 Class for Kafka Records
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
+
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$new(parent)}\if{html}{\out{</div>}}
 }
@@ -31,6 +41,7 @@ R6 Class for Kafka Records
 \if{html}{\out{<a id="method-records_df"></a>}}
 \if{latex}{\out{\hypertarget{method-records_df}{}}}
 \subsection{Method \code{records_df()}}{
+
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$records_df()}\if{html}{\out{</div>}}
 }
@@ -40,6 +51,7 @@ R6 Class for Kafka Records
 \if{html}{\out{<a id="method-next_record"></a>}}
 \if{latex}{\out{\hypertarget{method-next_record}{}}}
 \subsection{Method \code{next_record()}}{
+
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record()}\if{html}{\out{</div>}}
 }
@@ -49,6 +61,14 @@ R6 Class for Kafka Records
 \if{html}{\out{<a id="method-next_record_batch"></a>}}
 \if{latex}{\out{\hypertarget{method-next_record_batch}{}}}
 \subsection{Method \code{next_record_batch()}}{
+Reference to consumer object that serves as parent.
+
+Holds a batch of messages received from kafka consumer as data.frame
+or data.table.
+
+Records which message from local storage records is to be consumed next
+
+Use poll method on kafka consumer to get new messages.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record_batch()}\if{html}{\out{</div>}}
 }

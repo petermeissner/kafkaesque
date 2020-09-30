@@ -1,13 +1,14 @@
 package kafkaesque;
 
-
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 
 
@@ -42,16 +43,14 @@ public class Kafka_consumer {
   public void start() {
     
     // either use group id in properties object or use random value
-    String group_id = this.props.get_prop("group.id", UUID.randomUUID().toString());
-    
+    final String group_id = this.props.get_prop("group.id", UUID.randomUUID().toString());
+
     // set group id
     this.props.set_prop("group.id", group_id);
-    
-    // create new consumer 
-    this.cons = new KafkaConsumer<>(this.props.props());
-    this.cons.subscribe(Arrays.asList("test"));
-  }
 
+    // create new consumer
+    this.cons = new KafkaConsumer<>(this.props.props());
+  }
 
   /**
    * Create a kafka consumer object with a specific config
@@ -63,7 +62,6 @@ public class Kafka_consumer {
     this.start();
   }
 
-
   /**
    * Close kafka consumer
    */
@@ -73,41 +71,52 @@ public class Kafka_consumer {
     }
   }
 
+  /**
+   * List topics
+   */
+  public String topics_list() {
+    final Map<String, List<PartitionInfo>> topics = cons.listTopics();
+    return Json.to_json(topics);
+  }
+
+  public Map<String, List<PartitionInfo>> topics;
 
   /**
-   * Subscribe to topics
+   * List topics
    */
-  public String subscribe(String topic) {
-    List<String> tpcs = Arrays.asList(topic);
-    this.cons.subscribe(tpcs);
-    return this.subscription();
+  public void topics_list2() {
+    final Map<String, List<PartitionInfo>> topics = cons.listTopics();
+    this.topics = topics;
   }
 
 
   /**
-   * 
+   * Subscribe to topics
    */
-
-   public List<String> testreturn(){
-      List<String> list2 = Arrays.asList( "Tina", "Wilhelmine" );
-      return list2; 
-   }
+  public String[] topics_subscribe(final String topic) {
+    final List<String> tpcs = Arrays.asList(topic);
+    this.cons.subscribe(tpcs);
+    return this.topics_subscription();
+  }
 
   /**
    * Subscribe to topics
    */
-  public String subscribe(String[] topics) {
-    List<String> tpcs = Arrays.asList(topics);
+  public String[] topics_subscribe(final String[] topics) {
+    final List<String> tpcs = Arrays.asList(topics);
     this.cons.subscribe(tpcs);
-    return this.subscription();
+    return this.topics_subscription();
   }
 
 
   /**
    * Return topics subscribed to
    */
-  public String subscription() {
-    return Json.to_json(cons.subscription());
+  public String[] topics_subscription() {
+    // get current subscription and cast type set to type String[] of size set
+    String[] str = new String[cons.subscription().size()];
+             str = cons.subscription().toArray(str);
+    return str;
   }
 
 
@@ -125,6 +134,16 @@ public class Kafka_consumer {
    */
   public int poll() {
     this.records = this.cons.poll(Duration.ofMillis(100));
+    return records.count();
+  }
+
+    /**
+   * 
+   * Poll Kafka for new messages
+   * 
+   */
+  public int poll(final int timeout_ms) {
+    this.records = this.cons.poll(Duration.ofMillis(timeout_ms));
     return records.count();
   }
 
@@ -165,10 +184,10 @@ public class Kafka_consumer {
     final Kafka_consumer cons = new Kafka_consumer();
     
     cons.start();
-    cons.subscribe("test");
+    cons.topics_subscribe("test");
     // cons.seek_to_beginning("test");
 
-    System.out.println(cons.subscription());
+    System.out.println(cons.topics_subscription());
 
       cons.poll();
       cons.records.forEach(
