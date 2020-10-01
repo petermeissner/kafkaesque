@@ -22,6 +22,7 @@ R6 Class for Kafka Consumer
 \item \href{#method-finalize}{\code{kafka_class_consumer$finalize()}}
 \item \href{#method-start}{\code{kafka_class_consumer$start()}}
 \item \href{#method-end}{\code{kafka_class_consumer$end()}}
+\item \href{#method-running}{\code{kafka_class_consumer$running()}}
 \item \href{#method-poll}{\code{kafka_class_consumer$poll()}}
 \item \href{#method-offset}{\code{kafka_class_consumer$offset()}}
 \item \href{#method-consume_next}{\code{kafka_class_consumer$consume_next()}}
@@ -81,6 +82,19 @@ Disconnect consumer from Kafka cluster
 
 \subsection{Returns}{
 returns object reference for method chaining
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-running"></a>}}
+\if{latex}{\out{\hypertarget{method-running}{}}}
+\subsection{Method \code{running()}}{
+Whether or not consumer is active (has been started or not)
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$running()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+TRUE/FALSE
 }
 }
 \if{html}{\out{<hr>}}

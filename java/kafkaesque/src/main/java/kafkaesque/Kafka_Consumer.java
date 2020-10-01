@@ -9,7 +9,6 @@ import java.util.UUID;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.TopicPartition;
 
 
 
@@ -37,6 +36,13 @@ public class Kafka_consumer {
 
 
   /**
+   * Holds information as to whether or not consumer id running or not 
+   * ( == was started and has not been ended)
+   */
+  public boolean running = false;
+
+
+  /**
    * Create a kafka consumer object with a specific config
    * 
    */
@@ -50,6 +56,7 @@ public class Kafka_consumer {
 
     // create new consumer
     this.cons = new KafkaConsumer<>(this.props.props());
+    this.running = true;
   }
 
   /**
@@ -69,6 +76,7 @@ public class Kafka_consumer {
     if (this.cons != null) {
       this.cons.close();
     }
+    this.running = false;
   }
 
   /**

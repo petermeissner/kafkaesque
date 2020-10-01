@@ -87,6 +87,19 @@ kafka_class_consumer <-
             invisible(self)
           },
 
+        #'
+        #' @description
+        #' Whether or not consumer is active (has been started or not)
+        #'
+        #' @return TRUE/FALSE
+        #'
+        running =
+          function() {
+            self$java_consumer$running
+          },
+
+
+
 
         #'
         #' @description
