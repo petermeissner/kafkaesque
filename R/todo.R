@@ -9,9 +9,8 @@ todo <-
     consumer =
       list(
         "change offset: first, last, i",
-        "what is commit strategy?",
         "otpions/proporties",
-        "consumer$subscription() -> Null Pointer exception"
+        "pin point and solve encoding problems "
       ),
     general =
       list(

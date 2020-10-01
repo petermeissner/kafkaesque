@@ -31,11 +31,18 @@ messages can be accessed via \code{next_record()} and \code{next_record_batch()}
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-
+Create a new instance of class
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$new(parent)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{parent}}{enclosing consumer object}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-records_df"></a>}}

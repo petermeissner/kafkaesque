@@ -12,7 +12,6 @@
 #' @import jsonlite
 #' @import rJava
 #'
-#' @export
 #'
 kafka_records_class <-
   R6::R6Class(
@@ -27,8 +26,12 @@ kafka_records_class <-
     public = list(
 
       #'
+      #'
+      #' @param parent enclosing consumer object
+      #'
       #' @description
       #'
+      #' Create a new instance of class
       #'
       #'
       initialize =
@@ -85,9 +88,14 @@ kafka_records_class <-
             private$records_pointer <- 0L
           }
 
+          # extract next batch
+          res <- private$records[seq(from = private$records_pointer + 1L, to = nrow(private$records)), ]
+
           # increase records pointer and return next batch of items
           private$records_pointer <- as.integer(nrow(private$records))
-          private$records[seq(from = private$records_pointer, to = nrow(private$records)), ]
+
+          # return
+          res
         }
 
     ),
@@ -149,3 +157,13 @@ kafka_records_class <-
       )
 
   )
+
+
+#' Constructor for kafka_records_class
+#'
+#' @param parent enclosing consumer object
+#'
+kafka_records <-
+  function(parent){
+    kafka_records_class$new(parent = parent)
+  }

@@ -11,7 +11,13 @@ R6 Class for Kafka Consumer
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{java_consumer}}{reference to the underlying Java object}
+\item{\code{java_consumer}}{reference to the underlying Java object
+Initialize}
+
+\item{\code{records}}{If poll() did fetch any messages, they are stored here until the
+next call to poll().
+
+Note: Consider using consume methods instead of managing records on your own.}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,9 +47,17 @@ R6 Class for Kafka Consumer
 Create a new consumer object.
 Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$new(props)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{props}}{list of key value pairs both of type string that should
+be used as consumer properties.}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 returns object reference for method chaining
 }
@@ -103,9 +117,17 @@ TRUE/FALSE
 \subsection{Method \code{poll()}}{
 Polling for messages
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$poll(timeout_ms = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$poll(timeout_ms = Inf)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{timeout_ms}}{number of miliseconds to wait for polling to return
+messages, defaults to Inf}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 returns object reference for method chaining
 }
@@ -114,12 +136,6 @@ returns object reference for method chaining
 \if{html}{\out{<a id="method-offset"></a>}}
 \if{latex}{\out{\hypertarget{method-offset}{}}}
 \subsection{Method \code{offset()}}{
-If poll() did fetch any messages, they are stored here until the
-next call to poll().
-
-Note: Consider using consume methods instead of managing records on your own.
-
-
 Set/return offsets.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$offset(offset = NULL)}\if{html}{\out{</div>}}
@@ -148,8 +164,15 @@ Consume one message either from the records already fetched from last poll or vi
 \if{html}{\out{<a id="method-consume_loop"></a>}}
 \if{latex}{\out{\hypertarget{method-consume_loop}{}}}
 \subsection{Method \code{consume_loop()}}{
-If poll() did fetch any messages, they are stored here until the next
-call to poll()
+Method that is basically an infinite loop (until the check expression
+evaluates to FALSE) that will evaluate the supplied expressionfor
+each loop.
+
+There are several objects available to the expression supplied:
+
+- msgs: a data.frame/data.table with one or more rows - see batch parameter
+- counter: single number equal to the number of messages already processed.
+- start_time: the result of a call to Sys.time() when first the method started
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$consume_loop(
   expr = expression(print(msgs)),
@@ -167,6 +190,14 @@ process a single message}
 \item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
 evaluate to TRUE or FALSE to either further process messages or
 stop processing and ask function to return}
+
+\item{\code{batch}}{defaults to FALSE, Kafka's the default is to poll for as much
+data as one can get given the consumers limits on the number and
+size of messages as well as the chosen timeout. No matter how many
+data is returned from a poll the method process - if batch is set to
+FALSE - return only a single message at a time. If batch is set to
+TRUE however the msgs data.frame/data.table will contain all messages
+that were retrieved by the last poll unless consumed already.}
 }
 \if{html}{\out{</div>}}
 }
@@ -220,6 +251,16 @@ List topics available to consumer
 \if{html}{\out{<div class="r">}}\preformatted{kafka_class_consumer$topics_list(full = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{full}}{defaults to FALSE, whether or not to return all data
+returned fro Java object (TRUE) or only a simple character vector
+listing the names of the data topics available for consumption
+(FALSE)}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

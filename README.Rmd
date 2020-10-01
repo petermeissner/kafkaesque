@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+<style>body {max-width: 1100px; margin: auto; padding: 1em; line-height: 20px ;}</style>
+
   <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 
@@ -176,6 +178,91 @@ library(kafkaesque)
 ls("package:kafkaesque")
 ```
 
+# Usage
+
+
+## Start Consumer (... Stop, Status)
+
+```{r}
+
+library("kafkaesque")
+
+# new consumer
+consumer <- kafka_consumer()
+
+# starting/connecting - + status
+consumer$start()
+
+consumer$running()
+consumer$end()$running()
+consumer$start()$running()
+
+```
+
+
+
+## Topics and Subscriptions
+
+```{r}
+
+# list topics available to consumer
+consumer$topics_list()
+
+# subscribe to topic
+consumer$topics_subscribe("test500000")
+consumer$topics_subscription()
+
+
+```
+
+
+
+## Retrieving a Message
+
+```{r}
+
+# retrieve next message
+consumer$consume_next()
+
+```
+
+
+## Looping over Messages and Executing Code
+
+
+```{r}
+# loop over messages and execute code
+res <- 
+  consumer$consume_loop(
+    expr  = expression(print(msgs)),
+    check = expression(counter < 4)
+  )
+
+# having a look at the statistics
+res
+
+
+```
+
+## Looping over Batches of Messages and Executing Code
+
+```{r}
+
+# loop over batches of messages and execute code
+res <- 
+  consumer$consume_loop(
+    expr  = 
+      expression({
+        print(msgs)
+        cat("\n")
+      }),
+    check = expression(counter < 2000),
+    batch = TRUE
+  )
+
+res
+
+```
 
 
 
