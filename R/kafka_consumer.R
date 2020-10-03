@@ -8,5 +8,5 @@
 #'
 kafka_consumer <-
   function(){
-    kafka_class_consumer$new()
+    kafka_consumer_class$new()
   }

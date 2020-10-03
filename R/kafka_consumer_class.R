@@ -7,7 +7,7 @@
 #'
 #' @export
 #'
-kafka_class_consumer <-
+kafka_consumer_class <-
   R6::R6Class(
 
     #### options ###############################################################
@@ -132,6 +132,33 @@ kafka_class_consumer <-
             # return for method chaining
             invisible(self)
         },
+
+
+        #'
+        #' @param sync synchronous or asynchronous commit
+        #'
+        #' @description
+        #'
+        #' Commit offsets returned on the last poll() for all the subscribed
+        #' list of topics and partitions.
+        #'
+        #' @return returns object reference for method chaining
+        #'
+        commit =
+          function(sync = TRUE) {
+
+            # execute commit
+            if ( sync == TRUE ){
+              self$java_consumer$commit_sync()
+            } else {
+              self$java_consumer$commit_async()
+            }
+
+            # return for method chaining
+            invisible(self)
+          },
+
+
 
 
         #'
