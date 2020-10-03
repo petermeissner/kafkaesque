@@ -170,6 +170,13 @@ cat("devtools::install_github(\"petermeissner/",package_name,"\")", sep = "")
 cat("\n```\n")
 ```
 
+# ToDos
+
+```{r}
+kafkaesque::todo
+```
+
+
 
 # Content 
 
@@ -199,6 +206,15 @@ consumer$start()$running()
 
 ```
 
+
+
+## Properties aka Config
+
+
+
+```{r}
+consumer$props()
+```
 
 
 ## Topics and Subscriptions
@@ -256,7 +272,7 @@ res <-
         print(msgs)
         cat("\n")
       }),
-    check = expression(counter < 2000),
+    check = expression(counter < 1000),
     batch = TRUE
   )
 
@@ -266,3 +282,13 @@ res
 
 
 
+# Developement Notes
+
+Java sources are in `./java/kafkaesque/` folder. Building Java sources can be 
+done via Maven: `mvn install` will compile everything and copy the `kafkaesque.jar`
+into the package's `./inst/java/` folder while all dependencies are copied
+into the `./inst/java/` folder of the {kafkaesquejars} package. Both packages
+should be placed within the same folder to make this work properly.
+
+After Java compilation, both R packages have to be build and installed - first 
+{kafkaesquejars} than {kafkaesque}. 
