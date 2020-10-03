@@ -267,11 +267,32 @@ kafka_consumer_class <-
 
 
         #'
+        #' @param lst list of properties in the form of key, value pairs
+        #'
         #' @description
-        #' Polling for messages
+        #' Retrieving current current set of properties.
+        #' If properties are supplied via props parameter thos properties will
+        #' be set.
+        #'
         #'
         props =
-          function() {
+          function(..., .properties = NULL) {
+
+            # ? set properties
+            if ( !is.null(.properties) ){
+              self$java_consumer$props_set(
+                .jcastToArray(names(.properties)),
+                .jcastToArray(format(.properties, scientific = FALSE))
+              )
+            } else if ( length(list(...)) > 0 ){
+              .properties <- list(...)
+              self$java_consumer$props_set(
+                .jcastToArray(names(.properties)),
+                .jcastToArray(format(.properties, scientific = FALSE))
+              )
+            }
+
+            # return properties
             jsonlite::fromJSON(
               iconv(
                 x  = self$java_consumer$props$to_json(),

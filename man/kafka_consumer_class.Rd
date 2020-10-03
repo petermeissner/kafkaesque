@@ -228,11 +228,20 @@ that were retrieved by the last poll unless consumed already.}
 \if{html}{\out{<a id="method-props"></a>}}
 \if{latex}{\out{\hypertarget{method-props}{}}}
 \subsection{Method \code{props()}}{
-Polling for messages
+Retrieving current current set of properties.
+If properties are supplied via props parameter thos properties will
+be set.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$props()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$props(..., .properties = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{lst}}{list of properties in the form of key, value pairs}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-topics_subscribe"></a>}}

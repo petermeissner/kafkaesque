@@ -210,11 +210,18 @@ consumer$start()$running()
 
 ## Properties aka Config
 
+See here for list of consumer properties: https://kafka.apache.org/documentation/#consumerconfigs.
 
 
 ```{r}
 consumer$props()
 ```
+
+
+```{r}
+consumer$props(max.poll.records = 200)
+```
+
 
 
 ## Topics and Subscriptions
@@ -292,3 +299,8 @@ should be placed within the same folder to make this work properly.
 
 After Java compilation, both R packages have to be build and installed - first 
 {kafkaesquejars} than {kafkaesque}. 
+
+If developing Java in VScode - as I did here - pressing Ctrl-Shift-B should allow 
+to select the two most important tasks: resolving dependencies 
+(these go into {kafkaesqujars}) and compiling the Java code and distributing it 
+to the right places as described above. 

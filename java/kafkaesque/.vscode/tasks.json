@@ -4,9 +4,9 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "package",
+      "label": "install",
       "type": "shell",
-      "command": "mvn package",
+      "command": "mvn install",
       "group": "build",
       "problemMatcher": []
     },

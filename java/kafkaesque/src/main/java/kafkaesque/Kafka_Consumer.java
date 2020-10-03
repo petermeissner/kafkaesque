@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.Collections;
 
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -25,6 +24,24 @@ public class Kafka_consumer {
    * Create Config with default consumer settings
    */
   public Kafka_consumer_props props = new Kafka_consumer_props();
+
+
+  /**
+   * Properties / Config
+   * 
+   * Create Config with default consumer settings
+   */
+  public Kafka_consumer_props props_set(String[] keys, String[] values){
+
+    // go through seetings and store them
+    for (int i = 0; i < keys.length; i++) {
+      this.props.set_prop(keys[i], values[i]);
+    }
+
+    // return updated state
+    return this.props;
+  };
+
 
   /**
    * Kafka Consumer

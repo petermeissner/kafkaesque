@@ -26,11 +26,11 @@ status](https://ci.appveyor.com/api/projects/status/github/petermeissner/kafkaes
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque">
 <img src="http://cranlogs.r-pkg.org/badges/kafkaesque">
 
-*lines of R code:* 345, *lines of test code:* 46
+*lines of R code:* 357, *lines of test code:* 46
 
 **Version**
 
-0.1.0 ( 2020-10-02 18:22:16 )
+0.1.0 ( 2020-10-03 03:25:05 )
 
 **Description**
 
@@ -81,6 +81,27 @@ Latest development version from Github:
 devtools::install_github("petermeissner/kafkaesque")
 ```
 
+# ToDos
+
+``` r
+kafkaesque::todo
+```
+
+    ## $consumer
+    ## $consumer[[1]]
+    ## [1] "change offset: first, last, i"
+    ## 
+    ## $consumer[[2]]
+    ## [1] "otpions/proporties"
+    ## 
+    ## $consumer[[3]]
+    ## [1] "pin point and solve encoding problems "
+    ## 
+    ## 
+    ## $general
+    ## $general[[1]]
+    ## [1] "serialize records back and forth: "
+
 # Content
 
 ``` r
@@ -130,6 +151,9 @@ consumer$start()$running()
 
 ## Properties aka Config
 
+See here for list of consumer properties:
+<https://kafka.apache.org/documentation/#consumerconfigs>.
+
 ``` r
 consumer$props()
 ```
@@ -141,7 +165,32 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "473cf57f-fab9-466d-bb22-a6a47a7652e0"
+    ## [1] "2417f3e9-7944-474b-a8df-044d2d231754"
+    ## 
+    ## $bootstrap.servers
+    ## [1] "localhost:9092"
+    ## 
+    ## $auto.offset.reset
+    ## [1] "earliest"
+    ## 
+    ## $client.id
+    ## [1] "kafkaesque_consumer"
+
+``` r
+consumer$props(max.poll.records = 200)
+```
+
+    ## $key.deserializer
+    ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
+    ## 
+    ## $value.deserializer
+    ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
+    ## 
+    ## $max.poll.records
+    ## [1] "200"
+    ## 
+    ## $group.id
+    ## [1] "2417f3e9-7944-474b-a8df-044d2d231754"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -177,7 +226,7 @@ consumer$consume_next()
 ```
 
     ##         topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ## 1: test500000         0      0 1.601661e+12   CREATE_TIME                -1                   2   1\r
+    ## 1: test500000         0      0 1.601696e+12   CREATE_TIME                -1                   2   1\r
     ##    leaderEpoch
     ## 1:           0
 
@@ -193,19 +242,19 @@ res <-
 ```
 
     ##         topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ## 1: test500000         0      1 1.601661e+12   CREATE_TIME                -1                   2   2\r
+    ## 1: test500000         0      1 1.601696e+12   CREATE_TIME                -1                   2   2\r
     ##    leaderEpoch
     ## 1:           0
     ##         topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ## 1: test500000         0      2 1.601661e+12   CREATE_TIME                -1                   2   3\r
+    ## 1: test500000         0      2 1.601696e+12   CREATE_TIME                -1                   2   3\r
     ##    leaderEpoch
     ## 1:           0
     ##         topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ## 1: test500000         0      3 1.601661e+12   CREATE_TIME                -1                   2   4\r
+    ## 1: test500000         0      3 1.601696e+12   CREATE_TIME                -1                   2   4\r
     ##    leaderEpoch
     ## 1:           0
     ##         topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ## 1: test500000         0      4 1.601661e+12   CREATE_TIME                -1                   2   5\r
+    ## 1: test500000         0      4 1.601696e+12   CREATE_TIME                -1                   2   5\r
     ##    leaderEpoch
     ## 1:           0
 
@@ -215,10 +264,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-02 20:37:04 CEST"
+    ## [1] "2020-10-03 05:51:06 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-02 20:37:04 CEST"
+    ## [1] "2020-10-03 05:51:07 CEST"
     ## 
     ## $n
     ## [1] 4
@@ -240,17 +289,17 @@ res <-
 ```
 
     ##           topic partition offset    timestamp timestampType serializedKeySize serializedValueSize value
-    ##   1: test500000         0      5 1.601661e+12   CREATE_TIME                -1                   2   6\r
-    ##   2: test500000         0      6 1.601661e+12   CREATE_TIME                -1                   2   7\r
-    ##   3: test500000         0      7 1.601661e+12   CREATE_TIME                -1                   2   8\r
-    ##   4: test500000         0      8 1.601661e+12   CREATE_TIME                -1                   2   9\r
-    ##   5: test500000         0      9 1.601661e+12   CREATE_TIME                -1                   3  10\r
+    ##   1: test500000         0      5 1.601696e+12   CREATE_TIME                -1                   2   6\r
+    ##   2: test500000         0      6 1.601696e+12   CREATE_TIME                -1                   2   7\r
+    ##   3: test500000         0      7 1.601696e+12   CREATE_TIME                -1                   2   8\r
+    ##   4: test500000         0      8 1.601696e+12   CREATE_TIME                -1                   2   9\r
+    ##   5: test500000         0      9 1.601696e+12   CREATE_TIME                -1                   3  10\r
     ##  ---                                                                                                   
-    ## 491: test500000         0    495 1.601661e+12   CREATE_TIME                -1                   4 496\r
-    ## 492: test500000         0    496 1.601661e+12   CREATE_TIME                -1                   4 497\r
-    ## 493: test500000         0    497 1.601661e+12   CREATE_TIME                -1                   4 498\r
-    ## 494: test500000         0    498 1.601661e+12   CREATE_TIME                -1                   4 499\r
-    ## 495: test500000         0    499 1.601661e+12   CREATE_TIME                -1                   4 500\r
+    ## 491: test500000         0    495 1.601696e+12   CREATE_TIME                -1                   4 496\r
+    ## 492: test500000         0    496 1.601696e+12   CREATE_TIME                -1                   4 497\r
+    ## 493: test500000         0    497 1.601696e+12   CREATE_TIME                -1                   4 498\r
+    ## 494: test500000         0    498 1.601696e+12   CREATE_TIME                -1                   4 499\r
+    ## 495: test500000         0    499 1.601696e+12   CREATE_TIME                -1                   4 500\r
     ##      leaderEpoch
     ##   1:           0
     ##   2:           0
@@ -265,17 +314,17 @@ res <-
     ## 495:           0
     ## 
     ##           topic partition offset    timestamp timestampType serializedKeySize serializedValueSize  value
-    ##   1: test500000         0    500 1.601661e+12   CREATE_TIME                -1                   4  501\r
-    ##   2: test500000         0    501 1.601661e+12   CREATE_TIME                -1                   4  502\r
-    ##   3: test500000         0    502 1.601661e+12   CREATE_TIME                -1                   4  503\r
-    ##   4: test500000         0    503 1.601661e+12   CREATE_TIME                -1                   4  504\r
-    ##   5: test500000         0    504 1.601661e+12   CREATE_TIME                -1                   4  505\r
+    ##   1: test500000         0    500 1.601696e+12   CREATE_TIME                -1                   4  501\r
+    ##   2: test500000         0    501 1.601696e+12   CREATE_TIME                -1                   4  502\r
+    ##   3: test500000         0    502 1.601696e+12   CREATE_TIME                -1                   4  503\r
+    ##   4: test500000         0    503 1.601696e+12   CREATE_TIME                -1                   4  504\r
+    ##   5: test500000         0    504 1.601696e+12   CREATE_TIME                -1                   4  505\r
     ##  ---                                                                                                    
-    ## 496: test500000         0    995 1.601661e+12   CREATE_TIME                -1                   4  996\r
-    ## 497: test500000         0    996 1.601661e+12   CREATE_TIME                -1                   4  997\r
-    ## 498: test500000         0    997 1.601661e+12   CREATE_TIME                -1                   4  998\r
-    ## 499: test500000         0    998 1.601661e+12   CREATE_TIME                -1                   4  999\r
-    ## 500: test500000         0    999 1.601661e+12   CREATE_TIME                -1                   5 1000\r
+    ## 496: test500000         0    995 1.601696e+12   CREATE_TIME                -1                   4  996\r
+    ## 497: test500000         0    996 1.601696e+12   CREATE_TIME                -1                   4  997\r
+    ## 498: test500000         0    997 1.601696e+12   CREATE_TIME                -1                   4  998\r
+    ## 499: test500000         0    998 1.601696e+12   CREATE_TIME                -1                   4  999\r
+    ## 500: test500000         0    999 1.601696e+12   CREATE_TIME                -1                   5 1000\r
     ##      leaderEpoch
     ##   1:           0
     ##   2:           0
@@ -290,17 +339,17 @@ res <-
     ## 500:           0
     ## 
     ##           topic partition offset    timestamp timestampType serializedKeySize serializedValueSize  value
-    ##   1: test500000         0   1000 1.601661e+12   CREATE_TIME                -1                   5 1001\r
-    ##   2: test500000         0   1001 1.601661e+12   CREATE_TIME                -1                   5 1002\r
-    ##   3: test500000         0   1002 1.601661e+12   CREATE_TIME                -1                   5 1003\r
-    ##   4: test500000         0   1003 1.601661e+12   CREATE_TIME                -1                   5 1004\r
-    ##   5: test500000         0   1004 1.601661e+12   CREATE_TIME                -1                   5 1005\r
+    ##   1: test500000         0   1000 1.601696e+12   CREATE_TIME                -1                   5 1001\r
+    ##   2: test500000         0   1001 1.601696e+12   CREATE_TIME                -1                   5 1002\r
+    ##   3: test500000         0   1002 1.601696e+12   CREATE_TIME                -1                   5 1003\r
+    ##   4: test500000         0   1003 1.601696e+12   CREATE_TIME                -1                   5 1004\r
+    ##   5: test500000         0   1004 1.601696e+12   CREATE_TIME                -1                   5 1005\r
     ##  ---                                                                                                    
-    ## 496: test500000         0   1495 1.601661e+12   CREATE_TIME                -1                   5 1496\r
-    ## 497: test500000         0   1496 1.601661e+12   CREATE_TIME                -1                   5 1497\r
-    ## 498: test500000         0   1497 1.601661e+12   CREATE_TIME                -1                   5 1498\r
-    ## 499: test500000         0   1498 1.601661e+12   CREATE_TIME                -1                   5 1499\r
-    ## 500: test500000         0   1499 1.601661e+12   CREATE_TIME                -1                   5 1500\r
+    ## 496: test500000         0   1495 1.601696e+12   CREATE_TIME                -1                   5 1496\r
+    ## 497: test500000         0   1496 1.601696e+12   CREATE_TIME                -1                   5 1497\r
+    ## 498: test500000         0   1497 1.601696e+12   CREATE_TIME                -1                   5 1498\r
+    ## 499: test500000         0   1498 1.601696e+12   CREATE_TIME                -1                   5 1499\r
+    ## 500: test500000         0   1499 1.601696e+12   CREATE_TIME                -1                   5 1500\r
     ##      leaderEpoch
     ##   1:           0
     ##   2:           0
@@ -319,10 +368,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-02 20:37:04 CEST"
+    ## [1] "2020-10-03 05:51:07 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-02 20:37:04 CEST"
+    ## [1] "2020-10-03 05:51:07 CEST"
     ## 
     ## $n
     ## [1] 1495
@@ -338,3 +387,8 @@ folder to make this work properly.
 
 After Java compilation, both R packages have to be build and installed -
 first {kafkaesquejars} than {kafkaesque}.
+
+If developing Java in VScode - as I did here - pressing Ctrl-Shift-B
+should allow to select the two most important tasks: resolving
+dependencies (these go into {kafkaesqujars}) and compiling the Java code
+and distributing it to the right places as described above.
