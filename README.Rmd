@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 
 
 ```{r r options, include=FALSE}
-options("width"=110)
+options("width"=130)
 
 # get package info
 tmp <- packageDescription( "kafkaesque" )
@@ -304,3 +304,30 @@ If developing Java in VScode - as I did here - pressing Ctrl-Shift-B should allo
 to select the two most important tasks: resolving dependencies 
 (these go into {kafkaesqujars}) and compiling the Java code and distributing it 
 to the right places as described above. 
+
+
+# Vocabulary and Concepts
+
+## Is it a Queue? Is it BigData? Is it Distributed Log? Yes and No: It is Kafka. 
+
+TBD
+
+
+### Features and Promises
+
+TBD
+
+
+
+## Queues and Topics
+
+TBD
+
+
+
+## Conumers and Producers
+
+TBD
+
+
+

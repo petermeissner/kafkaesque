@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
@@ -33,7 +34,7 @@ public class Kafka_consumer {
    */
   public Kafka_consumer_props props_set(String[] keys, String[] values){
 
-    // go through seetings and store them
+    // go through settings and store them
     for (int i = 0; i < keys.length; i++) {
       this.props.set_prop(keys[i], values[i]);
     }
@@ -118,6 +119,7 @@ public class Kafka_consumer {
 
   public Map<String, List<PartitionInfo>> topics;
 
+
   /**
    * Subscribe to topics
    */
@@ -127,6 +129,7 @@ public class Kafka_consumer {
     return this.topics_subscription();
   }
 
+
   /**
    * Subscribe to topics
    */
@@ -135,6 +138,7 @@ public class Kafka_consumer {
     this.cons.subscribe(tpcs);
     return this.topics_subscription();
   }
+
 
   /**
    * Return topics subscribed to
@@ -146,10 +150,12 @@ public class Kafka_consumer {
     return str;
   }
 
+
   /**
    * Storage for messages returned from polling
    */
   public ConsumerRecords<String, String> records;
+
 
   /**
    * 
@@ -161,6 +167,7 @@ public class Kafka_consumer {
     return records.count();
   }
 
+
   /**
    * 
    * Poll Kafka for new messages
@@ -170,6 +177,21 @@ public class Kafka_consumer {
     this.records = this.cons.poll(Duration.ofMillis(timeout_ms));
     return records.count();
   }
+
+
+/**
+   * 
+   * Return current set of records as JSON string
+   * 
+   * @return JSON string of record data
+   * 
+   */
+  public Kafka_record_arrays records_arrays() {
+    Kafka_record_arrays res = new Kafka_record_arrays(this.records);
+    return res;
+  }
+
+
 
   /**
    * 
@@ -182,6 +204,10 @@ public class Kafka_consumer {
     return Json.to_json(this.records);
   }
 
+
+
+
+
   /**
    * 
    * Poll Kafka for new messages and print them
@@ -193,6 +219,8 @@ public class Kafka_consumer {
       System.out.println("1 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
     });
   }
+
+
 
   public static void main(final String... args) throws Exception {
 

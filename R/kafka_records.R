@@ -128,29 +128,25 @@ kafka_records_class <-
             # kafka poll for new messages
             private$parent$poll()
 
+            # transform collection of messages into collection of arrays to make
+            # transformation from Java to R easier
+            obj <- consumer$java_consumer$records_arrays()
+
+
             # transform records from Java to R
             private$records <-
-              data.table::rbindlist(
-                lapply(
-                  X =
-                    jsonlite::fromJSON(
-                      iconv(
-                        x = private$parent$java_consumer$records_json(),
-                        to = "UTF-8"
-                      )
-                    )$records,
-
-                  FUN =
-                    function(x){
-                      # get rid of nested headers data.frame
-                      x <- x[, -c(which(names(x) %in% "headers"))]
-
-                      # unnest leader epoch
-                      x$leaderEpoch <- x$leaderEpoch$value
-
-                      # return
-                      x
-                    }
+              data.table::as.data.table(
+                list(
+                  topic               = obj$topic,
+                  key                 = obj$keys,
+                  partition           = obj$partitions,
+                  offset              = obj$offsets,
+                  timestamp           = obj$timestamp,
+                  value               = obj$values,
+                  timestampType       = obj$timestampType,
+                  leaderEpoch         = obj$leaderEpoch,
+                  serializedKeySize   = obj$serializedKeySize,
+                  serializedValueSize = obj$serializedValueSize
                 )
               )
           }

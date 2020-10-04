@@ -14,7 +14,6 @@ todo <-
       ),
     general =
       list(
-      "serialize records back and forth: "
     )
   )
 

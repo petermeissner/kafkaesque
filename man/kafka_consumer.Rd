@@ -14,3 +14,6 @@ Constructor for kafka_class_consumer
 consumer <- kafka_consumer()
 
 }
+\seealso{
+\link{kafka_consumer_class}
+}

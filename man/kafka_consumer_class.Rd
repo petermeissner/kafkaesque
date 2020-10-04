@@ -48,17 +48,9 @@ Note: Consider using consume methods instead of managing records on your own.}
 Create a new consumer object.
 Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$new(props)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$new()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{props}}{list of key value pairs both of type string that should
-be used as consumer properties.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
 returns object reference for method chaining
 }
@@ -130,7 +122,7 @@ messages, defaults to Inf}
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-returns object reference for method chaining
+the number of records retrieved by last poll
 }
 }
 \if{html}{\out{<hr>}}
@@ -238,9 +230,14 @@ be set.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{lst}}{list of properties in the form of key, value pairs}
+\item{\code{...}}{a series of proporties provided as \code{key = "values"}}
+
+\item{\code{.properties}}{a list of properties provided as  \code{.properties = list(key = "values", ...)}}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+returns a list of properties
 }
 }
 \if{html}{\out{<hr>}}

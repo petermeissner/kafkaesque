@@ -36,9 +36,6 @@ kafka_consumer_class <-
 
         #' Initialize
         #'
-        #' @param props list of key value pairs both of type string that should
-        #' be used as consumer properties.
-        #'
         #' @description
         #' Create a new consumer object.
         #' Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
@@ -46,7 +43,7 @@ kafka_consumer_class <-
         #' @return returns object reference for method chaining
         #'
         initialize =
-          function(props) {
+          function() {
             self$java_consumer <- rJava::.jnew("kafkaesque/Kafka_consumer")
             self$records       <- kafka_records_class$new(self)
           },
@@ -112,7 +109,7 @@ kafka_consumer_class <-
         #' @description
         #' Polling for messages
         #'
-        #' @return returns object reference for method chaining
+        #' @return the number of records retrieved by last poll
         #'
         poll =
           function(timeout_ms = Inf) {
@@ -130,7 +127,7 @@ kafka_consumer_class <-
             }
 
             # return for method chaining
-            invisible(self)
+            self$java_consumer$records$count()
         },
 
 
@@ -267,12 +264,15 @@ kafka_consumer_class <-
 
 
         #'
-        #' @param lst list of properties in the form of key, value pairs
+        #' @param ... a series of proporties provided as \code{key = "values"}
+        #' @param .properties a list of properties provided as  \code{.properties = list(key = "values", ...)}
         #'
         #' @description
         #' Retrieving current current set of properties.
         #' If properties are supplied via props parameter thos properties will
         #' be set.
+        #'
+        #' @return returns a list of properties
         #'
         #'
         props =
