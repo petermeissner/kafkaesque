@@ -358,6 +358,40 @@ kafka_consumer_class <-
             } else {
               return ( tmp)
             }
+          },
+
+
+        #' @description
+        #'
+        #'
+        topics_seek_to_beginning =
+          function(){
+            # execute seeking
+            obj <- self$java_consumer$topics_seek_to("beginning")
+
+            # return
+            data.table::data.table(
+              topic     = obj$topics,
+              partition = obj$partitions,
+              offset     = obj$offsets
+            )
+          },
+
+
+        #' @description
+        #'
+        #'
+        topics_seek_to_end =
+          function(){
+            # execute seeking
+            obj <- self$java_consumer$topics_seek_to("end")
+
+            # return
+            data.table::data.table(
+              topic     = obj$topics,
+              partition = obj$partitions,
+              offset     = obj$offsets
+            )
           }
       ),
 

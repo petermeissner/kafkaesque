@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "Deserializer",
+    "Gson",
     "Logg",
     "acks",
     "javahelloworld",
@@ -8,6 +9,7 @@
     "logglogg",
     "propsc",
     "propsp",
+    "runconsumer",
     "timec",
     "timep",
     "tpcs"

@@ -8,10 +8,8 @@ todo <-
   list(
     consumer =
       list(
-        "change offset: first, last, i",
-        "otpions/proporties",
-        "pin point and solve encoding problems ",
-        "seekTo... does only work after first poll !?!"
+        "change offset: i",
+        "offsets reported after seeking are not reported accurate"
       ),
     general =
       list(

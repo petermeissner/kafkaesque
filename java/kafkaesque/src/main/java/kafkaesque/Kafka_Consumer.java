@@ -4,12 +4,9 @@ import java.time.Duration;
 import java.util.*;
 import java.util.UUID;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.TopicPartition;
-import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 
 /**
  * Shell Object to spin up consumer, change config, send messages and close it
@@ -24,19 +21,18 @@ public class Kafka_consumer {
    */
   public Kafka_consumer_props props = new Kafka_consumer_props(true);
 
-
   /**
    * Properties / Config
    * 
    * Create Config with default consumer settings
    * 
-   * @param keys array of property keys
+   * @param keys   array of property keys
    * @param values array of property values
    * 
    * @return returns all settings
    * 
    */
-  public Kafka_consumer_props props_set(String[] keys, String[] values){
+  public Kafka_consumer_props props_set(String[] keys, String[] values) {
 
     // go through settings and store them
     for (int i = 0; i < keys.length; i++) {
@@ -46,7 +42,6 @@ public class Kafka_consumer {
     // return updated state
     return this.props;
   };
-
 
   /**
    * Kafka Consumer
@@ -111,7 +106,6 @@ public class Kafka_consumer {
     cons.commitAsync();
   }
 
-  
   /**
    * List topics
    */
@@ -155,56 +149,39 @@ public class Kafka_consumer {
 
 
   /**
-   * Seek to beginning of all topic(-partitions) assigned to
+   * Seek to end or beginning of all topic(-partitions) assigned to
    * 
    */
-  public long[] topics_seek_to_beginning(){
+  public Kafka_offset_arrays topics_seek_to(String beginning_end) {
 
-    this.poll(0);
-
-    this.cons.seekToBeginning(this.cons.assignment());
-    
-    Set<TopicPartition> tp = this.cons.assignment();
-    Iterator<TopicPartition> tp_iter = tp.iterator();
-
-    long[] offsets = new long[tp.size()];
-    int i = 0;
-
-    while ( tp_iter.hasNext() ){
-      TopicPartition tp_item = tp_iter.next();
-      offsets[i] = this.cons.position(tp_item);
-      i++;
+    // make sure that polling returned some data - ever -
+    // otherwise seeking will not work for newly instantiated consumer
+    while (!records_ever_got()) {
+      this.poll(20);
     }
-    
-    return offsets;
-  }
 
-/**
-   * Seek to end of all topic(-partitions) assigned to
+    // seek to ... beginning/end
+    if (beginning_end == "beginning") {
+      this.poll(20);
+      this.cons.seekToBeginning(this.cons.assignment());
+    } else {
+      this.poll(20);
+      this.cons.seekToEnd(this.cons.assignment());
+    }
+
+    // return array to pass to R
+    return this.topics_offsets();
+  };
+
+
+  /**
+   * 
    * 
    */
-  public long[] topics_seek_to_end(){
 
-    this.poll(0);
-
-    this.cons.seekToEnd(this.cons.assignment());
-    
-    Set<TopicPartition> tp = this.cons.assignment();
-    Iterator<TopicPartition> tp_iter = tp.iterator();
-
-    long[] offsets = new long[tp.size()];
-    int i = 0;
-
-    while ( tp_iter.hasNext() ){
-      TopicPartition tp_item = tp_iter.next();
-      offsets[i] = this.cons.position(tp_item);
-      i++;
-    }
-    
-    return offsets;
+  public Kafka_offset_arrays topics_offsets() {
+    return new Kafka_offset_arrays(this.cons);
   }
-
-
 
 
   /**
@@ -214,12 +191,36 @@ public class Kafka_consumer {
 
 
   /**
+   * Ever got records?
+   * 
+   */
+  private boolean rec_ev_gt = false;
+
+  private boolean records_ever_got() {
+
+    // check and store state
+    if (this.rec_ev_gt == false && (this.records != null && this.records.count() > 0)) {
+      this.rec_ev_gt = true;
+    }
+
+    // return
+    return this.rec_ev_gt;
+  }
+
+
+  /**
    * 
    * Poll Kafka for new messages
    * 
    */
   public int poll() {
+    // poll for data
     this.records = this.cons.poll(Duration.ofMillis(100));
+
+    // switch state if ever messages were returned
+    this.records_ever_got();
+
+    // return number of messages retrieved
     return records.count();
   }
 
@@ -230,12 +231,18 @@ public class Kafka_consumer {
    * 
    */
   public int poll(final int timeout_ms) {
+    // poll for data
     this.records = this.cons.poll(Duration.ofMillis(timeout_ms));
+
+    // switch state if ever messages were returned
+    this.records_ever_got();
+
+    // return number of messages retrieved
     return records.count();
   }
 
 
-/**
+  /**
    * 
    * Return current set of records as JSON string
    * 
@@ -246,7 +253,6 @@ public class Kafka_consumer {
     Kafka_record_arrays res = new Kafka_record_arrays(this.records);
     return res;
   }
-
 
 
   /**
@@ -261,9 +267,6 @@ public class Kafka_consumer {
   }
 
 
-
-
-
   /**
    * 
    * Poll Kafka for new messages and print them
@@ -275,8 +278,6 @@ public class Kafka_consumer {
       System.out.println("1 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
     });
   }
-
-
 
   public static void main(final String... args) throws Exception {
 

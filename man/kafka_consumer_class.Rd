@@ -38,6 +38,8 @@ Note: Consider using consume methods instead of managing records on your own.}
 \item \href{#method-topics_subscribe}{\code{kafka_consumer_class$topics_subscribe()}}
 \item \href{#method-topics_subscription}{\code{kafka_consumer_class$topics_subscription()}}
 \item \href{#method-topics_list}{\code{kafka_consumer_class$topics_list()}}
+\item \href{#method-topics_seek_to_beginning}{\code{kafka_consumer_class$topics_seek_to_beginning()}}
+\item \href{#method-topics_seek_to_end}{\code{kafka_consumer_class$topics_seek_to_end()}}
 \item \href{#method-clone}{\code{kafka_consumer_class$clone()}}
 }
 }
@@ -289,6 +291,26 @@ listing the names of the data topics available for consumption
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_seek_to_beginning"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_seek_to_beginning}{}}}
+\subsection{Method \code{topics_seek_to_beginning()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$topics_seek_to_beginning()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_seek_to_end"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_seek_to_end}{}}}
+\subsection{Method \code{topics_seek_to_end()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$topics_seek_to_end()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
