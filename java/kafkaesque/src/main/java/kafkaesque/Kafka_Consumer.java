@@ -1,9 +1,7 @@
 package kafkaesque;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.UUID;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -24,13 +22,19 @@ public class Kafka_consumer {
    * 
    * Create Config with default consumer settings
    */
-  public Kafka_consumer_props props = new Kafka_consumer_props();
+  public Kafka_consumer_props props = new Kafka_consumer_props(true);
 
 
   /**
    * Properties / Config
    * 
    * Create Config with default consumer settings
+   * 
+   * @param keys array of property keys
+   * @param values array of property values
+   * 
+   * @return returns all settings
+   * 
    */
   public Kafka_consumer_props props_set(String[] keys, String[] values){
 
@@ -77,7 +81,6 @@ public class Kafka_consumer {
   /**
    * Create a kafka consumer object with a specific config
    * 
-   * @return Kafka consumer Object
    */
   public void restart() {
     this.end();
@@ -149,6 +152,59 @@ public class Kafka_consumer {
     str = cons.subscription().toArray(str);
     return str;
   }
+
+
+  /**
+   * Seek to beginning of all topic(-partitions) assigned to
+   * 
+   */
+  public long[] topics_seek_to_beginning(){
+
+    this.poll(0);
+
+    this.cons.seekToBeginning(this.cons.assignment());
+    
+    Set<TopicPartition> tp = this.cons.assignment();
+    Iterator<TopicPartition> tp_iter = tp.iterator();
+
+    long[] offsets = new long[tp.size()];
+    int i = 0;
+
+    while ( tp_iter.hasNext() ){
+      TopicPartition tp_item = tp_iter.next();
+      offsets[i] = this.cons.position(tp_item);
+      i++;
+    }
+    
+    return offsets;
+  }
+
+/**
+   * Seek to end of all topic(-partitions) assigned to
+   * 
+   */
+  public long[] topics_seek_to_end(){
+
+    this.poll(0);
+
+    this.cons.seekToEnd(this.cons.assignment());
+    
+    Set<TopicPartition> tp = this.cons.assignment();
+    Iterator<TopicPartition> tp_iter = tp.iterator();
+
+    long[] offsets = new long[tp.size()];
+    int i = 0;
+
+    while ( tp_iter.hasNext() ){
+      TopicPartition tp_item = tp_iter.next();
+      offsets[i] = this.cons.position(tp_item);
+      i++;
+    }
+    
+    return offsets;
+  }
+
+
 
 
   /**

@@ -10,7 +10,8 @@ todo <-
       list(
         "change offset: first, last, i",
         "otpions/proporties",
-        "pin point and solve encoding problems "
+        "pin point and solve encoding problems ",
+        "seekTo... does only work after first poll !?!"
       ),
     general =
       list(
