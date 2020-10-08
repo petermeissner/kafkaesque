@@ -40,6 +40,7 @@ Note: Consider using consume methods instead of managing records on your own.}
 \item \href{#method-topics_list}{\code{kafka_consumer_class$topics_list()}}
 \item \href{#method-topics_seek_to_beginning}{\code{kafka_consumer_class$topics_seek_to_beginning()}}
 \item \href{#method-topics_seek_to_end}{\code{kafka_consumer_class$topics_seek_to_end()}}
+\item \href{#method-topics_offsets}{\code{kafka_consumer_class$topics_offsets()}}
 \item \href{#method-clone}{\code{kafka_consumer_class$clone()}}
 }
 }
@@ -232,7 +233,7 @@ be set.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{a series of proporties provided as \code{key = "values"}}
+\item{\code{...}}{a series of properties provided as \code{key = "values"}}
 
 \item{\code{.properties}}{a list of properties provided as  \code{.properties = list(key = "values", ...)}}
 }
@@ -296,7 +297,7 @@ listing the names of the data topics available for consumption
 \if{html}{\out{<a id="method-topics_seek_to_beginning"></a>}}
 \if{latex}{\out{\hypertarget{method-topics_seek_to_beginning}{}}}
 \subsection{Method \code{topics_seek_to_beginning()}}{
-
+Seek to beginning of all topics subscribed and all partitions
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$topics_seek_to_beginning()}\if{html}{\out{</div>}}
 }
@@ -306,9 +307,19 @@ listing the names of the data topics available for consumption
 \if{html}{\out{<a id="method-topics_seek_to_end"></a>}}
 \if{latex}{\out{\hypertarget{method-topics_seek_to_end}{}}}
 \subsection{Method \code{topics_seek_to_end()}}{
-
+Seek to end of all topics subscribed and all partitions
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$topics_seek_to_end()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_offsets"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_offsets}{}}}
+\subsection{Method \code{topics_offsets()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$topics_offsets()}\if{html}{\out{</div>}}
 }
 
 }

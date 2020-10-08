@@ -19,6 +19,7 @@ public class Kafka_offset_arrays {
   public String[] topics;
   public int[] partitions;
   public long[] offsets;
+  public long[] committed;
 
 
   Kafka_offset_arrays(KafkaConsumer<String, String> parent_consumer) {
@@ -39,9 +40,9 @@ public class Kafka_offset_arrays {
       TopicPartition tp_item = tp_iter.next();
       
       // gather data 
-      offsets[i]    = parent_consumer.position(tp_item);
-      partitions[i] = tp_item.partition();
-      topics[i]     = tp_item.topic();
+      this.offsets[i]    = parent_consumer.position(tp_item);
+      this.partitions[i] = tp_item.partition();
+      this.topics[i]     = tp_item.topic();
       
       // advance counter
       i++;

@@ -43,6 +43,26 @@ public class Kafka_consumer {
     return this.props;
   };
 
+/**
+   * Properties / Config
+   * 
+   * Create Config with default consumer settings
+   * 
+   * @param keys   array of property keys
+   * @param values array of property values
+   * 
+   * @return returns all settings
+   * 
+   */
+  public Kafka_consumer_props props_set(String keys, String values) {
+
+    // go through settings and store them
+    this.props.set_prop(keys, values);
+
+    // return updated state
+    return this.props;
+  };
+
   /**
    * Kafka Consumer
    * 
@@ -149,36 +169,28 @@ public class Kafka_consumer {
 
 
   /**
-   * Seek to end or beginning of all topic(-partitions) assigned to
+   * Seek to beginning of all topic(-partitions) assigned to
    * 
    */
-  public Kafka_offset_arrays topics_seek_to(String beginning_end) {
-
-    // make sure that polling returned some data - ever -
-    // otherwise seeking will not work for newly instantiated consumer
-    while (!records_ever_got()) {
-      this.poll(20);
-    }
-
-    // seek to ... beginning/end
-    if (beginning_end == "beginning") {
-      this.poll(20);
+  public void topics_seek_to_beginning() {
+      // seek for all topics and partitions currently assigned
       this.cons.seekToBeginning(this.cons.assignment());
-    } else {
-      this.poll(20);
-      this.cons.seekToEnd(this.cons.assignment());
-    }
+  }
 
-    // return array to pass to R
-    return this.topics_offsets();
-  };
+  /**
+   * Seek to end of all topic(-partitions) assigned to
+   * 
+   */
+  public void topics_seek_to_end() {
+    // seek for all topics and partitions currently assigned
+    this.cons.seekToEnd(this.cons.assignment());
+  }
 
 
   /**
    * 
    * 
    */
-
   public Kafka_offset_arrays topics_offsets() {
     return new Kafka_offset_arrays(this.cons);
   }
@@ -190,23 +202,6 @@ public class Kafka_consumer {
   public ConsumerRecords<String, String> records;
 
 
-  /**
-   * Ever got records?
-   * 
-   */
-  private boolean rec_ev_gt = false;
-
-  private boolean records_ever_got() {
-
-    // check and store state
-    if (this.rec_ev_gt == false && (this.records != null && this.records.count() > 0)) {
-      this.rec_ev_gt = true;
-    }
-
-    // return
-    return this.rec_ev_gt;
-  }
-
 
   /**
    * 
@@ -216,9 +211,6 @@ public class Kafka_consumer {
   public int poll() {
     // poll for data
     this.records = this.cons.poll(Duration.ofMillis(100));
-
-    // switch state if ever messages were returned
-    this.records_ever_got();
 
     // return number of messages retrieved
     return records.count();
@@ -233,9 +225,6 @@ public class Kafka_consumer {
   public int poll(final int timeout_ms) {
     // poll for data
     this.records = this.cons.poll(Duration.ofMillis(timeout_ms));
-
-    // switch state if ever messages were returned
-    this.records_ever_got();
 
     // return number of messages retrieved
     return records.count();
@@ -263,7 +252,7 @@ public class Kafka_consumer {
    * 
    */
   public String records_json() {
-    return Json.to_json(this.records);
+    return Json.to_json_pretty(this.records);
   }
 
 
@@ -284,45 +273,24 @@ public class Kafka_consumer {
     System.out.println("\n\n-----------------------------------------------------");
     final Kafka_consumer cons = new Kafka_consumer();
 
+    cons.props_set("max.poll.records", "1");
     cons.start();
-    cons.topics_subscribe("test");
-    // cons.seek_to_beginning("test");
+    cons.topics_subscribe("test3");
 
-    System.out.println(cons.topics_subscription());
+    System.out.println(Json.to_json_pretty(cons.topics_subscription()));
+
+    System.out.println("-----------------------------------------------------\n\n");
 
     cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("1 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("2 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("3 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("4 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("5 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("6 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("7 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.poll();
-    cons.records.forEach(record -> {
-      System.out.println("8 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
-    });
-    cons.end();
+    while ( cons.records.count() == 0 ) {
+      cons.poll();
+    }
+    
+    System.out.println(cons.records_json());
+
+    System.out.println(cons.topics_offsets());
+
+
     System.out.println("-----------------------------------------------------\n\n");
   }
 

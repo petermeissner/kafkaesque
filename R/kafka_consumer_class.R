@@ -264,7 +264,7 @@ kafka_consumer_class <-
 
 
         #'
-        #' @param ... a series of proporties provided as \code{key = "values"}
+        #' @param ... a series of properties provided as \code{key = "values"}
         #' @param .properties a list of properties provided as  \code{.properties = list(key = "values", ...)}
         #'
         #' @description
@@ -363,36 +363,43 @@ kafka_consumer_class <-
 
         #' @description
         #'
+        #' Seek to beginning of all topics subscribed and all partitions
         #'
         topics_seek_to_beginning =
           function(){
             # execute seeking
-            obj <- self$java_consumer$topics_seek_to("beginning")
-
-            # return
-            data.table::data.table(
-              topic     = obj$topics,
-              partition = obj$partitions,
-              offset     = obj$offsets
-            )
+            self$java_consumer$topics_seek_to_beginning()
           },
 
 
         #' @description
         #'
+        #' Seek to end of all topics subscribed and all partitions
         #'
         topics_seek_to_end =
           function(){
             # execute seeking
-            obj <- self$java_consumer$topics_seek_to("end")
+            self$java_consumer$topics_seek_to_end()
+          },
+
+
+        #'
+        #' @description
+        #'
+        #'
+        #'
+        topics_offsets =
+          function() {
+            obj <- consumer$java_consumer$topics_offsets()
 
             # return
             data.table::data.table(
               topic     = obj$topics,
               partition = obj$partitions,
-              offset     = obj$offsets
+              offset    = obj$offsets
             )
           }
+
       ),
 
     #### private ###############################################################

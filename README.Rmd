@@ -30,7 +30,8 @@ knitr::opts_chunk$set(
 
 
 ```{r r options, include=FALSE}
-options("width"=130)
+options("width" = 130)
+options(scipen = 20)
 
 # get package info
 tmp <- packageDescription( "kafkaesque" )
@@ -286,6 +287,26 @@ res <-
 res
 
 ```
+
+
+## Offsets and Seeking
+
+
+```{r}
+# get current offsets from Kafka
+consumer$topics_offsets()
+
+# seek to end of topics 
+consumer$topics_seek_to_end()
+consumer$topics_offsets()
+
+# seek to beginning of topics
+consumer$topics_seek_to_beginning()
+consumer$topics_offsets()
+
+```
+
+
 
 
 
