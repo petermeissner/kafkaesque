@@ -65,19 +65,22 @@ cat("#", tmp$Title)
 
 
 ```{r, include=FALSE}
-filelist.R   <- list.files("R", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
+filelist.R     <- list.files("R", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
+filelist.Java  <- list.files("java/kafkaesque/src/main/java/kafkaesque", recursive = TRUE, pattern="\\.java$", ignore.case = TRUE, full.names = TRUE)
 filelist.tests   <- list.files("tests", recursive = TRUE, pattern="\\.R$", ignore.case = TRUE, full.names = TRUE)
 filelist.cpp <- list.files("src", recursive = TRUE, pattern="\\.cpp$", ignore.case = TRUE, full.names = TRUE)
 lines.R      <- unlist(lapply(filelist.R, readLines))
+lines.Java   <- unlist(lapply(filelist.Java, readLines, warn=FALSE))
 lines.tests  <- unlist(lapply(filelist.tests, readLines))
 lines.cpp    <- unlist(lapply(filelist.cpp, readLines))
 length.R     <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.R,  value = TRUE, invert = TRUE))
+length.Java  <- length(grep("(^\\s*$)|(^\\s*/*\\*)|(^\\s*#)|(^\\s*//)", lines.Java,  value = TRUE, invert = TRUE))
 length.tests <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.tests,  value = TRUE, invert = TRUE))
 length.cpp   <- length(grep("(^\\s*$)|(^\\s*#)|(^\\s*//)", lines.cpp,  value = TRUE, invert = TRUE))
 ```
 
 
-*lines of R code:* `r length.R`, *lines of test code:* `r length.tests`
+*lines of R code:* `r length.R`, *lines of Java code:* `r length.Java`, *lines of test code:* `r length.tests`
 
 
 
@@ -311,6 +314,16 @@ consumer$topics_offsets()
 
 
 # Developement Notes
+
+For R developement Rstudio was used. For Java developement Visual Studio Code
+lend a helping hand with Maven as build tooling. 
+
+For developement two packages are needed:
+
+- {kafkaesquejars} serves as place where all Java dependency Jars are put to 
+comply with CRAN best practices on publishing Java wrapper packages
+- {kafkaesque} contains all the R functions, classes and methods and also all 
+Java code that is specific to this project (and not just a dependency)
 
 Java sources are in `./java/kafkaesque/` folder. Building Java sources can be 
 done via Maven: `mvn install` will compile everything and copy the `kafkaesque.jar`

@@ -26,7 +26,8 @@ status](https://ci.appveyor.com/api/projects/status/github/petermeissner/kafkaes
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque">
 <img src="http://cranlogs.r-pkg.org/badges/kafkaesque">
 
-*lines of R code:* 370, *lines of test code:* 46
+*lines of R code:* 370, *lines of Java code:* 429, *lines of test code:*
+46
 
 **Version**
 
@@ -161,7 +162,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "4f89890f-4d0a-415a-ad1b-855197166be2"
+    ## [1] "35ff316d-c75c-4f6a-ae3d-0a1baeb41cc8"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -186,7 +187,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "4f89890f-4d0a-415a-ad1b-855197166be2"
+    ## [1] "35ff316d-c75c-4f6a-ae3d-0a1baeb41cc8"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -250,10 +251,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-08 21:48:43 CEST"
+    ## [1] "2020-10-08 22:02:08 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-08 21:48:43 CEST"
+    ## [1] "2020-10-08 22:02:08 CEST"
     ## 
     ## $n
     ## [1] 4
@@ -318,10 +319,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-08 21:48:43 CEST"
+    ## [1] "2020-10-08 22:02:08 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-08 21:48:43 CEST"
+    ## [1] "2020-10-08 22:02:08 CEST"
     ## 
     ## $n
     ## [1] 1495
@@ -355,6 +356,18 @@ consumer$topics_offsets()
     ## 1: test500000         0      0
 
 # Developement Notes
+
+For R developement Rstudio was used. For Java developement Visual Studio
+Code lend a helping hand with Maven as build tooling.
+
+For developement two packages are needed:
+
+  - {kafkaesquejars} serves as place where all Java dependency Jars are
+    put to comply with CRAN best practices on publishing Java wrapper
+    packages
+  - {kafkaesque} contains all the R functions, classes and methods and
+    also all Java code that is specific to this project (and not just a
+    dependency)
 
 Java sources are in `./java/kafkaesque/` folder. Building Java sources
 can be done via Maven: `mvn install` will compile everything and copy
