@@ -44,6 +44,29 @@ package_name <- tmp$Package
 cat("#", tmp$Title)
 ```
 
+```{r, include=FALSE}
+md_list <- 
+  function(x, item_string = c("-", "*", "+"), item_ident = c("", "  ", "    ")){
+    
+    for ( i in seq_along(x)){
+      
+      cat(item_ident[1], item_string[1], " **", names(x)[[i]], "**\n", sep = "")
+      
+      if ( is.list(x[[i]]) & !is.null(names(x[[i]])) ){
+        
+        lapply(x[[i]], md_list, item_string = item_string[-1], item_ident = item_ident[-1])
+        
+      } else {
+        
+        for (k in seq_along(x[[i]])) {
+          cat(item_ident[-1][1], item_string[-1][1], " ", x[[i]][[k]], "\n", sep = "")
+        }
+        
+      }
+    }  
+  }
+
+```
 
 
 
@@ -176,8 +199,8 @@ cat("\n```\n")
 
 # ToDos
 
-```{r}
-kafkaesque::todo
+```{r, results='asis'}
+md_list(kafkaesque:::todo)
 ```
 
 

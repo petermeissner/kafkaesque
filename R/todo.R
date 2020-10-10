@@ -3,7 +3,6 @@
 #'
 #' @docType data
 #' @name todo
-#' @export
 todo <-
   list(
     producer =
@@ -14,6 +13,10 @@ todo <-
         "consumer: allow props to be set within initialize",
         "change offset: i",
         "change offset by time"
+      ),
+    admin =
+      list(
+        "wrap admin api"
       ),
     general =
       list(

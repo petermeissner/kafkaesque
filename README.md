@@ -26,12 +26,12 @@ status](https://ci.appveyor.com/api/projects/status/github/petermeissner/kafkaes
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque">
 <img src="http://cranlogs.r-pkg.org/badges/kafkaesque">
 
-*lines of R code:* 426, *lines of Java code:* 454, *lines of test code:*
+*lines of R code:* 429, *lines of Java code:* 454, *lines of test code:*
 46
 
 **Version**
 
-0.1.0 ( 2020-10-10 20:05:12 )
+0.1.0 ( 2020-10-10 22:40:54 )
 
 **Description**
 
@@ -85,31 +85,19 @@ devtools::install_github("petermeissner/kafkaesque")
 # ToDos
 
 ``` r
-kafkaesque::todo
+md_list(kafkaesque:::todo)
 ```
 
-    ## $producer
-    ## $producer[[1]]
-    ## [1] "make it work"
-    ## 
-    ## 
-    ## $consumer
-    ## $consumer[[1]]
-    ## [1] "consumer: allow props to be set within initialize"
-    ## 
-    ## $consumer[[2]]
-    ## [1] "change offset: i"
-    ## 
-    ## $consumer[[3]]
-    ## [1] "change offset by time"
-    ## 
-    ## 
-    ## $general
-    ## $general[[1]]
-    ## [1] "testing"
-    ## 
-    ## $general[[2]]
-    ## [1] "continous integration testing"
+  - **producer**
+  - **consumer**
+      - consumer: allow props to be set within initialize
+      - change offset: i
+      - change offset by time
+  - **admin**
+      - wrap admin api
+  - **general**
+      - testing
+      - continous integration testing
 
 # Content
 
@@ -126,7 +114,7 @@ ls("package:kafkaesque")
 ```
 
     ## [1] "%>%"                  "java_class"           "java_methods"         "kafka_consumer"       "kafka_consumer_class"
-    ## [6] "kafka_producer"       "kafka_producer_class" "kafka_set_log_level"  "todo"
+    ## [6] "kafka_producer"       "kafka_producer_class" "kafka_set_log_level"
 
 # Usage
 
@@ -176,7 +164,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "7a3adb19-ede8-4325-814b-a14b04293c37"
+    ## [1] "dfa64209-f243-4605-bec0-c9988aac2e09"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -201,7 +189,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "7a3adb19-ede8-4325-814b-a14b04293c37"
+    ## [1] "dfa64209-f243-4605-bec0-c9988aac2e09"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -265,10 +253,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-10 22:08:27 CEST"
+    ## [1] "2020-10-11 00:42:46 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-10 22:08:27 CEST"
+    ## [1] "2020-10-11 00:42:46 CEST"
     ## 
     ## $n
     ## [1] 4
@@ -333,10 +321,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-10 22:08:27 CEST"
+    ## [1] "2020-10-11 00:42:46 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-10 22:08:27 CEST"
+    ## [1] "2020-10-11 00:42:46 CEST"
     ## 
     ## $n
     ## [1] 1495
