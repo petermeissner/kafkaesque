@@ -192,7 +192,9 @@ ls("package:kafkaesque")
 # Usage
 
 
-## Start Consumer (... Stop, Status)
+## Consumer
+
+### Start Consumer (... Stop, Status)
 
 ```{r}
 
@@ -212,7 +214,7 @@ consumer$start()$running()
 
 
 
-## Properties aka Config
+### Properties aka Config
 
 See here for list of consumer properties: https://kafka.apache.org/documentation/#consumerconfigs.
 
@@ -228,7 +230,7 @@ consumer$props(max.poll.records = 200)
 
 
 
-## Topics and Subscriptions
+### Topics and Subscriptions
 
 ```{r}
 
@@ -244,7 +246,7 @@ consumer$topics_subscription()
 
 
 
-## Retrieving a Message
+### Retrieving a Message
 
 ```{r}
 
@@ -254,7 +256,7 @@ consumer$consume_next()
 ```
 
 
-## Looping over Messages and Executing Code
+### Looping over Messages and Executing Code
 
 
 ```{r}
@@ -271,7 +273,7 @@ res
 
 ```
 
-## Looping over Batches of Messages and Executing Code
+### Looping over Batches of Messages and Executing Code
 
 ```{r}
 
@@ -292,7 +294,7 @@ res
 ```
 
 
-## Offsets and Seeking
+### Offsets and Seeking
 
 
 ```{r}
@@ -310,6 +312,53 @@ consumer$topics_offsets()
 ```
 
 
+
+## Producer
+
+
+### Start Producer (... Stop, Status)
+
+```{r}
+
+library("kafkaesque")
+
+# new producer
+producer <- kafka_producer()
+
+# starting/connecting - + status
+producer$start()
+
+producer$running()
+producer$end()$running()
+producer$start()$running()
+producer$restart()$running()
+
+```
+
+
+### Properties aka Config
+
+See here for list of consumer properties: https://kafka.apache.org/documentation/#producerconfigs.
+
+
+```{r}
+producer$props()
+```
+
+
+```{r}
+producer$props(whatever.you.may.want.to.set = "true")
+```
+
+
+
+### Sending Messages
+
+```{r}
+producer$send(topic = "test", msg = "Die Kuh macht muh.")
+producer$send(topic = "test", msg = "Das Schaf macht mäh.")
+producer$send(topic = "test", msg = "Das Pferd macht wihiiiiiiiii-pffffff.")
+```
 
 
 

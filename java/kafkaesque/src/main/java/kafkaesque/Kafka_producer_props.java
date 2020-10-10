@@ -14,21 +14,15 @@ package kafkaesque;
  */
 public class Kafka_producer_props extends Kafka_props {
 
-  // /**
-  //  * props holds all property values
-  //  * 
-  //  */
+  /**
+   * store default values
+   * 
+   */
   public void set_defaults() {
     this.set_prop("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     this.set_prop("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
     this.set_prop("bootstrap.servers", "localhost:9092");
     this.set_prop("client.id", "kafkaesque_producer");
-    // this.set_prop("", "");
-    // this.set_prop("", "");
-    // this.set_prop("", "");
-    // this.set_prop("", "");
-    // this.set_prop("", "");
-    // this.set_prop("", "");
   }
 
 

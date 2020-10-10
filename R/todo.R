@@ -6,13 +6,19 @@
 #' @export
 todo <-
   list(
+    producer =
+      list(
+      ),
     consumer =
       list(
+        "consumer: allow props to be set within initialize",
         "change offset: i",
-        "offsets reported after seeking are not reported accurate"
+        "change offset by time"
       ),
     general =
       list(
+        "testing",
+        "continous integration testing"
     )
   )
 

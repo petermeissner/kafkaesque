@@ -16,6 +16,17 @@ message batches for consumption.
 
 It abstracts storage, polling, forwarding into an iteratable interface where
 messages can be accessed via \code{next_record()} and \code{next_record_batch()}.
+
+The main problem here is that message consumption is not trivial for a couple
+of reasons: (1) The R interface has to be in sync with the Java side of things
+- there is an records object at the Java side.
+(2) Kafka does fetch messages in batches. While batches might be as small as
+0 or 1 message the default is to consume messages in batches of 500. This
+makes consuming single messages a non trivial process since the batch size
+is determined by how the consumer options were set e.g. timeouts and max
+fetch sizes the number of available messages on the topic - all things
+outside the s specific call of the poll method which executes data retrieval.
+(3) Extra processing has to be done to translate records from Java into R.
 }
 \section{Methods}{
 \subsection{Public methods}{

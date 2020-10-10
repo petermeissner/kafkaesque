@@ -31,7 +31,6 @@ Note: Consider using consume methods instead of managing records on your own.}
 \item \href{#method-running}{\code{kafka_consumer_class$running()}}
 \item \href{#method-poll}{\code{kafka_consumer_class$poll()}}
 \item \href{#method-commit}{\code{kafka_consumer_class$commit()}}
-\item \href{#method-offset}{\code{kafka_consumer_class$offset()}}
 \item \href{#method-consume_next}{\code{kafka_consumer_class$consume_next()}}
 \item \href{#method-consume_loop}{\code{kafka_consumer_class$consume_loop()}}
 \item \href{#method-props}{\code{kafka_consumer_class$props()}}
@@ -147,24 +146,6 @@ list of topics and partitions.
 }
 \subsection{Returns}{
 returns object reference for method chaining
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-offset"></a>}}
-\if{latex}{\out{\hypertarget{method-offset}{}}}
-\subsection{Method \code{offset()}}{
-Set/return offsets.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$offset(offset = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{offset}}{defaults to NULL, if set to NULL now new offset will
-be set, if set to a number this number will be used as new offset}
-}
-\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}

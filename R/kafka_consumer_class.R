@@ -169,21 +169,6 @@ kafka_consumer_class <-
         records = list(),
 
 
-        #' @description
-        #'
-        #' Set/return offsets.
-        #'
-        #' @param offset defaults to NULL, if set to NULL now new offset will
-        #'   be set, if set to a number this number will be used as new offset
-        #'
-        offset =
-          function (
-            offset = NULL
-          ) {
-            #### TODO
-            message("TBD")
-          },
-
 
         #' @description
         #'

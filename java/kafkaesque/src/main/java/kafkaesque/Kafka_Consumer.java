@@ -9,8 +9,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.PartitionInfo;
 
 /**
- * Shell Object to spin up consumer, change config, send messages and close it
- * again
+ * Shell Object to spin up consumer, change config, send messages and close it again
  */
 public class Kafka_consumer {
 
@@ -23,8 +22,6 @@ public class Kafka_consumer {
 
   /**
    * Properties / Config
-   * 
-   * Create Config with default consumer settings
    * 
    * @param keys   array of property keys
    * @param values array of property values
@@ -43,10 +40,9 @@ public class Kafka_consumer {
     return this.props;
   };
 
-/**
+
+  /**
    * Properties / Config
-   * 
-   * Create Config with default consumer settings
    * 
    * @param keys   array of property keys
    * @param values array of property values
@@ -63,6 +59,8 @@ public class Kafka_consumer {
     return this.props;
   };
 
+
+
   /**
    * Kafka Consumer
    * 
@@ -70,11 +68,15 @@ public class Kafka_consumer {
    */
   public KafkaConsumer<String, String> cons;
 
+
+
   /**
-   * Holds information as to whether or not consumer id running or not ( == was
-   * started and has not been ended)
+   * Holds information as to whether or not consumer id running or not ( == was started and has not
+   * been ended)
    */
   public boolean running = false;
+
+
 
   /**
    * Create a kafka consumer object with a specific config
@@ -93,6 +95,8 @@ public class Kafka_consumer {
     this.running = true;
   }
 
+
+
   /**
    * Create a kafka consumer object with a specific config
    * 
@@ -101,6 +105,7 @@ public class Kafka_consumer {
     this.end();
     this.start();
   }
+
 
   /**
    * Close kafka consumer
@@ -112,6 +117,7 @@ public class Kafka_consumer {
     this.running = false;
   }
 
+
   /**
    * commit all topics synchronously
    */
@@ -119,12 +125,14 @@ public class Kafka_consumer {
     cons.commitSync();
   }
 
+
   /**
    * commit all topics asynchronously
    */
   public void commit_async() {
     cons.commitAsync();
   }
+
 
   /**
    * List topics
@@ -135,7 +143,6 @@ public class Kafka_consumer {
   }
 
   public Map<String, List<PartitionInfo>> topics;
-
 
   /**
    * Subscribe to topics
@@ -173,9 +180,10 @@ public class Kafka_consumer {
    * 
    */
   public void topics_seek_to_beginning() {
-      // seek for all topics and partitions currently assigned
-      this.cons.seekToBeginning(this.cons.assignment());
+    // seek for all topics and partitions currently assigned
+    this.cons.seekToBeginning(this.cons.assignment());
   }
+
 
   /**
    * Seek to end of all topic(-partitions) assigned to
@@ -188,12 +196,13 @@ public class Kafka_consumer {
 
 
   /**
-   * 
-   * 
-   */
+  * 
+  * 
+  */
   public Kafka_offset_arrays topics_offsets() {
     return new Kafka_offset_arrays(this.cons);
   }
+
 
 
   /**
@@ -264,9 +273,11 @@ public class Kafka_consumer {
   public void poll_print() {
     this.records = this.cons.poll(Duration.ofMillis(100));
     this.records.forEach(record -> {
-      System.out.println("1 Got Record: (" + record.key() + ", " + record.value() + ") at offset " + record.offset());
+      System.out.println("1 Got Record: (" + record.key() + ", " + record.value() + ") at offset "
+          + record.offset());
     });
   }
+
 
   public static void main(final String... args) throws Exception {
 
@@ -282,14 +293,13 @@ public class Kafka_consumer {
     System.out.println("-----------------------------------------------------\n\n");
 
     cons.poll();
-    while ( cons.records.count() == 0 ) {
+    while (cons.records.count() == 0) {
       cons.poll();
     }
-    
+
     System.out.println(cons.records_json());
 
     System.out.println(cons.topics_offsets());
-
 
     System.out.println("-----------------------------------------------------\n\n");
   }

@@ -2,7 +2,7 @@ Package: kafkaesque
 Type: Package
 Title: Kafka R Bindings via 'rJava'
 Version: 0.1.0
-Date: 2020-09-26
+Date: 2020-10-10
 Authors@R: c(
     person( 
       given  = "Peter",  
