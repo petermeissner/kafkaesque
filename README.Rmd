@@ -385,6 +385,47 @@ producer$send(topic = "test", msg = "Das Pferd macht wihiiiiiiiii-pffffff.")
 
 
 
+
+
+
+
+
+## Admin
+
+### Properties aka Config
+
+
+```{r}
+admin <- kafka_admin()
+admin$start()
+
+admin$props()
+admin$props(whatever.you.may.want.to.set = "true")
+```
+
+
+### Get List of Topics 
+
+```{r}
+admin$topics_list()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Developement Notes
 
 For R developement Rstudio was used. For Java developement Visual Studio Code

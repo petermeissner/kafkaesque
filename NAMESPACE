@@ -3,6 +3,8 @@
 export("%>%")
 export(java_class)
 export(java_methods)
+export(kafka_admin)
+export(kafka_admin_class)
 export(kafka_consumer)
 export(kafka_consumer_class)
 export(kafka_producer)
