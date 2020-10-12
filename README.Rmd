@@ -412,6 +412,18 @@ admin$topics_list()
 
 
 
+### Create Topics
+
+```{r}
+admin$topics_list()
+
+topics <- paste("test_", "_", as.integer(Sys.time())+1:2, sep = "")
+admin$topics_create(
+  topic              = topics, 
+  partitions         = c(1L, 1L), 
+  replication_factor = c(1L, 1L)
+)
+```
 
 
 

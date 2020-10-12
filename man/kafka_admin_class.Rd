@@ -27,6 +27,7 @@ Initialize}
 \item \href{#method-running}{\code{kafka_admin_class$running()}}
 \item \href{#method-props}{\code{kafka_admin_class$props()}}
 \item \href{#method-topics_list}{\code{kafka_admin_class$topics_list()}}
+\item \href{#method-topics_create}{\code{kafka_admin_class$topics_create()}}
 \item \href{#method-clone}{\code{kafka_admin_class$clone()}}
 }
 }
@@ -137,6 +138,19 @@ returns a list of properties
 Query and return list of topics.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_admin_class$topics_list()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+returns a character vector of topics
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_create"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_create}{}}}
+\subsection{Method \code{topics_create()}}{
+Create a new topic
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_admin_class$topics_create(topic, partitions = 1, replication_factor = 1)}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{

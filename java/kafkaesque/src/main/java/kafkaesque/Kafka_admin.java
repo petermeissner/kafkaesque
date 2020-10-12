@@ -111,17 +111,55 @@ public class Kafka_admin {
 
 
   public String[] topics_list() throws InterruptedException, ExecutionException {
-    
-    // retrieve info 
+
+    // retrieve info
     ListTopicsResult list_topics_result = this.admin.listTopics();
-    
-    // convert info to type Str[]
+
+    // convert info to type String[]
     KafkaFuture<Set<String>> names_future = list_topics_result.names();
-    Set<String> names                     = names_future.get();
+    Set<String> names = names_future.get();
     String[] topics_list = names.toArray(new String[names.size()]);
 
     // return
     return topics_list;
+  }
+
+
+  public String[] topics_create(String topic, int partitions, int replication_factor)
+      throws InterruptedException, ExecutionException {
+
+    // convert input to arrays
+    String[] tp = {topic};
+    int[] prt   = {partitions};
+    int[] rpl   = {replication_factor};
+
+    // forward input to method with array signature + return topics
+    return this.topics_create(tp, prt, rpl);
+  }
+
+
+  public String[] topics_create(String[] topic, int[] partitions, int[] replication_factor)
+      throws InterruptedException, ExecutionException {
+
+    // collect topic information
+    Collection<NewTopic> topics = new HashSet<NewTopic>();
+
+    for (int i = 0; i < topic.length; i++) {
+      Integer rep_int = replication_factor[i];
+      short rep       = rep_int.shortValue();
+      int part        = partitions[i];
+
+      NewTopic topic_item = new NewTopic(topic[i], part, rep);
+      topics.add(topic_item);
+    }
+    
+    // execute topic creation
+    CreateTopicsResult res = admin.createTopics(topics);
+    KafkaFuture<Void> all = res.all();
+    all.get();
+
+    // return topics
+    return this.topics_list();
   }
 
 
@@ -131,9 +169,11 @@ public class Kafka_admin {
     final Kafka_admin admin = new Kafka_admin();
     admin.start();
 
-    
+
     System.out.println(Json.to_json_pretty(admin.topics_list()));
-    
+    System.out.println(Json.to_json_pretty(admin.topics_create("dings", 1, 1)));
+    System.out.println(Json.to_json_pretty(admin.topics_list()));
+
     admin.end();
 
     System.out.println("-----------------------------------------------------");

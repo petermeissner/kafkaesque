@@ -164,8 +164,25 @@ kafka_admin_class <-
         topics_list =
           function() {
             self$java_admin$topics_list()
-          }
+          },
 
+
+        #'
+        #' @description
+        #' Create a new topic
+        #'
+        #'
+        #' @return returns a character vector of topics
+        #'
+        #'
+        topics_create =
+          function(topic, partitions = 1, replication_factor = 1) {
+            self$java_admin$topics_create(
+              topic              = topic,
+              partitions         = as.integer(partitions),
+              replication_factor = as.integer(replication_factor)
+            )
+          }
 
 
       ),
