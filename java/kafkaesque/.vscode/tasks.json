@@ -21,7 +21,15 @@
       "label": "test",
       "type": "shell",
       "command": "mvn -B test",
-      "group": "test"
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "javadoc",
+      "type": "shell",
+      "command": "mvn javadoc:javadoc",
+      "group": "build",
+      "problemMatcher": []
     }
   ]
 }

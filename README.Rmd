@@ -417,20 +417,23 @@ admin$topics_list()
 ```{r}
 admin$topics_list()
 
-topics <- paste("test_", "_", as.integer(Sys.time())+1:2, sep = "")
+topics <- c("chuckle", "chit_chat")
 admin$topics_create(
   topic              = topics, 
-  partitions         = c(1L, 1L), 
+  partition         = c(1L, 1L), 
   replication_factor = c(1L, 1L)
 )
 ```
 
 
 
+### Delete Topics 
 
 
 
-
+```{r}
+admin$topics_delete(topics)
+```
 
 
 

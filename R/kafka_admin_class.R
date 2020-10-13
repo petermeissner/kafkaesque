@@ -168,21 +168,42 @@ kafka_admin_class <-
 
 
         #'
+        #' @param topic the topic names to create
+        #' @param partition the topics number of partitions
+        #' @param replication_factor the topics replication factor
+        #'
         #' @description
-        #' Create a new topic
+        #' Create new topics
         #'
         #'
         #' @return returns a character vector of topics
         #'
         #'
         topics_create =
-          function(topic, partitions = 1, replication_factor = 1) {
+          function(topic, partition = 1, replication_factor = 1) {
             self$java_admin$topics_create(
               topic              = topic,
-              partitions         = as.integer(partitions),
+              partitions         = as.integer(partition),
               replication_factor = as.integer(replication_factor)
             )
+          },
+
+
+        #'
+        #' @param topic
+        #'
+        #' @description
+        #' Delete topics
+        #'
+        #'
+        #' @return returns a character vector of topics
+        #'
+        #'
+        topics_delete =
+          function(topic) {
+            self$java_admin$topics_delete(topic)
           }
+
 
 
       ),

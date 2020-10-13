@@ -28,6 +28,7 @@ Initialize}
 \item \href{#method-props}{\code{kafka_admin_class$props()}}
 \item \href{#method-topics_list}{\code{kafka_admin_class$topics_list()}}
 \item \href{#method-topics_create}{\code{kafka_admin_class$topics_create()}}
+\item \href{#method-topics_delete}{\code{kafka_admin_class$topics_delete()}}
 \item \href{#method-clone}{\code{kafka_admin_class$clone()}}
 }
 }
@@ -148,11 +149,42 @@ returns a character vector of topics
 \if{html}{\out{<a id="method-topics_create"></a>}}
 \if{latex}{\out{\hypertarget{method-topics_create}{}}}
 \subsection{Method \code{topics_create()}}{
-Create a new topic
+Create new topics
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_admin_class$topics_create(topic, partitions = 1, replication_factor = 1)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_admin_class$topics_create(topic, partition = 1, replication_factor = 1)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{topic}}{the topic names to create}
+
+\item{\code{partition}}{the topics number of partitions}
+
+\item{\code{replication_factor}}{the topics replication factor}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+returns a character vector of topics
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-topics_delete"></a>}}
+\if{latex}{\out{\hypertarget{method-topics_delete}{}}}
+\subsection{Method \code{topics_delete()}}{
+Delete topics
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_admin_class$topics_delete(topic)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{topic}}{}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 returns a character vector of topics
 }

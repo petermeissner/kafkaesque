@@ -80,7 +80,6 @@ public class Kafka_admin {
   /**
    * Create a kafka producer object with a specific config
    * 
-   * @return Kafka Admin Object
    */
   public void start() {
     this.end();
@@ -110,6 +109,16 @@ public class Kafka_admin {
   }
 
 
+  /**
+   * List kafka topics
+   * 
+   * 
+   * @return string array of topic names
+   * 
+   * @throws InterruptedException
+   * @throws ExecutionException
+   * 
+   */
   public String[] topics_list() throws InterruptedException, ExecutionException {
 
     // retrieve info
@@ -125,19 +134,41 @@ public class Kafka_admin {
   }
 
 
+  /**
+   * Create Topics
+   * 
+   * @see {@link Kafka_admin#topics_create(String[], int[], int[])}
+   * 
+   */
   public String[] topics_create(String topic, int partitions, int replication_factor)
       throws InterruptedException, ExecutionException {
 
     // convert input to arrays
     String[] tp = {topic};
-    int[] prt   = {partitions};
-    int[] rpl   = {replication_factor};
+    int[] prt = {partitions};
+    int[] rpl = {replication_factor};
 
     // forward input to method with array signature + return topics
     return this.topics_create(tp, prt, rpl);
   }
 
 
+  /**
+   * Create one or many topics
+   * 
+   * @param topic              String/String array of topic names to create
+   * @param partitions         int/int array of partitions each entry corresponding to the i-th
+   *                           topic name
+   * @param replication_factor int/int array of replication factors - the number of nodes that
+   *                           should hold a copy of the data for this topic - each entry
+   *                           corresponding to the i-th topic name
+   * 
+   * @return string array of topic names
+   * 
+   * @throws InterruptedException
+   * @throws ExecutionException
+   * 
+   */
   public String[] topics_create(String[] topic, int[] partitions, int[] replication_factor)
       throws InterruptedException, ExecutionException {
 
@@ -146,15 +177,29 @@ public class Kafka_admin {
 
     for (int i = 0; i < topic.length; i++) {
       Integer rep_int = replication_factor[i];
-      short rep       = rep_int.shortValue();
-      int part        = partitions[i];
+      short rep = rep_int.shortValue();
+      int part = partitions[i];
 
       NewTopic topic_item = new NewTopic(topic[i], part, rep);
       topics.add(topic_item);
     }
-    
+
     // execute topic creation
     CreateTopicsResult res = admin.createTopics(topics);
+    KafkaFuture<Void> all = res.all();
+    all.get();
+
+    // return topics
+    return this.topics_list();
+  }
+
+
+  public String[] topics_delete(String[] topics) throws InterruptedException, ExecutionException {
+    // transform input to type collection
+    List<String> topics_collection = new ArrayList<String>(Arrays.asList(topics));
+
+    // execute deletion request
+    DeleteTopicsResult res = this.admin.deleteTopics(topics_collection);
     KafkaFuture<Void> all = res.all();
     all.get();
 
@@ -172,6 +217,9 @@ public class Kafka_admin {
 
     System.out.println(Json.to_json_pretty(admin.topics_list()));
     System.out.println(Json.to_json_pretty(admin.topics_create("dings", 1, 1)));
+    System.out.println(Json.to_json_pretty(admin.topics_list()));
+    String[] a = {"dings"};
+    System.out.println(Json.to_json_pretty(admin.topics_delete(a)));
     System.out.println(Json.to_json_pretty(admin.topics_list()));
 
     admin.end();
