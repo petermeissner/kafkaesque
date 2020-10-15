@@ -1,24 +1,36 @@
 language: r
-sudo: true
-before_install:
-  - sudo apt-get update
-  - sudo apt-get -y install openjdk-8-jre
-  - sudo apt-get -y install r-cran-rjava
-  - sudo R CMD javareconf
+
+sudo: required
+
+warnings_are_errors: true
 
 cache: packages
-warnings_are_errors: true
+
+
+apt_packages:
+  - openjdk-8-jre
+  - r-cran-rjava
+
+before_install:
+  - sudo $(which R) CMD javareconf
+
+
 matrix:
   include:
-    # - os: linux
-    #   r: oldrel
+    - os: linux
+      r: oldrel
     - os: linux
       r: release
-    # - os: linux
-    #   r: devel
-r_github_packages: petermeissner/kafkaesquejars
+    - os: linux
+      r: devel
+
+
 r_packages:
   - covr
+  - rJava
+
+r_github_packages: petermeissner/kafkaesquejars
+
 after_success:
   - R -q -e 'library("covr");codecov()'
 
