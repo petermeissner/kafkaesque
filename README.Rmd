@@ -197,11 +197,11 @@ cat("devtools::install_github(\"petermeissner/",package_name,"\")", sep = "")
 cat("\n```\n")
 ```
 
-# ToDos
+<!-- # ToDos -->
 
-```{r, results='asis'}
-md_list(kafkaesque:::todo)
-```
+<!-- ```{r, results='asis'} -->
+<!-- md_list(kafkaesque:::todo) -->
+<!-- ``` -->
 
 
 

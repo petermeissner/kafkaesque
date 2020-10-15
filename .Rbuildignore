@@ -16,3 +16,6 @@
 ^LICENSE\.md$
 ^\.vscode$
 ^appveyor\.yml$
+^docker
+^Dockerfile
+^dev.R$

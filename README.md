@@ -26,24 +26,27 @@ status](https://ci.appveyor.com/api/projects/status/github/petermeissner/kafkaes
 <img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque">
 <img src="http://cranlogs.r-pkg.org/badges/kafkaesque">
 
-*lines of R code:* 508, *lines of Java code:* 572, *lines of test code:*
-46
+*lines of R code:* 470, *lines of Java code:* 572, *lines of test code:*
+56
 
 **Version**
 
-0.1.0 ( 2020-10-13 04:44:24 )
+0.1.0 ( 2020-10-15 19:42:26 )
 
 **Description**
 
-Provides R bindings via ‘rJava’ for Kafka. Kafka is a event log data
-base to which messages can be published or read from topics subscribed
-to. Kafka is distributed, highly scalable, provides persistent event
-storage and is designed for high throughput.
+Provides R bindings for Consumer, Admin and Producer APIs for Kafka via
+‘rJava’: “Apache Kafka is an open-source distributed event streaming
+platform used by thousands of companies for high-performance data
+pipelines, streaming analytics, data integration, and mission-critical
+applications.” Kafka is distributed, highly scalable, provides
+persistent event storage and is designed for high throughput and low
+latency.
 
 **License**
 
-GPL-3 <br>Peter Meissner \[aut, cre\], Marius Pirv \[aut\], virtual7
-\[cph\]
+GPL (\>= 3) <br>Peter Meissner \[aut, cre\], Marius Pirv \[aut\],
+virtual7 \[cph\]
 
 **Citation**
 
@@ -82,22 +85,13 @@ Latest development version from Github:
 devtools::install_github("petermeissner/kafkaesque")
 ```
 
-# ToDos
+<!-- # ToDos -->
 
-``` r
-md_list(kafkaesque:::todo)
-```
+<!-- ```{r, results='asis'} -->
 
-  - **producer**
-  - **consumer**
-      - consumer: allow props to be set within initialize
-      - change offset: i
-      - change offset by time
-  - **admin**
-      - wrap admin api
-  - **general**
-      - testing
-      - continous integration testing
+<!-- md_list(kafkaesque:::todo) -->
+
+<!-- ``` -->
 
 # Content
 
@@ -113,8 +107,8 @@ library(kafkaesque)
 ls("package:kafkaesque")
 ```
 
-    ##  [1] "%>%"                  "java_class"           "java_methods"         "kafka_admin"          "kafka_admin_class"   
-    ##  [6] "kafka_consumer"       "kafka_consumer_class" "kafka_producer"       "kafka_producer_class" "kafka_set_log_level"
+    ## [1] "%>%"                  "kafka_admin"          "kafka_admin_class"    "kafka_consumer"       "kafka_consumer_class"
+    ## [6] "kafka_producer"       "kafka_producer_class" "kafka_set_log_level"
 
 # Usage
 
@@ -164,7 +158,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "3136b023-ff34-4cd6-a458-1d2a200caea5"
+    ## [1] "e43fcc72-16ec-47a9-a35a-6eb7ba73f4d4"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -189,7 +183,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "3136b023-ff34-4cd6-a458-1d2a200caea5"
+    ## [1] "e43fcc72-16ec-47a9-a35a-6eb7ba73f4d4"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -207,7 +201,7 @@ consumer$props(max.poll.records = 200)
 consumer$topics_list()
 ```
 
-    ## [1] "test500000" "test2"      "test3"      "test"
+    ## [1] "test500000"  "barber_shop" "test2"       "test3"       "test"
 
 ``` r
 # subscribe to topic
@@ -225,7 +219,7 @@ consumer$consume_next()
 ```
 
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ## 1: test500000 <NA>         0      0 1602563624131   1\r    CreateTime           0                -1                   2
+    ## 1: test500000 <NA>         0      0 1602759027613   1\r    CreateTime           0                -1                   2
 
 ### Looping over Messages and Executing Code
 
@@ -239,13 +233,13 @@ res <-
 ```
 
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ## 1: test500000 <NA>         0      1 1602563624131   2\r    CreateTime           0                -1                   2
+    ## 1: test500000 <NA>         0      1 1602759027615   2\r    CreateTime           0                -1                   2
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ## 1: test500000 <NA>         0      2 1602563624131   3\r    CreateTime           0                -1                   2
+    ## 1: test500000 <NA>         0      2 1602759027615   3\r    CreateTime           0                -1                   2
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ## 1: test500000 <NA>         0      3 1602563624131   4\r    CreateTime           0                -1                   2
+    ## 1: test500000 <NA>         0      3 1602759027615   4\r    CreateTime           0                -1                   2
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ## 1: test500000 <NA>         0      4 1602563624131   5\r    CreateTime           0                -1                   2
+    ## 1: test500000 <NA>         0      4 1602759027615   5\r    CreateTime           0                -1                   2
 
 ``` r
 # having a look at the statistics
@@ -253,10 +247,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2020-10-13 07:28:55 CEST"
+    ## [1] "2020-10-15 21:43:45 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-13 07:28:55 CEST"
+    ## [1] "2020-10-15 21:43:45 CEST"
     ## 
     ## $n
     ## [1] 4
@@ -278,53 +272,53 @@ res <-
 ```
 
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ##   1: test500000 <NA>         0      5 1602563624131   6\r    CreateTime           0                -1                   2
-    ##   2: test500000 <NA>         0      6 1602563624131   7\r    CreateTime           0                -1                   2
-    ##   3: test500000 <NA>         0      7 1602563624131   8\r    CreateTime           0                -1                   2
-    ##   4: test500000 <NA>         0      8 1602563624131   9\r    CreateTime           0                -1                   2
-    ##   5: test500000 <NA>         0      9 1602563624131  10\r    CreateTime           0                -1                   3
+    ##   1: test500000 <NA>         0      5 1602759027615   6\r    CreateTime           0                -1                   2
+    ##   2: test500000 <NA>         0      6 1602759027615   7\r    CreateTime           0                -1                   2
+    ##   3: test500000 <NA>         0      7 1602759027615   8\r    CreateTime           0                -1                   2
+    ##   4: test500000 <NA>         0      8 1602759027615   9\r    CreateTime           0                -1                   2
+    ##   5: test500000 <NA>         0      9 1602759027615  10\r    CreateTime           0                -1                   3
     ##  ---                                                                                                                     
-    ## 491: test500000 <NA>         0    495 1602563624135 496\r    CreateTime           0                -1                   4
-    ## 492: test500000 <NA>         0    496 1602563624135 497\r    CreateTime           0                -1                   4
-    ## 493: test500000 <NA>         0    497 1602563624135 498\r    CreateTime           0                -1                   4
-    ## 494: test500000 <NA>         0    498 1602563624135 499\r    CreateTime           0                -1                   4
-    ## 495: test500000 <NA>         0    499 1602563624135 500\r    CreateTime           0                -1                   4
+    ## 491: test500000 <NA>         0    495 1602759027617 496\r    CreateTime           0                -1                   4
+    ## 492: test500000 <NA>         0    496 1602759027617 497\r    CreateTime           0                -1                   4
+    ## 493: test500000 <NA>         0    497 1602759027617 498\r    CreateTime           0                -1                   4
+    ## 494: test500000 <NA>         0    498 1602759027617 499\r    CreateTime           0                -1                   4
+    ## 495: test500000 <NA>         0    499 1602759027617 500\r    CreateTime           0                -1                   4
     ## 
     ##           topic  key partition offset     timestamp  value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ##   1: test500000 <NA>         0    500 1602563624135  501\r    CreateTime           0                -1                   4
-    ##   2: test500000 <NA>         0    501 1602563624135  502\r    CreateTime           0                -1                   4
-    ##   3: test500000 <NA>         0    502 1602563624135  503\r    CreateTime           0                -1                   4
-    ##   4: test500000 <NA>         0    503 1602563624135  504\r    CreateTime           0                -1                   4
-    ##   5: test500000 <NA>         0    504 1602563624135  505\r    CreateTime           0                -1                   4
+    ##   1: test500000 <NA>         0    500 1602759027617  501\r    CreateTime           0                -1                   4
+    ##   2: test500000 <NA>         0    501 1602759027617  502\r    CreateTime           0                -1                   4
+    ##   3: test500000 <NA>         0    502 1602759027617  503\r    CreateTime           0                -1                   4
+    ##   4: test500000 <NA>         0    503 1602759027617  504\r    CreateTime           0                -1                   4
+    ##   5: test500000 <NA>         0    504 1602759027617  505\r    CreateTime           0                -1                   4
     ##  ---                                                                                                                      
-    ## 496: test500000 <NA>         0    995 1602563624138  996\r    CreateTime           0                -1                   4
-    ## 497: test500000 <NA>         0    996 1602563624138  997\r    CreateTime           0                -1                   4
-    ## 498: test500000 <NA>         0    997 1602563624138  998\r    CreateTime           0                -1                   4
-    ## 499: test500000 <NA>         0    998 1602563624138  999\r    CreateTime           0                -1                   4
-    ## 500: test500000 <NA>         0    999 1602563624138 1000\r    CreateTime           0                -1                   5
+    ## 496: test500000 <NA>         0    995 1602759027618  996\r    CreateTime           0                -1                   4
+    ## 497: test500000 <NA>         0    996 1602759027618  997\r    CreateTime           0                -1                   4
+    ## 498: test500000 <NA>         0    997 1602759027618  998\r    CreateTime           0                -1                   4
+    ## 499: test500000 <NA>         0    998 1602759027618  999\r    CreateTime           0                -1                   4
+    ## 500: test500000 <NA>         0    999 1602759027618 1000\r    CreateTime           0                -1                   5
     ## 
     ##           topic  key partition offset     timestamp  value timestampType leaderEpoch serializedKeySize serializedValueSize
-    ##   1: test500000 <NA>         0   1000 1602563624138 1001\r    CreateTime           0                -1                   5
-    ##   2: test500000 <NA>         0   1001 1602563624138 1002\r    CreateTime           0                -1                   5
-    ##   3: test500000 <NA>         0   1002 1602563624138 1003\r    CreateTime           0                -1                   5
-    ##   4: test500000 <NA>         0   1003 1602563624138 1004\r    CreateTime           0                -1                   5
-    ##   5: test500000 <NA>         0   1004 1602563624138 1005\r    CreateTime           0                -1                   5
+    ##   1: test500000 <NA>         0   1000 1602759027618 1001\r    CreateTime           0                -1                   5
+    ##   2: test500000 <NA>         0   1001 1602759027618 1002\r    CreateTime           0                -1                   5
+    ##   3: test500000 <NA>         0   1002 1602759027618 1003\r    CreateTime           0                -1                   5
+    ##   4: test500000 <NA>         0   1003 1602759027618 1004\r    CreateTime           0                -1                   5
+    ##   5: test500000 <NA>         0   1004 1602759027618 1005\r    CreateTime           0                -1                   5
     ##  ---                                                                                                                      
-    ## 496: test500000 <NA>         0   1495 1602563624139 1496\r    CreateTime           0                -1                   5
-    ## 497: test500000 <NA>         0   1496 1602563624139 1497\r    CreateTime           0                -1                   5
-    ## 498: test500000 <NA>         0   1497 1602563624139 1498\r    CreateTime           0                -1                   5
-    ## 499: test500000 <NA>         0   1498 1602563624139 1499\r    CreateTime           0                -1                   5
-    ## 500: test500000 <NA>         0   1499 1602563624139 1500\r    CreateTime           0                -1                   5
+    ## 496: test500000 <NA>         0   1495 1602759027619 1496\r    CreateTime           0                -1                   5
+    ## 497: test500000 <NA>         0   1496 1602759027619 1497\r    CreateTime           0                -1                   5
+    ## 498: test500000 <NA>         0   1497 1602759027619 1498\r    CreateTime           0                -1                   5
+    ## 499: test500000 <NA>         0   1498 1602759027619 1499\r    CreateTime           0                -1                   5
+    ## 500: test500000 <NA>         0   1499 1602759027619 1500\r    CreateTime           0                -1                   5
 
 ``` r
 res
 ```
 
     ## $start_time
-    ## [1] "2020-10-13 07:28:55 CEST"
+    ## [1] "2020-10-15 21:43:45 CEST"
     ## 
     ## $end_time
-    ## [1] "2020-10-13 07:28:55 CEST"
+    ## [1] "2020-10-15 21:43:45 CEST"
     ## 
     ## $n
     ## [1] 1495
@@ -477,7 +471,7 @@ admin$props(whatever.you.may.want.to.set = "true")
 admin$topics_list()
 ```
 
-    ## [1] "test500000" "test2"      "test3"      "test"
+    ## [1] "test500000"  "barber_shop" "test2"       "test3"       "test"
 
 ### Create Topics
 
@@ -485,7 +479,7 @@ admin$topics_list()
 admin$topics_list()
 ```
 
-    ## [1] "test500000" "test2"      "test3"      "test"
+    ## [1] "test500000"  "barber_shop" "test2"       "test3"       "test"
 
 ``` r
 topics <- c("chuckle", "chit_chat")
@@ -496,7 +490,7 @@ admin$topics_create(
 )
 ```
 
-    ## [1] "chuckle"    "test500000" "test2"      "test3"      "test"       "chit_chat"
+    ## [1] "chuckle"     "test500000"  "barber_shop" "test2"       "test3"       "test"        "chit_chat"
 
 ### Delete Topics
 
@@ -504,7 +498,7 @@ admin$topics_create(
 admin$topics_delete(topics)
 ```
 
-    ## [1] "test500000" "test2"      "test3"      "test"
+    ## [1] "test500000"  "barber_shop" "test2"       "test3"       "test"
 
 # Developement Notes
 
