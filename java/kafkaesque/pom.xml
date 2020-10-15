@@ -99,6 +99,7 @@
             <id>copy-dependencies</id>
             <phase>prepare-package</phase>
             <goals>
+              <!-- <goal>purge-local-repository</goal> -->
               <goal>copy-dependencies</goal>
             </goals>
             <configuration>
@@ -106,6 +107,7 @@
               <overWriteReleases>false</overWriteReleases>
               <overWriteSnapshots>false</overWriteSnapshots>
               <overWriteIfNewer>true</overWriteIfNewer>
+              <includeScope>runtime</includeScope>
             </configuration>
           </execution>
         </executions>
