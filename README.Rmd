@@ -74,7 +74,6 @@ md_list <-
 
 
 <a href="https://travis-ci.org/`r travis_user_name`/`r package_name`"><img src="https://api.travis-ci.org/`r github_user_name`/`r package_name`.svg?branch=master"><a/>
-[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/`r github_user_name`/`r package_name`?branch=master&svg=true)](https://ci.appveyor.com/project/`r github_user_name`/`r package_name`)
 <a href="https://codecov.io/gh/`r github_user_name`/`r package_name`"><img src="https://codecov.io/gh/`r codecov_user_name`/`r package_name`/branch/master/graph/badge.svg" alt="Codecov" /></a>
 <a href="https://cran.r-project.org/package=`r package_name`">
 <img src="http://www.r-pkg.org/badges/version/`r package_name`">
