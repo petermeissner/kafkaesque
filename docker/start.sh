@@ -15,9 +15,11 @@ out="\rwaiting for Kafka to finish startup"
 while ! grep -e "started (kafka.server.KafkaServer)" nohup.out > /dev/null;
 do
     out=$out"."
-    if [ ${#out} -ge 50 ]; then out=out="\rwaiting ";
-    sleep 0.1
-    echo -n $out
+    if [ ${#out} -ge 50 ]; then 
+        out=out="\rwaiting "
+        sleep 0.1
+        echo -n $out
+    fi
 done
 
 
