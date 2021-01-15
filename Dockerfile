@@ -33,9 +33,18 @@ RUN useradd docker \
 	&& addgroup docker staff
 
 
-# switch user and directory
-USER docker
+# switch directory
 WORKDIR /home/docker
+
+
+# startup script
+ADD ./docker/start.sh ./
+RUN chown root:docker ./start.sh
+RUN chmod 770 ./start.sh
+
+
+# switch user
+USER docker
 
 
 # Kafka
@@ -53,10 +62,6 @@ ADD ./docker/server.properties ./kafka/config/server.properties
 ADD ./docker/.bashrc ./.bashrc
 ADD ./docker/kafka_messages.txt ./
 ADD ./docker/test_500_000.txt ./
-
-# startup script
-ADD ./docker/start.sh ./
-RUN chmod +x start.sh
 
 # starting up services
 EXPOSE 9092 2181
