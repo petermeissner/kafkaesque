@@ -56,6 +56,7 @@ ADD ./docker/test_500_000.txt ./
 
 # startup script
 ADD ./docker/start.sh ./
+RUN chmod +x start.sh
 
 # starting up services
 EXPOSE 9092 2181
