@@ -33,13 +33,14 @@ RUN useradd docker \
 	&& addgroup docker staff
 
 
-# switch user and directory
-USER docker
+# switch directory
 WORKDIR /home/docker
+# switch user
+USER docker
 
 
 # Kafka
-RUN wget https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/kafka/2.6.0/kafka_2.13-2.6.0.tgz
+RUN wget --no-verbose https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/kafka/2.6.0/kafka_2.13-2.6.0.tgz
 RUN mkdir kafka
 RUN tar -xzf kafka*.tgz --directory ./kafka --strip-components=1
 RUN tar -xzf kafka*.tgz
@@ -47,16 +48,26 @@ RUN rm kafka*.tgz
 
 
 # Kafka config
-ADD ./docker/server.properties ./kafka/config/server.properties
+ADD ./server.properties ./kafka/config/server.properties
+
 
 # Tools 
-ADD ./docker/.bashrc ./.bashrc
-ADD ./docker/kafka_messages.txt ./
-ADD ./docker/test_500_000.txt ./
+ADD ./.bashrc ./.bashrc
+ADD ./kafka_messages.txt ./
+ADD ./test_500_000.txt ./
+
 
 # startup script
-ADD ./docker/start.sh ./
+USER root
+
+ADD ./start.sh ./
+RUN chown root:docker ./start.sh
+RUN chmod 770 ./start.sh
+
+USER docker
+WORKDIR /home/docker
+
 
 # starting up services
 EXPOSE 9092 2181
-ENTRYPOINT [ "./start.sh && bash" ] 
+CMD ./start.sh
