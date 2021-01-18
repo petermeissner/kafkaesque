@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Check if zookeeper is up and running
         run: |
-          until echo srvr | nc localhost 2181; do echo "waiting"; sleep 1; done
+          until echo "srvr" | nc localhost 2181 | grep Mode -c ; do echo "waiting"; sleep 1; done
           echo "waiting done"
           echo srvr | nc localhost 2181
           echo "sleeping some more"
