@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: Check if zookeeper is up and running
         run: |
+          sleep 5
           echo srvr | nc localhost 2181
-       
+          kafkacat -b localhost -t test -C -e
           
       
