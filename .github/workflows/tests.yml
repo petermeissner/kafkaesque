@@ -22,4 +22,7 @@ jobs:
         run: |
           until echo srvr | nc localhost 2181; do echo "waiting"; sleep 1; done
           echo srvr | nc localhost 2181
-      
+          sleep 5 
+          until echo srvr | nc localhost 2181; do echo "waiting"; sleep 1; done
+          echo srvr | nc localhost 2181
+          ls -la
