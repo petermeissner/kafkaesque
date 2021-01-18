@@ -20,10 +20,10 @@ jobs:
     steps:
       - name: Check if zookeeper is up and running
         run: |
-          "ls"
-          "echo test | nc localhost 9999"
-          "echo srvr | nc localhost 2181"
-          "echo srvr | nc localhost 2181 > tmp"
-          "cat tmp"
+          ls
+          echo test | nc localhost 9999
+          echo srvr | nc localhost 2181
+          echo srvr | nc localhost 2181 > tmp
+          cat tmp
           
       
