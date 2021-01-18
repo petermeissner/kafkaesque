@@ -1,0 +1,23 @@
+name: Test
+
+on: push
+
+# on:
+#   workflow_dispatch:
+#   repository_dispatch:
+#     types: ["manual_trigger"]
+
+    
+jobs:
+  test_syste_self_test:
+    runs-on: ubuntu-latest
+    services:
+      kafkatest: 
+        image: petermeissner/kafkatest
+        ports: 
+          - "2181:2181"
+          - "9092:9092"
+    steps:
+      - name: Check if zookeeper is up and running
+        run: "echo srvr | nc localhost 2181"
+      
