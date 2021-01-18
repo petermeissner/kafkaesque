@@ -18,12 +18,17 @@ jobs:
           - "2181:2181"
           - "9092:9092"
     steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v1
       - name: Check if zookeeper is up and running
         run: |
-          until echo "srvr" | nc localhost 2181 | grep Mode -c ; do echo "waiting"; sleep 1; done
-          echo "waiting done"
-          echo srvr | nc localhost 2181
-          echo "sleeping some more"
-          sleep 5 
-          echo srvr | nc localhost 2181
-          ls -la
+           until echo "srvr" | nc localhost 2181 | grep -e "Zookeeper version: " -c ; do echo "waiting"; sleep 1; done
+           echo "srvr" | nc localhost 2181
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rcmdcheck"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+      - name: Check
+        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
+        shell: Rscript {0}
