@@ -9,7 +9,7 @@ on: push
 
     
 jobs:
-  test_syste_self_test:
+  test_system_self_test:
     runs-on: ubuntu-latest
     services:
       kafkatest: 
@@ -19,5 +19,11 @@ jobs:
           - "9092:9092"
     steps:
       - name: Check if zookeeper is up and running
-        run: "echo srvr | nc localhost 2181"
+        run: |
+          "ls"
+          "echo test | nc localhost 9999"
+          "echo srvr | nc localhost 2181"
+          "echo srvr | nc localhost 2181 > tmp"
+          "cat tmp"
+          
       
