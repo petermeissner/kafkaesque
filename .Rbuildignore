@@ -7,7 +7,6 @@
 ^NOTES\.*html$
 ^\.codecov\.yml$
 ^README_files$
-^java$
 ^doc$
 ^docs$
 ^tmp$

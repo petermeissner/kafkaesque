@@ -9,28 +9,28 @@
       "name": "CodeLens (Launch) - Kafka_admin",
       "request": "launch",
       "mainClass": "kafkaesque.Kafka_admin",
-      "projectName": "kafkaesquejars"
+      "projectName": "kafkaesque"
     },
     {
       "type": "java",
       "name": "CodeLens (Launch) - Kafka_producer_props",
       "request": "launch",
       "mainClass": "kafkaesque.Kafka_producer_props",
-      "projectName": "kafkaesquejars"
+      "projectName": "kafkaesque"
     },
     {
       "type": "java",
       "name": "CodeLens (Launch) - Kafka_producer",
       "request": "launch",
       "mainClass": "kafkaesque.Kafka_producer",
-      "projectName": "kafkaesquejars"
+      "projectName": "kafkaesque"
     },
     {
       "type": "java",
       "name": "CodeLens (Launch) - Kafka_consumer",
       "request": "launch",
       "mainClass": "kafkaesque.Kafka_consumer",
-      "projectName": "kafkaesquejars",
+      "projectName": "kafkaesque",
       "stopOnEntry": true
     },
     {

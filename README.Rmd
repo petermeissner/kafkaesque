@@ -385,6 +385,20 @@ producer$send(topic = "test", msg = "Das Pferd macht wihiiiiiiiii-pffffff.")
 
 
 
+## Setting and Getting Java-LogLEvels
+
+
+```{r}
+kafka_get_log_level()
+
+# one of off, fatal, error, warn, info, debug, trace, all
+kafka_set_log_level("info")
+producer$start()
+
+
+# set back to normal
+kafka_set_log_level("error")
+```
 
 
 
@@ -442,53 +456,28 @@ admin$topics_delete(topics)
 
 # Developement Notes
 
-For R developement Rstudio was used. For Java developement Visual Studio Code
+For R development Rstudio was used. For Java development Visual Studio Code
 lend a helping hand with Maven as build tooling. 
 
-For developement two packages are needed:
+For development one packages is needed:
 
-- {kafkaesquejars} serves as place where all Java dependency Jars are put to 
-comply with CRAN best practices on publishing Java wrapper packages
 - {kafkaesque} contains all the R functions, classes and methods and also all 
 Java code that is specific to this project (and not just a dependency)
 
-Java sources are in `./java/kafkaesque/` folder. Building Java sources can be 
+Java sources are in `./java/kafkaesque/` folder - so your Java project should 
+take this as root folder. 
+Building Java sources can be 
 done via Maven: `mvn install` will compile everything and copy the `kafkaesque.jar`
-into the package's `./inst/java/` folder while all dependencies are copied
-into the `./inst/java/` folder of the {kafkaesquejars} package. Both packages
-should be placed within the same folder to make this work properly.
+into the package's `./inst/java/` folder with all its java dependencies. 
 
-After Java compilation, both R packages have to be build and installed - first 
-{kafkaesquejars} than {kafkaesque}. 
+After Java compilation, the R packages has to be (re-)build and (re-)installed 
+(with most likely re-starting the R session frist (Ctrl-Shift-F10 in Rstudio)). 
 
-If developing Java in VScode - as I did here - pressing Ctrl-Shift-B should allow 
+If developing Java in VScode - as I did here - pressing Ctr-Shift-B should allow 
 to select the two most important tasks: resolving dependencies 
-(these go into {kafkaesqujars}) and compiling the Java code and distributing it 
+and compiling the Java code and distributing it 
 to the right places as described above. 
 
-
-# Vocabulary and Concepts
-
-## Is it a Queue? Is it BigData? Is it Distributed Log? Yes and No: It is Kafka. 
-
-TBD
-
-
-### Features and Promises
-
-TBD
-
-
-
-## Queues and Topics
-
-TBD
-
-
-
-## Conumers and Producers
-
-TBD
 
 
 

@@ -29,7 +29,6 @@ r_packages:
   - covr
   - rJava
 
-r_github_packages: petermeissner/kafkaesquejars
 
 after_success:
   - R -q -e 'library("covr");codecov()'

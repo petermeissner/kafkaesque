@@ -1,54 +1,58 @@
 package kafkaesque;
 
 
+import org.apache.logging.log4j.*;
+
 
 /**
  * Class to set and check log level of logger
  * 
  */
 public class Kafka_logger {
-  
+
   /**
    * Setting log level
    */
   public void set_log_level(String level) {
-    
-    // get access to logger used
-    ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory
-        .getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME)
-    ;
-    
+
+    // make casing uniform
+    level = level.toLowerCase();
+
+    // declare lvl
+    Logger logger = org.apache.logging.log4j.LogManager.getRootLogger();
+    Level  lvl    = logger.getLevel();
+
     // set log level
-    ch.qos.logback.classic.Level lvl = root.getLevel();
     switch (level) {
       case "info":
-        lvl = ch.qos.logback.classic.Level.INFO;
+        lvl = org.apache.logging.log4j.Level.INFO;
         break;
       
       case "all": 
-        lvl = ch.qos.logback.classic.Level.ALL;
+        lvl = org.apache.logging.log4j.Level.ALL;
         break;
 
       case "debug":
-        lvl = ch.qos.logback.classic.Level.DEBUG;
+        lvl = org.apache.logging.log4j.Level.DEBUG;
         break;
 
       case "error":
-        lvl = ch.qos.logback.classic.Level.ERROR;
+        lvl = org.apache.logging.log4j.Level.ERROR;
         break;
 
       case "trace":
-        lvl = ch.qos.logback.classic.Level.TRACE;
+        lvl = org.apache.logging.log4j.Level.TRACE;
         break;
 
       case "warn":
-        lvl = ch.qos.logback.classic.Level.WARN;
+        lvl = org.apache.logging.log4j.Level.WARN;
         break;
 
       default:
         break;
     }
-    root.setLevel(lvl);
+    
+    org.apache.logging.log4j.core.config.Configurator.setRootLevel(lvl);
     
   }
 
@@ -59,13 +63,8 @@ public class Kafka_logger {
    * 
    */
   public String get_log_level() {
-    
-    // get access to logger used
-    ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) org.slf4j.LoggerFactory
-        .getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME)
-    ;
-
-    return root.getLevel().toString();
+    Logger logger = org.apache.logging.log4j.LogManager.getRootLogger();
+    return logger.getLevel().toString();
   }
 }
   

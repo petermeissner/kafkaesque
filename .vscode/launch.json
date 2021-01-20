@@ -12,17 +12,17 @@
     },
     {
       "type": "java",
-      "name": "Debug (Launch)-App<kafkaesquejars>",
+      "name": "Debug (Launch)-App<kafkaesque>",
       "request": "launch",
-      "mainClass": "kafkaesquejars.App",
-      "projectName": "kafkaesquejars"
+      "mainClass": "kafkaesque.App",
+      "projectName": "kafkaesque"
     },
     {
       "type": "java",
-      "name": "Debug (Launch)-Kafka_consumer_props<kafkaesquejars>",
+      "name": "Debug (Launch)-Kafka_consumer_props<kafkaesque>",
       "request": "launch",
-      "mainClass": "kafkaesquejars.Kafka_consumer_props",
-      "projectName": "kafkaesquejars"
+      "mainClass": "kafkaesque.Kafka_consumer_props",
+      "projectName": "kafkaesque"
     }
   ]
 }
