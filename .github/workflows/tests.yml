@@ -35,6 +35,7 @@ jobs:
           sudo apt-get install -yq libcurl4-openssl-dev
           sudo apt-get install -yq default-jre
           sudo apt-get install -yq default-jdk
+          sudo R CMD javareconf
 
       - name: Install R dependencies
         run: |
