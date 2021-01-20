@@ -7,14 +7,14 @@ on: push
 #   repository_dispatch:
 #     types: ["manual_trigger"]
 
-    
+
 jobs:
   test_system_self_test:
     runs-on: ubuntu-latest
     services:
-      kafkatest: 
+      kafkatest:
         image: petermeissner/kafkatest
-        ports: 
+        ports:
           - "2181:2181"
           - "9092:9092"
     steps:
@@ -26,6 +26,7 @@ jobs:
            echo "srvr" | nc localhost 2181
       - name: Install dependencies
         run: |
+          apt-get install libcurl4-openssl-dev
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
