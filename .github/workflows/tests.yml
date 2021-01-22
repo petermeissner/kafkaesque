@@ -32,9 +32,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -yq libcurl4-openssl-dev
-          sudo apt-get install -yq default-jre
-          sudo apt-get install -yq default-jdk
+          sudo apt-get install -yq libcurl4-openssl-dev default-jre default-jdk
           sudo R CMD javareconf
 
       - name: Install R dependencies
