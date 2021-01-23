@@ -10,8 +10,8 @@ on: push
 
 jobs:
 
-  test_system_self_test:
-    runs-on: ubuntu-latest
+  run_tests:
+    runs-on: [ubuntu-latest]
 
     services:
       kafkatest:
@@ -33,7 +33,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -yq libcurl4-openssl-dev default-jre default-jdk
-          sudo R CMD javareconf
+          sudo apt-get install r-cran-rjava
+
 
       - name: Install R dependencies
         run: |
