@@ -12,6 +12,9 @@ jobs:
   run_tests:
     runs-on: [ubuntu-latest]
 
+    env:
+      KAFKA_IS_ON: "true"
+
     services:
       kafkatest:
         image: petermeissner/kafkatest
