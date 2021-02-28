@@ -1,8 +1,8 @@
 name: Test
 
 on:
- push
- workflow_dispatch:
+  push
+  workflow_dispatch:
   repository_dispatch:
     types: ["manual_trigger"]
 
