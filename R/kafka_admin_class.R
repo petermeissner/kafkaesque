@@ -40,7 +40,7 @@ kafka_admin_class <-
         #' Create a new admin object.
         #' Instead of \code{kafka_admin_class$new()} one can use \code{kafka_admin()}
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         initialize =
           function() {
@@ -62,7 +62,7 @@ kafka_admin_class <-
         #' @description
         #' Spin up admin and connect it to Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         start =
           function() {
@@ -77,7 +77,7 @@ kafka_admin_class <-
         #' @description
         #' Disconnect admin from Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         end =
           function() {
@@ -91,7 +91,7 @@ kafka_admin_class <-
         #' @description
         #' Disconnect and reconnect admin from Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         restart =
           function() {

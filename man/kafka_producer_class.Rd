@@ -41,7 +41,7 @@ Instead of \code{kafka_producer_class$new()} one can use \code{kafka_producer()}
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -64,7 +64,7 @@ Spin up producer and connect it to Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -77,7 +77,7 @@ Disconnect producer from Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -90,7 +90,7 @@ Disconnect and reconnect producer from Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}

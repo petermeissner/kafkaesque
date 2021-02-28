@@ -54,7 +54,7 @@ Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -77,7 +77,7 @@ Spin up consumer and connect it to Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -90,7 +90,7 @@ Disconnect consumer from Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -145,7 +145,7 @@ list of topics and partitions.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -241,7 +241,7 @@ Subscribe to one or more topics
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}

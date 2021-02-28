@@ -40,7 +40,7 @@ kafka_producer_class <-
         #' Create a new producer object.
         #' Instead of \code{kafka_producer_class$new()} one can use \code{kafka_producer()}
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         initialize =
           function() {
@@ -62,7 +62,7 @@ kafka_producer_class <-
         #' @description
         #' Spin up producer and connect it to Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         start =
           function() {
@@ -77,7 +77,7 @@ kafka_producer_class <-
         #' @description
         #' Disconnect producer from Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         end =
           function() {
@@ -91,7 +91,7 @@ kafka_producer_class <-
         #' @description
         #' Disconnect and reconnect producer from Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         restart =
           function() {

@@ -25,3 +25,4 @@
 .*/kafkaesque/target.*
 .*/kafkaesque/repo.*
 .*_snaps.*
+^\.github$

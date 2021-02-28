@@ -40,7 +40,7 @@ kafka_consumer_class <-
         #' Create a new consumer object.
         #' Instead of \code{kafka_class_consumer$new()} one can use \code{kafka_consumer()}
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         initialize =
           function() {
@@ -63,7 +63,7 @@ kafka_consumer_class <-
         #' @description
         #' Spin up consumer and connect it to Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         start =
           function() {
@@ -78,7 +78,7 @@ kafka_consumer_class <-
         #' @description
         #' Disconnect consumer from Kafka cluster
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         end =
           function() {
@@ -139,7 +139,7 @@ kafka_consumer_class <-
         #' Commit offsets returned on the last poll() for all the subscribed
         #' list of topics and partitions.
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         commit =
           function(sync = TRUE) {
@@ -293,7 +293,7 @@ kafka_consumer_class <-
         #'
         #' @param topics character vector defining topics or topic regex to subscribe to
         #'
-        #' @return returns object reference for method chaining
+        #' @return \code{self} for method chaining
         #'
         topics_subscribe =
           function(topics) {

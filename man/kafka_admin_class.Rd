@@ -43,7 +43,7 @@ Instead of \code{kafka_admin_class$new()} one can use \code{kafka_admin()}
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -66,7 +66,7 @@ Spin up admin and connect it to Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -79,7 +79,7 @@ Disconnect admin from Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
@@ -92,7 +92,7 @@ Disconnect and reconnect admin from Kafka cluster
 }
 
 \subsection{Returns}{
-returns object reference for method chaining
+\code{self} for method chaining
 }
 }
 \if{html}{\out{<hr>}}
