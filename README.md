@@ -13,7 +13,9 @@
 
 **Status**
 
-<img src="https://codecov.io/gh/petermeissner/kafkaesque/branch/master/graph/badge.svg" alt="Codecov" /><!--<img src="http://www.r-pkg.org/badges/version/kafkaesque"><img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque"><img src="http://cranlogs.r-pkg.org/badges/kafkaesque">-->
+<img src="https://codecov.io/gh/petermeissner/kafkaesque/branch/master/graph/badge.svg" alt="Codecov" /><!--<img src="http://www.r-pkg.org/badges/version/kafkaesque"><img src="http://cranlogs.r-pkg.org/badges/grand-total/kafkaesque"><img src="http://cranlogs.r-pkg.org/badges/kafkaesque">-->[![Check,
+Test,
+Lint](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml/badge.svg)](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml)
 
 This package is - so far - feature complete and should be functional.
 This is a structured extract and rewrite from client work. Though core
@@ -28,11 +30,11 @@ installing the package from CRAN. So far no decision has been made if I
 should pursue this way or not.
 
 *lines of R code:* 677, *lines of Java code:* 570, *lines of test code:*
-56
+101
 
 **Version**
 
-0.1.1 ( 2021-02-28 09:36:10 )
+0.1.1 ( 2021-02-28 19:51:41 )
 
 **Description**
 
@@ -156,7 +158,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "b8e98443-821e-4936-a06e-9d2a7b99e36a"
+    ## [1] "103be9f4-6bb5-4646-bae6-5cbf6fa7d6b3"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -181,7 +183,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "b8e98443-821e-4936-a06e-9d2a7b99e36a"
+    ## [1] "103be9f4-6bb5-4646-bae6-5cbf6fa7d6b3"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -255,10 +257,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2021-02-28 10:49:09 CET"
+    ## [1] "2021-02-28 20:57:25 CET"
     ## 
     ## $end_time
-    ## [1] "2021-02-28 10:49:09 CET"
+    ## [1] "2021-02-28 20:57:25 CET"
     ## 
     ## $n
     ## [1] 4
@@ -359,10 +361,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2021-02-28 10:49:09 CET"
+    ## [1] "2021-02-28 20:57:25 CET"
     ## 
     ## $end_time
-    ## [1] "2021-02-28 10:49:09 CET"
+    ## [1] "2021-02-28 20:57:25 CET"
     ## 
     ## $n
     ## [1] 1495
@@ -383,8 +385,8 @@ consumer$topics_seek_to_end()
 consumer$topics_offsets()
 ```
 
-    ##         topic partition offset
-    ## 1: test500000         0 500000
+    ##         topic partition  offset
+    ## 1: test500000         0 1000000
 
 ``` r
 # seek to beginning of topics

@@ -47,6 +47,11 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
 
 
+      - name: Check Environment Vars
+        shell: Rscript {0}
+        run: |
+          stopifnot(Sys.getenv("KAFKA_IS_ON") == 'true')
+
       - name: Check
         shell: Rscript {0}
         run: |
