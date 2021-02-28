@@ -1,11 +1,11 @@
 name: Test
 
-on: push
+on:
+ - push
+ - workflow_dispatch:
+    repository_dispatch:
+      types: ["manual_trigger"]
 
-# on:
-#   workflow_dispatch:
-#   repository_dispatch:
-#     types: ["manual_trigger"]
 
 
 jobs:
@@ -33,8 +33,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -yq libcurl4-openssl-dev default-jre default-jdk
-          sudo apt-get install r-cran-rjava
-
+          sudo R CMD javareconf
 
       - name: Install R dependencies
         run: |

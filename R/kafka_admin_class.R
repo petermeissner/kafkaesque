@@ -3,7 +3,7 @@
 #'
 #' @import data.table
 #' @import jsonlite
-#' @import rJava
+#' @import rJava, R6
 #'
 #' @export
 #'

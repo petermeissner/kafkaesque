@@ -15,6 +15,13 @@
 ^LICENSE\.md$
 ^\.vscode$
 ^appveyor\.yml$
-^docker
-^Dockerfile
+^docker$
+^Dockerfile$
 ^dev.R$
+^java/kafkaesque/.classpath$
+^java/kafkaesque/.factorypath$
+^.github$
+^java/kafkaesque/.vscode$
+.*/kafkaesque/target.*
+.*/kafkaesque/repo.*
+.*_snaps.*
