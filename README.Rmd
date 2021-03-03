@@ -72,8 +72,7 @@ md_list <-
 
 **Status**
 
-
-<img src="https://codecov.io/gh/`r codecov_user_name`/`r package_name`/branch/master/graph/badge.svg" alt="Codecov" /><!--<img src="http://www.r-pkg.org/badges/version/`r package_name`"><img src="http://cranlogs.r-pkg.org/badges/grand-total/`r package_name`"><img src="http://cranlogs.r-pkg.org/badges/`r package_name`">-->[![Check, Test, Lint](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml/badge.svg)](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/petermeissner/kafkaesque/branch/master/graph/badge.svg?token=jzamre15u6)](https://codecov.io/gh/petermeissner/kafkaesque)<!--<img src="http://www.r-pkg.org/badges/version/`r package_name`"><img src="http://cranlogs.r-pkg.org/badges/grand-total/`r package_name`"><img src="http://cranlogs.r-pkg.org/badges/`r package_name`">-->[![Check, Test, Lint](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml/badge.svg)](https://github.com/petermeissner/kafkaesque/actions/workflows/tests.yml)
 
 
 This package is - so far - feature complete and should be functional. 
