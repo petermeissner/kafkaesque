@@ -30,11 +30,11 @@ installing the package from CRAN. So far no decision has been made if I
 should pursue this way or not.
 
 *lines of R code:* 677, *lines of Java code:* 570, *lines of test code:*
-123
+147
 
 **Version**
 
-0.1.1 ( 2021-03-03 20:43:43 )
+0.1.1 ( 2021-03-04 20:34:34 )
 
 **Description**
 
@@ -158,7 +158,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "7593de2c-a9ce-4806-abc5-a87a600e50e8"
+    ## [1] "386afde5-93a7-48d7-97ce-0cfc86e0f31a"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -183,7 +183,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "7593de2c-a9ce-4806-abc5-a87a600e50e8"
+    ## [1] "386afde5-93a7-48d7-97ce-0cfc86e0f31a"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -257,10 +257,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2021-03-03 21:44:22 CET"
+    ## [1] "2021-03-04 21:35:53 CET"
     ## 
     ## $end_time
-    ## [1] "2021-03-03 21:44:22 CET"
+    ## [1] "2021-03-04 21:35:53 CET"
     ## 
     ## $n
     ## [1] 4
@@ -361,10 +361,10 @@ res
 ```
 
     ## $start_time
-    ## [1] "2021-03-03 21:44:22 CET"
+    ## [1] "2021-03-04 21:35:53 CET"
     ## 
     ## $end_time
-    ## [1] "2021-03-03 21:44:22 CET"
+    ## [1] "2021-03-04 21:35:53 CET"
     ## 
     ## $n
     ## [1] 1495
@@ -385,8 +385,8 @@ consumer$topics_seek_to_end()
 consumer$topics_offsets()
 ```
 
-    ##         topic partition offset
-    ## 1: test500000         0 500000
+    ##         topic partition  offset
+    ## 1: test500000         0 1000000
 
 ``` r
 # seek to beginning of topics

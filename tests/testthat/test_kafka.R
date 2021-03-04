@@ -92,3 +92,45 @@ test_that(
 
     }
 )
+
+
+
+
+test_that(
+  desc = "Consumer topic subscription",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      consumer <- kafka_consumer()
+      consumer$start()
+
+
+      # empty subscription on startup
+      expect_true(
+        length(consumer$topics_subscription()) == 0
+      )
+
+
+      # single subscription
+      consumer$topics_subscribe("test3")
+      expect_true(
+        consumer$topics_subscription() == "test3"
+      )
+
+
+      # replaced subscription
+      consumer$topics_subscribe(c("test", "test2"))
+      expect_true(
+        all(c("test", "test2") %in% consumer$topics_subscription())
+      )
+
+
+      # no subscription at all
+      consumer$topics_subscribe(character())
+      expect_true(
+        length(consumer$topics_subscription()) == 0
+      )
+    }
+)
