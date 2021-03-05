@@ -134,3 +134,64 @@ test_that(
       )
     }
 )
+
+
+
+
+test_that(
+  desc = "Consumer seeking",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      consumer <- kafka_consumer()
+
+      # single subscription
+      consumer$start()
+      consumer$topics_subscribe("test500000")
+
+      consumer$topics_seek_to_beginning()
+
+      consumer$consume_next()
+      consumer$consume_next()
+      consumer$consume_next()
+
+      consumer$topics_seek_to_beginning()
+      expect_true(
+        consumer$topics_offsets()$offset == 0
+      )
+
+      consumer$topics_seek_to_end()
+      expect_true(
+        consumer$topics_offsets()$offset == 500000
+      )
+
+      consumer$topics_seek_to_beginning()
+      expect_true(
+        consumer$topics_offsets()$offset == 0
+      )
+
+    }
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
