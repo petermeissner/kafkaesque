@@ -40,7 +40,7 @@ USER docker
 
 
 # Kafka
-RUN wget --no-verbose https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/kafka/2.6.0/kafka_2.13-2.6.0.tgz
+RUN wget --no-verbose https://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist/kafka/2.6.1/kafka_2.13-2.6.1.tgz
 RUN mkdir kafka
 RUN tar -xzf kafka*.tgz --directory ./kafka --strip-components=1
 RUN tar -xzf kafka*.tgz
@@ -51,7 +51,7 @@ RUN rm kafka*.tgz
 ADD ./server.properties ./kafka/config/server.properties
 
 
-# Tools 
+# Tools
 ADD ./.bashrc ./.bashrc
 ADD ./kafka_messages.txt ./
 ADD ./test_500_000.txt ./
