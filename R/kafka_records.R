@@ -140,7 +140,7 @@ kafka_records_class <-
 
             # transform collection of messages into collection of arrays to make
             # transformation from Java to R easier
-            obj <- consumer$java_consumer$records_arrays()
+            obj <- private$parent$java_consumer$records_arrays()
 
 
             # transform records from Java to R

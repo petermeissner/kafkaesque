@@ -7,6 +7,7 @@ test_that(
         tmp <- rJava::.jnew("kafkaesque.App")
         tmp$test_method()
         rm(tmp)
+        expect_true(TRUE)
   }
 )
 

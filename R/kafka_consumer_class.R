@@ -375,7 +375,7 @@ kafka_consumer_class <-
         #'
         topics_offsets =
           function() {
-            obj <- consumer$java_consumer$topics_offsets()
+            obj <- self$java_consumer$topics_offsets()
 
             # return
             data.table::data.table(
