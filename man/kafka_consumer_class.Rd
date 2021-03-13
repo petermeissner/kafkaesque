@@ -168,13 +168,14 @@ each loop.
 
 There are several objects available to the expression supplied:
 
-- msgs: a data.frame/data.table with one or more rows - see batch parameter
-- counter: single number equal to the number of messages already processed.
+- messages: a data.frame/data.table with one or more rows - see batch parameter
+- loop_counter: single number equal the current loop count.
+- message_counter: single number equal to the number of messages already processed.
 - start_time: the result of a call to Sys.time() when first the method started
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_loop(
-  expr = expression(print(msgs)),
-  check = expression(counter < 1),
+  expr = expression(print(messages)),
+  check = expression(counter <= 1),
   batch = FALSE
 )}\if{html}{\out{</div>}}
 }

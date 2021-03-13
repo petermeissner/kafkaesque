@@ -45,7 +45,7 @@ kafka_consumer_class <-
         initialize =
           function() {
             self$java_consumer <- rJava::.jnew("kafkaesque/Kafka_consumer")
-            self$records       <- kafka_records_class$new(self)
+            self$records       <- kafka_records(parent = self)
           },
 
 
@@ -205,45 +205,50 @@ kafka_consumer_class <-
         #'
         #' There are several objects available to the expression supplied:
         #'
-        #' - msgs: a data.frame/data.table with one or more rows - see batch parameter
-        #' - counter: single number equal to the number of messages already processed.
+        #' - messages: a data.frame/data.table with one or more rows - see batch parameter
+        #' - loop_counter: single number equal the current loop count.
+        #' - message_counter: single number equal to the number of messages already processed.
         #' - start_time: the result of a call to Sys.time() when first the method started
         #'
         #'
         consume_loop =
           function (
-            expr  = expression(print(msgs)),
-            check = expression(counter < 1),
+            expr  = expression(print(messages)),
+            check = expression(counter <= 1),
             batch = FALSE
           ) {
 
-            start_time <- Sys.time()
-            counter    <- 0
+            start_time      <- Sys.time()
+            loop_counter    <- 0
+            message_counter <- 0
 
             # loop while check evaluates to TRUE
             if ( batch == TRUE ){
 
               while ( eval(check) ){
-                msgs    <- self$records$next_record_batch()
+                loop_counter    <- loop_counter + 1
+                messages        <- self$records$next_record_batch()
                 eval(expr)
-                counter <- counter + nrow(msgs)
+                message_counter <- message_counter + nrow(messages)
               }
 
             } else {
 
               while ( eval(check) ){
-                msgs    <- self$records$next_record()
+                loop_counter    <- loop_counter + 1
+                messages        <- self$records$next_record()
                 eval(expr)
-                counter <- counter + 1
+                message_counter <- message_counter + nrow(messages)
               }
 
             }
 
             # return
             list(
-              start_time = start_time,
-              end_time   = Sys.time(),
-              n          = counter
+              start_time      = start_time,
+              end_time        = Sys.time(),
+              loop_counter    = loop_counter,
+              message_counter = message_counter
             )
           },
 
