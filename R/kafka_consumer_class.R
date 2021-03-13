@@ -45,7 +45,7 @@ kafka_consumer_class <-
         initialize =
           function() {
             self$java_consumer <- rJava::.jnew("kafkaesque/Kafka_consumer")
-            self$records       <- kafka_records_class$new(self)
+            self$records       <- kafka_records(parent = self)
           },
 
 
@@ -170,15 +170,18 @@ kafka_consumer_class <-
 
 
 
+        #' @param timeout_ms defaults to `Inf`.
+        #'   Time for which poll will wait for data
+        #'   Passed through to kafka_consumer$poll()
+        #'
         #' @description
         #'
         #' Consume one message either from the records already fetched from last poll or via initiating a new poll.
         #'
         consume_next =
-          function (
-          ) {
+          function ( timeout_ms = Inf ) {
             stopifnot( self$running() == TRUE )
-            self$records$next_record()
+            self$records$next_record( timeout_ms = Inf )
           },
 
 
@@ -197,53 +200,63 @@ kafka_consumer_class <-
         #'   TRUE however the msgs data.frame/data.table will contain all messages
         #'   that were retrieved by the last poll unless consumed already.
         #'
+        #' @param timeout_ms defaults to `Inf`.
+        #'   Time for which poll will wait for data
+        #'   Passed through to kafka_consumer$poll()
+        #'
         #' @description
         #'
         #' Method that is basically an infinite loop (until the check expression
-        #' evaluates to FALSE) that will evaluate the supplied expressionfor
+        #' evaluates to FALSE) that will evaluate the supplied expression for
         #' each loop.
         #'
         #' There are several objects available to the expression supplied:
         #'
-        #' - msgs: a data.frame/data.table with one or more rows - see batch parameter
-        #' - counter: single number equal to the number of messages already processed.
+        #' - messages: a data.frame/data.table with one or more rows - see batch parameter
+        #' - loop_counter: single number equal the current loop count.
+        #' - message_counter: single number equal to the number of messages already processed.
         #' - start_time: the result of a call to Sys.time() when first the method started
         #'
         #'
         consume_loop =
           function (
-            expr  = expression(print(msgs)),
-            check = expression(counter < 1),
-            batch = FALSE
+            expr       = expression(print(messages)),
+            check      = expression(counter <= 1),
+            batch      = FALSE,
+            timeout_ms = Inf
           ) {
 
-            start_time <- Sys.time()
-            counter    <- 0
+            start_time      <- Sys.time()
+            loop_counter    <- 0
+            message_counter <- 0
 
             # loop while check evaluates to TRUE
             if ( batch == TRUE ){
 
               while ( eval(check) ){
-                msgs    <- self$records$next_record_batch()
+                loop_counter    <- loop_counter + 1
+                messages        <- self$records$next_record_batch(timeout_ms = timeout_ms)
                 eval(expr)
-                counter <- counter + nrow(msgs)
+                message_counter <- message_counter + nrow(messages)
               }
 
             } else {
 
               while ( eval(check) ){
-                msgs    <- self$records$next_record()
+                loop_counter    <- loop_counter + 1
+                messages        <- self$records$next_record(timeout_ms = timeout_ms)
                 eval(expr)
-                counter <- counter + 1
+                message_counter <- message_counter + nrow(messages)
               }
 
             }
 
             # return
             list(
-              start_time = start_time,
-              end_time   = Sys.time(),
-              n          = counter
+              start_time      = start_time,
+              end_time        = Sys.time(),
+              loop_counter    = loop_counter,
+              message_counter = message_counter
             )
           },
 

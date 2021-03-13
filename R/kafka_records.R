@@ -50,29 +50,28 @@ kafka_records_class <-
         },
 
 
+
+      #'
+      #' @param timeout_ms defaults to `Inf`.
+      #'   Time for which poll will wait for data
+      #'   Passed through to kafka_consumer$poll()
       #'
       #' @description
       #'
+      #' Returns the next record ready for consumption. If the last poll returned
+      #' a batch of messages one of those will be returned one after another.
+      #' If all of these have been returned already a new poll will be initiated.
       #'
-      #'
-      records_df =
-        function(){
-          private$records
-        },
-
-
-      #'
-      #' @description
-      #'
-      #'
+      #' If the poll does not return any records a new poll will be initiated
+      #' until data is returned.
       #'
       next_record =
-        function(){
+        function(timeout_ms = Inf){
 
           # need to get new records or not?
           while ( nrow(private$records) == 0L || private$records_pointer == nrow(private$records) ){
             # get new records and reset records pointer
-            private$new_records()
+            private$new_records(timeout_ms = timeout_ms)
             private$records_pointer <- 0L
           }
 
@@ -85,16 +84,23 @@ kafka_records_class <-
       #'
       #' @description
       #'
+      #' @param timeout_ms defaults to `Inf`.
+      #'   Time for which poll will wait for data
+      #'   Passed through to kafka_consumer$poll()
       #'
+      #' Returns all available, unconsumed messages. If no unconsumed messages
+      #' are available it will poll for a new batch and return it.      #'
       #'
+      #' If the poll does not return any records a new poll will be initiated
+      #' until data is returned.
       #'
       next_record_batch =
-        function(){
+        function(timeout_ms = Inf){
 
           # need to get new records or not?
           while ( nrow(private$records) == 0L || private$records_pointer == nrow(private$records) ){
             # get new records and reset records pointer
-            private$new_records()
+            private$new_records(timeout_ms = timeout_ms)
             private$records_pointer <- 0L
           }
 
@@ -133,10 +139,10 @@ kafka_records_class <-
         #' Use poll method on kafka consumer to get new messages.
         #'
         new_records =
-          function(){
+          function(timeout_ms){
 
             # kafka poll for new messages
-            private$parent$poll()
+            private$parent$poll(timeout_ms = timeout_ms )
 
             # transform collection of messages into collection of arrays to make
             # transformation from Java to R easier

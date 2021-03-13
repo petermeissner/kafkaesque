@@ -32,7 +32,6 @@ outside the s specific call of the poll method which executes data retrieval.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{kafka_records_class$new()}}
-\item \href{#method-records_df}{\code{kafka_records_class$records_df()}}
 \item \href{#method-next_record}{\code{kafka_records_class$next_record()}}
 \item \href{#method-next_record_batch}{\code{kafka_records_class$next_record_batch()}}
 \item \href{#method-clone}{\code{kafka_records_class$clone()}}
@@ -56,29 +55,51 @@ Create a new instance of class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-records_df"></a>}}
-\if{latex}{\out{\hypertarget{method-records_df}{}}}
-\subsection{Method \code{records_df()}}{
-
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$records_df()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-next_record"></a>}}
 \if{latex}{\out{\hypertarget{method-next_record}{}}}
 \subsection{Method \code{next_record()}}{
+Returns the next record ready for consumption. If the last poll returned
+a batch of messages one of those will be returned one after another.
+If all of these have been returned already a new poll will be initiated.
 
+If the poll does not return any records a new poll will be initiated
+until data is returned.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record(timeout_ms = Inf)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{timeout_ms}}{defaults to `Inf`.
+Time for which poll will wait for data
+Passed through to kafka_consumer$poll()}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-next_record_batch"></a>}}
 \if{latex}{\out{\hypertarget{method-next_record_batch}{}}}
 \subsection{Method \code{next_record_batch()}}{
+
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record_batch(timeout_ms = Inf)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{timeout_ms}}{defaults to `Inf`.
+  Time for which poll will wait for data
+  Passed through to kafka_consumer$poll()
+
+Returns all available, unconsumed messages. If no unconsumed messages
+are available it will poll for a new batch and return it.      #'
+
+If the poll does not return any records a new poll will be initiated
+until data is returned.
+
 Reference to consumer object that serves as parent.
 
 Holds a batch of messages received from kafka consumer as data.frame
@@ -86,11 +107,10 @@ or data.table.
 
 Records which message from local storage records is to be consumed next
 
-Use poll method on kafka consumer to get new messages.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_records_class$next_record_batch()}\if{html}{\out{</div>}}
+Use poll method on kafka consumer to get new messages.}
 }
-
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

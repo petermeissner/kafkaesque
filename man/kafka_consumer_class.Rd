@@ -154,28 +154,39 @@ list of topics and partitions.
 \subsection{Method \code{consume_next()}}{
 Consume one message either from the records already fetched from last poll or via initiating a new poll.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_next()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_next(timeout_ms = Inf)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{timeout_ms}}{defaults to `Inf`.
+Time for which poll will wait for data
+Passed through to kafka_consumer$poll()}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-consume_loop"></a>}}
 \if{latex}{\out{\hypertarget{method-consume_loop}{}}}
 \subsection{Method \code{consume_loop()}}{
 Method that is basically an infinite loop (until the check expression
-evaluates to FALSE) that will evaluate the supplied expressionfor
+evaluates to FALSE) that will evaluate the supplied expression for
 each loop.
 
 There are several objects available to the expression supplied:
 
-- msgs: a data.frame/data.table with one or more rows - see batch parameter
-- counter: single number equal to the number of messages already processed.
+- messages: a data.frame/data.table with one or more rows - see batch parameter
+- loop_counter: single number equal the current loop count.
+- message_counter: single number equal to the number of messages already processed.
 - start_time: the result of a call to Sys.time() when first the method started
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_loop(
-  expr = expression(print(msgs)),
-  check = expression(counter < 1),
-  batch = FALSE
+  expr = expression(print(messages)),
+  check = expression(counter <= 1),
+  batch = FALSE,
+  timeout_ms = Inf
 )}\if{html}{\out{</div>}}
 }
 
@@ -196,6 +207,10 @@ data is returned from a poll the method process - if batch is set to
 FALSE - return only a single message at a time. If batch is set to
 TRUE however the msgs data.frame/data.table will contain all messages
 that were retrieved by the last poll unless consumed already.}
+
+\item{\code{timeout_ms}}{defaults to `Inf`.
+Time for which poll will wait for data
+Passed through to kafka_consumer$poll()}
 }
 \if{html}{\out{</div>}}
 }

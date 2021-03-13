@@ -196,6 +196,228 @@ test_that(
 
 
 
+test_that(
+  desc = "Consumer polling for messages",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      cns <- kafka_consumer()
+      cns$start()
+
+
+      # consume messages and expect timout to not significantly be crossed
+      cns$topics_subscribe("test500000")
+
+      for ( i in 1:100 ){
+        expect_true(as.numeric(system.time(cns$poll(1000))["elapsed"]) < 1.1 )
+      }
+
+      for ( i in 1:100 ){
+        expect_true(
+          as.numeric(system.time(cns$poll(100))["elapsed"]) < 0.2
+        )
+      }
+
+
+      # use commit and expect no error
+      for ( i in 1:100 ){
+
+        cns$props()
+        cns$topics_offsets()
+        cns$poll(100)
+        cns$commit()
+        cns$topics_offsets()
+
+      }
+      expect_true(TRUE)
+
+    }
+)
+
+
+
+
+
+
+test_that(
+  desc = "Consumer use consume_loop",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      cns <- kafka_consumer()
+      cns$start()
+      cns$topics_subscribe("test500000")
+
+
+      lst <- vector(mode = "list", 100)
+      cns_lp <-
+        cns$consume_loop(
+          expr  = expression(lst[[ loop_counter ]] <<- messages),
+          check = expression( loop_counter < 100 )
+        )
+
+      expect_true(
+        length(lst) == 100
+      )
+
+      expect_true(
+        {
+          all(
+            vapply(
+              X         = lst,
+              FUN       = function(x){"data.frame" %in% class(x)},
+              FUN.VALUE = TRUE
+            )
+          )
+        }
+      )
+
+    }
+)
+
+
+
+test_that(
+  desc = "Consumer use consume_loop with timeout",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      cns <- kafka_consumer()
+      cns$start()
+      cns$topics_subscribe("test500000")
+
+
+      lst <- vector(mode = "list", 100)
+      cns_lp <-
+        cns$consume_loop(
+          expr      = expression(lst[[ loop_counter ]] <<- messages),
+          check     = expression( loop_counter < 100 ),
+          timout_ms = 500
+        )
+
+      expect_true(
+        length(lst) == 100
+      )
+
+      expect_true(
+        {
+          all(
+            vapply(
+              X         = lst,
+              FUN       = function(x){"data.frame" %in% class(x)},
+              FUN.VALUE = TRUE
+            )
+          )
+        }
+      )
+
+    }
+)
+
+
+
+
+
+test_that(
+  desc = "Consumer use consume_loop in batches",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      cns <- kafka_consumer()
+      cns$start()
+      cns$topics_subscribe("test500000")
+
+
+      lst <- vector(mode = "list", 100)
+      cns_lp <-
+        cns$consume_loop(
+          expr  = expression(lst[[ loop_counter ]] <<- messages),
+          check = expression( loop_counter < 100 ),
+          batch = TRUE
+        )
+
+      expect_true(
+        length(lst) == 100
+      )
+
+      expect_true(
+        {
+          all(
+            vapply(
+              X         = lst,
+              FUN       = function(x){"data.frame" %in% class(x)},
+              FUN.VALUE = TRUE
+            )
+          )
+        }
+      )
+
+    }
+)
+
+
+
+
+
+test_that(
+  desc = "Consumer use consume_loop in batches",
+  code =
+    {
+
+      skip_if_kafka_on_is_missing()
+
+      cns <- kafka_consumer()
+      cns$start()
+      cns$topics_subscribe("test500000")
+
+
+      timing <-
+        system.time({
+          lst <- vector(mode = "list", 100)
+          cns_lp <-
+            cns$consume_loop(
+              expr       = expression(lst[[ loop_counter ]] <<- messages),
+              check      = expression( message_counter < 400000 ),
+              batch      = TRUE,
+              timeout_ms = 10000
+            )
+        })
+
+
+      expect_true(
+        as.integer(timing['elapsed']) < 20
+      )
+
+      expect_true(
+        length(lst) == 100
+      )
+
+      expect_true(
+        {
+          all(
+            vapply(
+              X         = lst,
+              FUN       = function(x){"data.frame" %in% class(x)},
+              FUN.VALUE = TRUE
+            )
+          )
+        }
+      )
+
+    }
+)
+
+
+
+
 
 
 
