@@ -295,8 +295,9 @@ consumer$consume_next()
 # loop over messages and execute code
 res <- 
   consumer$consume_loop(
-    expr  = expression(print(messages)),
-    check = expression(loop_counter < 4)
+    f     = function(loop_env){ print(loop_env$messages)},
+    check = function(loop_env){loop_env$meta$loop_counter < 4},
+    batch = TRUE
   )
 
 # having a look at the statistics
@@ -312,12 +313,8 @@ res
 # loop over batches of messages and execute code
 res <- 
   consumer$consume_loop(
-    expr  = 
-      expression({
-        print(messages)
-        cat("\n")
-      }),
-    check = expression(message_counter < 1000),
+    f     = function(loop_env){ print(loop_env$messages); cat("\n")},
+    check = function(loop_env){loop_env$meta$message_counter < 1000},
     batch = TRUE
   )
 

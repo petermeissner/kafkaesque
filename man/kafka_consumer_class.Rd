@@ -183,8 +183,9 @@ There are several objects available to the expression supplied:
 - start_time: the result of a call to Sys.time() when first the method started
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_loop(
-  expr = expression(print(messages)),
-  check = expression(counter <= 1),
+  f = function(loop_env) {     print(loop_env$messages) },
+  check = function(loop_env) {     loop_env$meta$loop_counter < 1 },
+  loop_env = new.env(),
   batch = FALSE,
   timeout_ms = Inf
 )}\if{html}{\out{</div>}}
@@ -193,9 +194,6 @@ There are several objects available to the expression supplied:
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
-process a single message}
-
 \item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
 evaluate to TRUE or FALSE to either further process messages or
 stop processing and ask function to return}
@@ -211,6 +209,9 @@ that were retrieved by the last poll unless consumed already.}
 \item{\code{timeout_ms}}{defaults to `Inf`.
 Time for which poll will wait for data
 Passed through to kafka_consumer$poll()}
+
+\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
+process a single message}
 }
 \if{html}{\out{</div>}}
 }

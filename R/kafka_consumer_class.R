@@ -128,7 +128,7 @@ kafka_consumer_class <-
 
             # return for method chaining
             self$java_consumer$records$count()
-        },
+          },
 
 
         #'
@@ -220,44 +220,52 @@ kafka_consumer_class <-
         #'
         consume_loop =
           function (
-            expr       = expression(print(messages)),
-            check      = expression(counter <= 1),
+            f          = function(loop_env){print(loop_env$messages)},
+            check      = function(loop_env){loop_env$meta$loop_counter < 1},
+            loop_env   = new.env(),
             batch      = FALSE,
             timeout_ms = Inf
           ) {
 
-            start_time      <- Sys.time()
-            loop_counter    <- 0
-            message_counter <- 0
+            # set up environments to pass around/share data in check() and f()
+            loop_env$meta                 <- new.env()
+            loop_env$meta$start_time      <- Sys.time()
+            loop_env$meta$loop_counter    <- 0
+            loop_env$meta$message_counter <- 0
+
 
             # loop while check evaluates to TRUE
-            if ( batch == TRUE ){
+            while ( check(loop_env = loop_env) ){
 
-              while ( eval(check) ){
-                loop_counter    <- loop_counter + 1
-                messages        <- self$records$next_record_batch(timeout_ms = timeout_ms)
-                eval(expr)
-                message_counter <- message_counter + nrow(messages)
+              loop_env$meta$loop_counter <-
+                loop_env$meta$loop_counter + 1
+
+              if ( batch == TRUE ){
+
+                loop_env$messages <-
+                  self$records$next_record_batch(timeout_ms = timeout_ms)
+
+              } else {
+
+                loop_env$messages <-
+                  self$records$next_record(timeout_ms = timeout_ms)
+
               }
 
-            } else {
+              f(loop_env = loop_env)
 
-              while ( eval(check) ){
-                loop_counter    <- loop_counter + 1
-                messages        <- self$records$next_record(timeout_ms = timeout_ms)
-                eval(expr)
-                message_counter <- message_counter + nrow(messages)
-              }
-
+              loop_env$meta$message_counter <-
+                loop_env$meta$message_counter + nrow(loop_env$messages)
             }
 
+
+            # last steps
+            loop_env$meta$end_time <- Sys.time()
+            loop_env$meta <- as.list(loop_env$meta)
+            loop_env      <- as.list(loop_env)
+
             # return
-            list(
-              start_time      = start_time,
-              end_time        = Sys.time(),
-              loop_counter    = loop_counter,
-              message_counter = message_counter
-            )
+            return(loop_env)
           },
 
 
