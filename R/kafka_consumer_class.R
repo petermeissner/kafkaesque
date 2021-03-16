@@ -220,10 +220,16 @@ kafka_consumer_class <-
         #'
         consume_loop =
           function (
+<<<<<<< HEAD
             expr       = expression(print(messages)),
             check      = expression(counter <= 1),
             batch      = FALSE,
             timeout_ms = Inf
+=======
+            expr  = expression(print(messages)),
+            check = expression(counter <= 1),
+            batch = FALSE
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
           ) {
 
             start_time      <- Sys.time()
@@ -235,7 +241,11 @@ kafka_consumer_class <-
 
               while ( eval(check) ){
                 loop_counter    <- loop_counter + 1
+<<<<<<< HEAD
                 messages        <- self$records$next_record_batch(timeout_ms = timeout_ms)
+=======
+                messages        <- self$records$next_record_batch()
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
                 eval(expr)
                 message_counter <- message_counter + nrow(messages)
               }
@@ -244,7 +254,11 @@ kafka_consumer_class <-
 
               while ( eval(check) ){
                 loop_counter    <- loop_counter + 1
+<<<<<<< HEAD
                 messages        <- self$records$next_record(timeout_ms = timeout_ms)
+=======
+                messages        <- self$records$next_record()
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
                 eval(expr)
                 message_counter <- message_counter + nrow(messages)
               }

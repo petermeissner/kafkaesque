@@ -185,8 +185,12 @@ There are several objects available to the expression supplied:
 \if{html}{\out{<div class="r">}}\preformatted{kafka_consumer_class$consume_loop(
   expr = expression(print(messages)),
   check = expression(counter <= 1),
+<<<<<<< HEAD
   batch = FALSE,
   timeout_ms = Inf
+=======
+  batch = FALSE
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
 )}\if{html}{\out{</div>}}
 }
 

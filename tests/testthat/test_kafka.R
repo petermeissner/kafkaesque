@@ -240,6 +240,7 @@ test_that(
 
 
 
+<<<<<<< HEAD
 
 test_that(
   desc = "Consumer use consume_loop",
@@ -320,10 +321,60 @@ test_that(
     }
 )
 
+=======
+#
+# test_that(
+#   desc = "Consumer use consume_loop",
+#   code =
+#     {
+#
+#       skip_if_kafka_on_is_missing()
+#
+#       cns <- kafka_consumer()
+#       cns$start()
+#
+#       lst <- vector(mode="list", 100)
+#       cns_lp <-
+#         cns$consume_loop(
+#           expr  = expression(lst[[counter+1]] <<- msgs),
+#           check = expression(counter < 100)
+#         )
+#
+#
+#       # consume messages and expect timout to not significantly be crossed
+#       cns$topics_subscribe("test500000")
+#
+#       for ( i in 1:100 ){
+#         expect_true(as.numeric(system.time(cns$poll(1000))["elapsed"]) < 1.1 )
+#       }
+#
+#       for ( i in 1:100 ){
+#         expect_true(
+#           as.numeric(system.time(cns$poll(100))["elapsed"]) < 0.2
+#         )
+#       }
+#
+#
+#       # use commit and expect no error
+#       for ( i in 1:100 ){
+#
+#         cns$props()
+#         cns$topics_offsets()
+#         cns$poll(100)
+#         cns$commit()
+#         cns$topics_offsets()
+#
+#       }
+#       expect_true(TRUE)
+#
+#     }
+# )
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
 
 
 
 
+<<<<<<< HEAD
 test_that(
   desc = "Consumer use consume_loop in batches",
   code =
@@ -416,6 +467,8 @@ test_that(
 )
 
 
+=======
+>>>>>>> e7b3067852b0ee5529fb3b01f60ecb42ac8fcc56
 
 
 
