@@ -30,11 +30,11 @@ installing the package from CRAN. So far no decision has been made if I
 should pursue this way or not.
 
 *lines of R code:* 593, *lines of Java code:* 570, *lines of test code:*
-237
+371
 
 **Version**
 
-0.1.1 ( 2021-03-16 22:22:24 )
+0.1.1 ( 2021-03-16 22:41:07 )
 
 **Description**
 
@@ -158,7 +158,7 @@ consumer$props()
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
     ## 
     ## $group.id
-    ## [1] "80fc5c16-5096-4d73-805a-8d9c965562dc"
+    ## [1] "8ac12efc-39dd-4193-b92f-2b2633b02d0b"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -183,7 +183,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "200"
     ## 
     ## $group.id
-    ## [1] "80fc5c16-5096-4d73-805a-8d9c965562dc"
+    ## [1] "8ac12efc-39dd-4193-b92f-2b2633b02d0b"
     ## 
     ## $bootstrap.servers
     ## [1] "localhost:9092"
@@ -339,13 +339,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-03-16 23:34:20 CET"
+    ## [1] "2021-03-16 23:42:03 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 4
     ## 
     ## $meta$start_time
-    ## [1] "2021-03-16 23:34:20 CET"
+    ## [1] "2021-03-16 23:42:03 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1999
@@ -445,13 +445,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-03-16 23:34:20 CET"
+    ## [1] "2021-03-16 23:42:03 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 2
     ## 
     ## $meta$start_time
-    ## [1] "2021-03-16 23:34:20 CET"
+    ## [1] "2021-03-16 23:42:03 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1000
