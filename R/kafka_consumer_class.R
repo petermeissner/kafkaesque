@@ -185,12 +185,9 @@ kafka_consumer_class <-
           },
 
 
-        #' @param expr expression (e.g. via \code{expression(...)}) that will
-        #'   process a single message
-        #'
-        #' @param check expression (e.g. via \code{expression(...)}) that will
-        #'   evaluate to TRUE or FALSE to either further process messages or
-        #'   stop processing and ask function to return
+        #' @param check function that will exept one argument namely loop_env
+        #'   and will evaluate to TRUE or FALSE to either
+        #'   continue or stop processing
         #'
         #' @param batch defaults to FALSE, Kafka's the default is to poll for as much
         #'   data as one can get given the consumers limits on the number and
@@ -203,6 +200,21 @@ kafka_consumer_class <-
         #' @param timeout_ms defaults to `Inf`.
         #'   Time for which poll will wait for data
         #'   Passed through to kafka_consumer$poll()
+        #'
+        #' @param f loop execution function exepting one argument namely loop_env
+        #'
+        #' @param loop_env Environment to store meta info in and pass to loop
+        #'   execution function and check function. Stored information:
+        #'
+        #'   `loop_env$meta$start_time` -
+        #'   the result of a call to Sys.time()
+        #'   when consume loop execution started;
+        #'
+        #'   `loop_env$meta$loop_counter` -
+        #'   counter that counts the current loop iteration;
+        #'
+        #'   `loop_env$meta$message_counter` -
+        #'   counter that counts the number of messages already processed
         #'
         #' @description
         #'

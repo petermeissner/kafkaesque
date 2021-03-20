@@ -194,9 +194,24 @@ There are several objects available to the expression supplied:
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{check}}{expression (e.g. via \code{expression(...)}) that will
-evaluate to TRUE or FALSE to either further process messages or
-stop processing and ask function to return}
+\item{\code{f}}{loop execution function exepting one argument namely loop_env}
+
+\item{\code{check}}{function that will exept one argument namely loop_env
+and will evaluate to TRUE or FALSE to either
+continue or stop processing}
+
+\item{\code{loop_env}}{Environment to store meta info in and pass to loop
+  execution function and check function. Stored information:
+
+  `loop_env$meta$start_time` -
+  the result of a call to Sys.time()
+  when consume loop execution started;
+
+  `loop_env$meta$loop_counter` -
+  counter that counts the current loop iteration;
+
+  `loop_env$meta$message_counter` -
+  counter that counts the number of messages already processed}
 
 \item{\code{batch}}{defaults to FALSE, Kafka's the default is to poll for as much
 data as one can get given the consumers limits on the number and
@@ -209,9 +224,6 @@ that were retrieved by the last poll unless consumed already.}
 \item{\code{timeout_ms}}{defaults to `Inf`.
 Time for which poll will wait for data
 Passed through to kafka_consumer$poll()}
-
-\item{\code{expr}}{expression (e.g. via \code{expression(...)}) that will
-process a single message}
 }
 \if{html}{\out{</div>}}
 }

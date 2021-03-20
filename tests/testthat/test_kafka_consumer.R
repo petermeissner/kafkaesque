@@ -228,6 +228,7 @@ test_that(
         cns$topics_offsets()
         cns$poll(100)
         cns$commit()
+        cns$commit(sync = FALSE)
         cns$topics_offsets()
 
       }
