@@ -73,6 +73,14 @@ test_that(
       expect_true(
         adm$props()[['whatever.you.may.want.to.set']] == "true"
       )
+
+      adm$props(.properties = list(a=1, b = 2))
+      expect_true(
+        adm$props()[['a']] == "1"
+      )
+      expect_true(
+        adm$props()[['b']] == "2"
+      )
     }
 )
 
