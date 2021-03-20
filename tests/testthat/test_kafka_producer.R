@@ -102,6 +102,8 @@ test_that(
       prd$send("test_producer", "haha")
 
 
+      admin$topics_delete("test_producer")
+
 
       expect_true(
         cns$consume_next()$value == "ola"
