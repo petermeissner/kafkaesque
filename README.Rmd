@@ -214,6 +214,23 @@ cat("\n```\n")
 
 
 
+# Prerequisites
+
+For the package to work (more precisely do any significant work) 
+it needs a running Kafka that can be reached over network. 
+
+A simple way to get a test version and the same version used throughout the 
+README is to run the following docker command ([Link to Dockerfile](https://github.com/petermeissner/kafkaesque/blob/master/docker/Dockerfile)).
+
+```
+docker run -p 127.0.0.1:2181:2181 -p 127.0.0.1:9092:9092 petermeissner/kafkatest
+```
+
+
+
+
+
+
 # Content 
 
 ```{r}
