@@ -89,12 +89,14 @@ test_that(
       adm$start()
       cns$start()
 
+      try(
       tpc_lst <-
         adm$topics_create(
           topic              = "test_producer",
           partition          = c(1L),
           replication_factor = c(1L)
-        )
+        ), silent = TRUE
+      )
 
       cns$topics_subscribe("test_producer")
       prd$send("test_producer", "ola")
@@ -102,7 +104,6 @@ test_that(
       prd$send("test_producer", "haha")
 
 
-      admin$topics_delete("test_producer")
 
 
       expect_true(
@@ -114,6 +115,9 @@ test_that(
       expect_true(
         cns$consume_next()$value == "haha"
       )
+
+      adm$restart()
+      adm$topics_delete("test_producer")
 
     }
 )

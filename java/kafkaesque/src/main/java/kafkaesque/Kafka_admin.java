@@ -208,6 +208,22 @@ public class Kafka_admin {
   }
 
 
+  public String[] topics_delete(String topic) throws InterruptedException, ExecutionException {
+    // transform input to type collection
+    List<String> topics_collection = new ArrayList<String>(Arrays.asList(topic));
+
+    // execute deletion request
+    DeleteTopicsResult res = this.admin.deleteTopics(topics_collection);
+    KafkaFuture<Void> all = res.all();
+    all.get();
+
+    // return topics
+    return this.topics_list();
+  }
+
+
+  
+
   public static void main(final String... args) throws Exception {
     System.out.println("-----------------------------------------------------");
 
