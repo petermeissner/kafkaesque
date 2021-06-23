@@ -238,6 +238,14 @@ library(kafkaesque)
 ls("package:kafkaesque")
 ```
 
+# Alternatives
+
+There are no viable alternatives at the moment, that I know off.
+
+- There is **[{rkafka}](https://cran.r-project.org/web/packages/rkafka/index.html)** which was a invaluable source of inspiration to take the first steps in making R talk to Kafka. Its using the {rJava} and Kafka's Java API. Unfortuantly the code does not work with any kind of recent versions of Kafka.  So basically the package is dead and no developement has happened for years. 
+- Another attempt has been made with the **[{fRanz}](https://github.com/uptake/fRanz)** (refering to the author Franz Kafka) using a C++ library under the hood. Unfortunatly this started very promissing fast paced but then developement died as quickly. 
+
+
 # Usage
 
 
