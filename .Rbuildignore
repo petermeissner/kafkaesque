@@ -27,3 +27,4 @@
 .*_snaps.*
 ^\.github$
 ^\.lintr$
+^demo_user2021$
