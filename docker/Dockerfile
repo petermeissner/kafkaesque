@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:impish
 
 # activate debian non interactiv mode
 ARG DEBIAN_FRONTEND=noninteractive
