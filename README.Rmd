@@ -130,7 +130,7 @@ last_change <-
 
 
 ```{r, results='asis', echo=FALSE}
-cat(tmp$Version, "(",last_change,")")
+cat(tmp$Version, "(",last_change,"UTC )")
 ```
 
 **Description**
