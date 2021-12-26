@@ -38,7 +38,7 @@ pursue this way or not.
 
 **Version**
 
-0.1.4 ( 2021-03-21 19:08:23 UTC )
+0.1.5 ( 2021-03-21 19:08:23 UTC )
 
 **Description**
 
@@ -62,7 +62,7 @@ citation("kafkaesque")
 ```
 
 ``` r
-Meissner P, Pirv M (2021). kafkaesque: Kafka R Bindings via 'rJava'. R package version 0.1.4.
+Meissner P, Pirv M (2021). kafkaesque: Kafka R Bindings via 'rJava'. R package version 0.1.5.
 ```
 
 **BibTex for citing**
@@ -75,7 +75,7 @@ toBibtex(citation("kafkaesque"))
       title = {kafkaesque: Kafka R Bindings via 'rJava'},
       author = {Peter Meissner and Marius Pirv},
       year = {2021},
-      note = {R package version 0.1.4},
+      note = {R package version 0.1.5},
     }
 
 **Installation**
@@ -201,7 +201,7 @@ consumer$props()
     ## [1] "localhost:9092"
     ## 
     ## $group.id
-    ## [1] "05429eb0-0f6f-477c-a29f-24a8b771c282"
+    ## [1] "21d9047f-b5e8-4334-8403-b1e1095592fe"
     ## 
     ## $value.deserializer
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
@@ -226,7 +226,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "localhost:9092"
     ## 
     ## $group.id
-    ## [1] "05429eb0-0f6f-477c-a29f-24a8b771c282"
+    ## [1] "21d9047f-b5e8-4334-8403-b1e1095592fe"
     ## 
     ## $value.deserializer
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
@@ -379,13 +379,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-12-20 22:15:51 CET"
+    ## [1] "2021-12-26 14:28:15 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 4
     ## 
     ## $meta$start_time
-    ## [1] "2021-12-20 22:15:51 CET"
+    ## [1] "2021-12-26 14:28:15 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1999
@@ -485,13 +485,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-12-20 22:15:51 CET"
+    ## [1] "2021-12-26 14:28:15 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 2
     ## 
     ## $meta$start_time
-    ## [1] "2021-12-20 22:15:51 CET"
+    ## [1] "2021-12-26 14:28:15 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1000
