@@ -1,3 +1,7 @@
+# kafkaesque 0.1.6 - 2022-01-10
+
+* switch licentce to something more industry standard and permissive
+
 
 
 # kafkaesque 0.1.5 - 2021-12-26

@@ -201,7 +201,7 @@ consumer$props()
     ## [1] "localhost:9092"
     ## 
     ## $group.id
-    ## [1] "21d9047f-b5e8-4334-8403-b1e1095592fe"
+    ## [1] "891ee35c-95a7-4fa8-bb9c-ca10b81a7bd8"
     ## 
     ## $value.deserializer
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
@@ -226,7 +226,7 @@ consumer$props(max.poll.records = 200)
     ## [1] "localhost:9092"
     ## 
     ## $group.id
-    ## [1] "21d9047f-b5e8-4334-8403-b1e1095592fe"
+    ## [1] "891ee35c-95a7-4fa8-bb9c-ca10b81a7bd8"
     ## 
     ## $value.deserializer
     ## [1] "org.apache.kafka.common.serialization.StringDeserializer"
@@ -259,7 +259,7 @@ consumer$consume_next()
 ```
 
     ##         topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ## 1: test500000 <NA>         0      0 1639995252651     1    CreateTime           0                -1
+    ## 1: test500000 <NA>         0 500000 1641799430491     1    CreateTime           0                -1
     ##    serializedValueSize
     ## 1:                   1
 
@@ -276,17 +276,17 @@ res <-
 ```
 
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0      1 1639995252651     2    CreateTime           0                -1
-    ##   2: test500000 <NA>         0      2 1639995252651     3    CreateTime           0                -1
-    ##   3: test500000 <NA>         0      3 1639995252651     4    CreateTime           0                -1
-    ##   4: test500000 <NA>         0      4 1639995252651     5    CreateTime           0                -1
-    ##   5: test500000 <NA>         0      5 1639995252651     6    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 500001 1641799430491     2    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 500002 1641799430491     3    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 500003 1641799430491     4    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 500004 1641799430491     5    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 500005 1641799430491     6    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 495: test500000 <NA>         0    495 1639995252651   496    CreateTime           0                -1
-    ## 496: test500000 <NA>         0    496 1639995252651   497    CreateTime           0                -1
-    ## 497: test500000 <NA>         0    497 1639995252651   498    CreateTime           0                -1
-    ## 498: test500000 <NA>         0    498 1639995252651   499    CreateTime           0                -1
-    ## 499: test500000 <NA>         0    499 1639995252651   500    CreateTime           0                -1
+    ## 495: test500000 <NA>         0 500495 1641799430492   496    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 500496 1641799430492   497    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 500497 1641799430492   498    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 500498 1641799430492   499    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 500499 1641799430492   500    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   1
     ##   2:                   1
@@ -300,17 +300,17 @@ res <-
     ## 498:                   3
     ## 499:                   3
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0    500 1639995252651   501    CreateTime           0                -1
-    ##   2: test500000 <NA>         0    501 1639995252651   502    CreateTime           0                -1
-    ##   3: test500000 <NA>         0    502 1639995252651   503    CreateTime           0                -1
-    ##   4: test500000 <NA>         0    503 1639995252651   504    CreateTime           0                -1
-    ##   5: test500000 <NA>         0    504 1639995252651   505    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 500500 1641799430492   501    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 500501 1641799430492   502    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 500502 1641799430492   503    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 500503 1641799430492   504    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 500504 1641799430492   505    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0    995 1639995252651   996    CreateTime           0                -1
-    ## 497: test500000 <NA>         0    996 1639995252651   997    CreateTime           0                -1
-    ## 498: test500000 <NA>         0    997 1639995252651   998    CreateTime           0                -1
-    ## 499: test500000 <NA>         0    998 1639995252651   999    CreateTime           0                -1
-    ## 500: test500000 <NA>         0    999 1639995252651  1000    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 500995 1641799430492   996    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 500996 1641799430492   997    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 500997 1641799430492   998    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 500998 1641799430492   999    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 500999 1641799430492  1000    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   3
     ##   2:                   3
@@ -324,17 +324,17 @@ res <-
     ## 499:                   3
     ## 500:                   4
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   1000 1639995252651  1001    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   1001 1639995252651  1002    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   1002 1639995252651  1003    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   1003 1639995252651  1004    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   1004 1639995252651  1005    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 501000 1641799430492  1001    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 501001 1641799430492  1002    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 501002 1641799430492  1003    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 501003 1641799430492  1004    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 501004 1641799430492  1005    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   1495 1639995252651  1496    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   1496 1639995252651  1497    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   1497 1639995252651  1498    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   1498 1639995252651  1499    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   1499 1639995252651  1500    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 501495 1641799430493  1496    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 501496 1641799430493  1497    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 501497 1641799430493  1498    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 501498 1641799430493  1499    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 501499 1641799430493  1500    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -348,17 +348,17 @@ res <-
     ## 499:                   4
     ## 500:                   4
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   1500 1639995252651  1501    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   1501 1639995252651  1502    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   1502 1639995252651  1503    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   1503 1639995252651  1504    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   1504 1639995252651  1505    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 501500 1641799430493  1501    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 501501 1641799430493  1502    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 501502 1641799430493  1503    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 501503 1641799430493  1504    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 501504 1641799430493  1505    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   1995 1639995252652  1996    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   1996 1639995252652  1997    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   1997 1639995252652  1998    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   1998 1639995252652  1999    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   1999 1639995252652  2000    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 501995 1641799430493  1996    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 501996 1641799430493  1997    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 501997 1641799430493  1998    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 501998 1641799430493  1999    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 501999 1641799430493  2000    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -379,13 +379,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-12-26 14:28:15 CET"
+    ## [1] "2022-01-10 08:25:17 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 4
     ## 
     ## $meta$start_time
-    ## [1] "2021-12-26 14:28:15 CET"
+    ## [1] "2022-01-10 08:25:17 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1999
@@ -393,17 +393,17 @@ res
     ## 
     ## $messages
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   1500 1639995252651  1501    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   1501 1639995252651  1502    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   1502 1639995252651  1503    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   1503 1639995252651  1504    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   1504 1639995252651  1505    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 501500 1641799430493  1501    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 501501 1641799430493  1502    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 501502 1641799430493  1503    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 501503 1641799430493  1504    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 501504 1641799430493  1505    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   1995 1639995252652  1996    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   1996 1639995252652  1997    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   1997 1639995252652  1998    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   1998 1639995252652  1999    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   1999 1639995252652  2000    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 501995 1641799430493  1996    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 501996 1641799430493  1997    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 501997 1641799430493  1998    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 501998 1641799430493  1999    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 501999 1641799430493  2000    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -430,17 +430,17 @@ res <-
 ```
 
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   2000 1639995252652  2001    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   2001 1639995252652  2002    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   2002 1639995252652  2003    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   2003 1639995252652  2004    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   2004 1639995252652  2005    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 502000 1641799430493  2001    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 502001 1641799430493  2002    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 502002 1641799430493  2003    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 502003 1641799430493  2004    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 502004 1641799430493  2005    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   2495 1639995252652  2496    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   2496 1639995252652  2497    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   2497 1639995252652  2498    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   2498 1639995252652  2499    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   2499 1639995252652  2500    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 502495 1641799430493  2496    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 502496 1641799430493  2497    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 502497 1641799430493  2498    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 502498 1641799430493  2499    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 502499 1641799430493  2500    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -455,17 +455,17 @@ res <-
     ## 500:                   4
     ## 
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   2500 1639995252652  2501    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   2501 1639995252652  2502    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   2502 1639995252652  2503    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   2503 1639995252652  2504    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   2504 1639995252652  2505    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 502500 1641799430493  2501    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 502501 1641799430493  2502    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 502502 1641799430493  2503    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 502503 1641799430493  2504    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 502504 1641799430493  2505    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   2995 1639995252652  2996    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   2996 1639995252652  2997    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   2997 1639995252652  2998    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   2998 1639995252652  2999    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   2999 1639995252652  3000    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 502995 1641799430494  2996    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 502996 1641799430494  2997    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 502997 1641799430494  2998    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 502998 1641799430494  2999    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 502999 1641799430494  3000    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -485,13 +485,13 @@ res
 
     ## $meta
     ## $meta$end_time
-    ## [1] "2021-12-26 14:28:15 CET"
+    ## [1] "2022-01-10 08:25:17 CET"
     ## 
     ## $meta$loop_counter
     ## [1] 2
     ## 
     ## $meta$start_time
-    ## [1] "2021-12-26 14:28:15 CET"
+    ## [1] "2022-01-10 08:25:17 CET"
     ## 
     ## $meta$message_counter
     ## [1] 1000
@@ -499,17 +499,17 @@ res
     ## 
     ## $messages
     ##           topic  key partition offset     timestamp value timestampType leaderEpoch serializedKeySize
-    ##   1: test500000 <NA>         0   2500 1639995252652  2501    CreateTime           0                -1
-    ##   2: test500000 <NA>         0   2501 1639995252652  2502    CreateTime           0                -1
-    ##   3: test500000 <NA>         0   2502 1639995252652  2503    CreateTime           0                -1
-    ##   4: test500000 <NA>         0   2503 1639995252652  2504    CreateTime           0                -1
-    ##   5: test500000 <NA>         0   2504 1639995252652  2505    CreateTime           0                -1
+    ##   1: test500000 <NA>         0 502500 1641799430493  2501    CreateTime           0                -1
+    ##   2: test500000 <NA>         0 502501 1641799430493  2502    CreateTime           0                -1
+    ##   3: test500000 <NA>         0 502502 1641799430493  2503    CreateTime           0                -1
+    ##   4: test500000 <NA>         0 502503 1641799430493  2504    CreateTime           0                -1
+    ##   5: test500000 <NA>         0 502504 1641799430493  2505    CreateTime           0                -1
     ##  ---                                                                                                 
-    ## 496: test500000 <NA>         0   2995 1639995252652  2996    CreateTime           0                -1
-    ## 497: test500000 <NA>         0   2996 1639995252652  2997    CreateTime           0                -1
-    ## 498: test500000 <NA>         0   2997 1639995252652  2998    CreateTime           0                -1
-    ## 499: test500000 <NA>         0   2998 1639995252652  2999    CreateTime           0                -1
-    ## 500: test500000 <NA>         0   2999 1639995252652  3000    CreateTime           0                -1
+    ## 496: test500000 <NA>         0 502995 1641799430494  2996    CreateTime           0                -1
+    ## 497: test500000 <NA>         0 502996 1641799430494  2997    CreateTime           0                -1
+    ## 498: test500000 <NA>         0 502997 1641799430494  2998    CreateTime           0                -1
+    ## 499: test500000 <NA>         0 502998 1641799430494  2999    CreateTime           0                -1
+    ## 500: test500000 <NA>         0 502999 1641799430494  3000    CreateTime           0                -1
     ##      serializedValueSize
     ##   1:                   4
     ##   2:                   4
@@ -531,7 +531,7 @@ consumer$topics_offsets()
 ```
 
     ##         topic partition offset
-    ## 1: test500000         0   3000
+    ## 1: test500000         0 503000
 
 ``` r
 # seek to end of topics 
@@ -539,8 +539,8 @@ consumer$topics_seek_to_end()
 consumer$topics_offsets()
 ```
 
-    ##         topic partition offset
-    ## 1: test500000         0 500000
+    ##         topic partition  offset
+    ## 1: test500000         0 1000000
 
 ``` r
 # seek to beginning of topics
@@ -549,7 +549,7 @@ consumer$topics_offsets()
 ```
 
     ##         topic partition offset
-    ## 1: test500000         0      0
+    ## 1: test500000         0 500000
 
 ## Producer
 
