@@ -33,6 +33,14 @@ install function that downloads the necessary JAR files after installing
 the package from CRAN. So far no decision has been made if I should
 pursue this way or not.
 
+Presentations: 
+- User!2021: 
+    * video: https://youtu.be/5e7W4ktjASQ?t=2209
+- UROS 2020: 
+    * slides: https://r-project.ro/conference2020/presentations/Mei%C3%9Fner_web_scraping_at_scale_15min_talk_uros_2020.pdf
+    * video: https://youtu.be/THDoBJCM9ZE?t=409
+
+
 *lines of R code:* 593, *lines of Java code:* 577, *lines of test code:*
 580
 
