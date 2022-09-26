@@ -1,3 +1,9 @@
+# kafkaesque 0.1.7 - 2022-01-10
+
+* Upgrade org.apache.logging.log4j from 2.17.0 to version 2.17.1
+
+
+
 # kafkaesque 0.1.6 - 2022-01-10
 
 * switch licentce to something more industry standard and permissive

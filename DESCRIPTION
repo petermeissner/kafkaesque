@@ -1,7 +1,7 @@
 Package: kafkaesque
 Type: Package
 Title: Kafka R Bindings via 'rJava'
-Version: 0.1.6
+Version: 0.1.7
 Date: 2022-01-10
 Authors@R: c(
     person( 
